@@ -1,0 +1,49 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch PainelPrincipal",
+            "request": "launch",
+            "mainClass": "PainelPrincipal",
+            "projectName": "DonnaFloripa_977c659b"
+        },
+        {
+            "type": "java",
+            "name": "Launch TwoLabels",
+            "request": "launch",
+            "mainClass": "TwoLabels",
+            "projectName": "DonnaFloripa_977c659b"
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch MenuExample",
+            "request": "launch",
+            "mainClass": "MenuExample",
+            "projectName": "DonnaFloripa_977c659b"
+        },
+        {
+            "type": "java",
+            "name": "Launch MyGridLayout",
+            "request": "launch",
+            "mainClass": "MyGridLayout",
+            "projectName": "DonnaFloripa_977c659b"
+        },
+        {
+            "type": "java",
+            "name": "Launch TestMenu",
+            "request": "launch",
+            "mainClass": "TestMenu",
+            "projectName": "DonnaFloripa_977c659b"
+        }
+    ]
+}
