@@ -1,29 +1,24 @@
-package Default;
+package Default.Paineis;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.Scrollable;
-import javax.swing.SwingConstants;
+
+import Default.Configuracoes;
+import Default.botesConstrutor;
+import Default.Objetos.Objeto_Delivery;
 
 public class Painel_Delivery extends JPanel implements ActionListener {
-
-    // public static List<JLabel> lista_mesas;
-    // public static List<JPanel> lista_mesas_painel;
 
     // Patric
     int numeroPedido, linhasGridPreparando = 1, linhasGridTransito = 1, linhasGridEntregas = 1;
@@ -53,7 +48,6 @@ public class Painel_Delivery extends JPanel implements ActionListener {
     public Painel_Delivery() {
 
         // INSTANCIANDO
-
         list_L_Duracao = new ArrayList<JLabel>();
         list_L_numeroPedido = new ArrayList<JLabel>();
         list_l_Editar = new ArrayList<JLabel>();
@@ -73,8 +67,6 @@ public class Painel_Delivery extends JPanel implements ActionListener {
         lEmTransito = new JLabel("Em trânsito", JLabel.CENTER);
         lUltimasEntregas = new JLabel("Últimas Entregas", JLabel.CENTER);
         lTitulo = new JLabel("        DELÍVERY");
-        // lista_mesas = new ArrayList<>();
-        // lista_mesas_painel = new ArrayList<>();
         painelPrincipal_Delivery = new JPanel();
         painelPrincipal_Delivery.setLayout(new BoxLayout(painelPrincipal_Delivery, BoxLayout.PAGE_AXIS));
         scrollDelivery = new JScrollPane(painelPrincipal_Delivery, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -94,22 +86,16 @@ public class Painel_Delivery extends JPanel implements ActionListener {
             painelPreparando_Grid.setBackground(Color.white);
             painelTransito_Grid.setBackground(Color.white);
             painelEntregas_Grid.setBackground(Color.white);
-
         }
 
         // DIMENÇÕES DA LARGURA DO SCROLL E DIMENSÕES DO PAINEL PRINCIPAL DO DELIVERY
         {
             scrollDelivery.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
             scrollDelivery.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
-
-            // scrollDelivery.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-            // painelPrincipal_Delivery.setPreferredSize(new Dimension(300, 500));
             painelPrincipal_Delivery.setBorder(BorderFactory.createLineBorder(Color.black));
             scrollDelivery.setPreferredSize(new Dimension(300, 650));
             scrollDelivery.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
             scrollDelivery.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-
         }
 
         // ADICIONANDO OS TITULOS E COLUNAS
@@ -136,42 +122,29 @@ public class Painel_Delivery extends JPanel implements ActionListener {
 
         // REDIMENSIONAR OS TAMANHOS (FIT)
         {
-            painelTituloPreparando
-                    .setMaximumSize(new Dimension(Integer.MAX_VALUE, painelTituloPreparando.getMinimumSize().height));
-            painelTituloTransito
-                    .setMaximumSize(new Dimension(Integer.MAX_VALUE, painelTituloPreparando.getMinimumSize().height));
-            painelTituloEntregas
-                    .setMaximumSize(new Dimension(Integer.MAX_VALUE, painelTituloEntregas.getMinimumSize().height));
+            fit_Redimen_Heigth(painelTituloPreparando);
+            fit_Redimen_Heigth(painelTituloTransito);
+            fit_Redimen_Heigth(painelTituloEntregas);
+            fit_Redimen_Heigth(painelTopo);
+            fit_Redimen_Heigth(painelPreparando_Grid);
+            fit_Redimen_Heigth(painelTransito_Grid);
+            fit_Redimen_Heigth(painelEntregas_Grid);
+            fit_Redimen_Heigth(painelTituloPreparando);
             btnPlay.setMaximumSize(new Dimension(Integer.MAX_VALUE, btnPlay.getMinimumSize().height));
-            painelTopo.setMaximumSize(new Dimension(Integer.MAX_VALUE, painelTopo.getMinimumSize().height));
-            painelPreparando_Grid
-                    .setMaximumSize(new Dimension(Integer.MAX_VALUE, painelPreparando_Grid.getMinimumSize().height));
-            painelTransito_Grid
-                    .setMaximumSize(new Dimension(Integer.MAX_VALUE, painelTransito_Grid.getMinimumSize().height));
-            painelEntregas_Grid
-                    .setMaximumSize(new Dimension(Integer.MAX_VALUE, painelEntregas_Grid.getMinimumSize().height));
+
         }
 
         // Adições no Painel principal
         {
-
             painelPrincipal_Delivery.add(painelTopo);
             painelPrincipal_Delivery.add(painelTituloPreparando);
             painelPrincipal_Delivery.add(painelPreparando_Grid);
             painelPrincipal_Delivery.add(Box.createRigidArea(new Dimension(0, 50))); //
-            // SizedBox
             painelPrincipal_Delivery.add(painelTituloTransito);
             painelPrincipal_Delivery.add(painelTransito_Grid);
-            painelPrincipal_Delivery.add(Box.createRigidArea(new Dimension(0, 50))); //
-            // SizedBox
+            painelPrincipal_Delivery.add(Box.createRigidArea(new Dimension(0, 50)));
             painelPrincipal_Delivery.add(painelTituloEntregas);
             painelPrincipal_Delivery.add(painelEntregas_Grid);
-            // this.add(painelPrincipal_Delivery);
-        }
-
-        // Botões dos pedidos
-        {
-            // this.add(btnPlay);
         }
 
         this.add(scrollDelivery);
@@ -179,6 +152,10 @@ public class Painel_Delivery extends JPanel implements ActionListener {
         // ADICIONA OS "ESCUTADORES"
         this.btnPlay.addActionListener(this);
 
+    }
+
+    public void fit_Redimen_Heigth(JPanel jpanel) {
+        jpanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, jpanel.getMinimumSize().height));
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -191,10 +168,7 @@ public class Painel_Delivery extends JPanel implements ActionListener {
 
             linhasGridPreparando = linhasGridPreparando + 1;
             painelPreparando_Grid.setLayout(new GridLayout(linhasGridPreparando, 4));
-
-            painelPreparando_Grid
-                    .setMaximumSize(new Dimension(Integer.MAX_VALUE, painelPreparando_Grid.getMinimumSize().height));
-
+            fit_Redimen_Heigth(painelPreparando_Grid);
             deliveryModel.btnPlay = btnsMesas.ConfirmButtonDelivery;
             deliveryModel.btnPlay.setAlignmentX(JButton.CENTER_ALIGNMENT);
             deliveryModel.btnEye = btnsMesas.EyeButtonDelivery;
@@ -244,8 +218,7 @@ public class Painel_Delivery extends JPanel implements ActionListener {
 
                 listEmTransito.add(deliveryModel);
 
-                painelTransito_Grid
-                        .setMaximumSize(new Dimension(Integer.MAX_VALUE, painelTransito_Grid.getMinimumSize().height));
+                fit_Redimen_Heigth(painelTransito_Grid);
 
                 linhasGridPreparando = linhasGridPreparando - 1;
                 painelPreparando_Grid.setLayout(new GridLayout(linhasGridPreparando, 4));
@@ -255,8 +228,7 @@ public class Painel_Delivery extends JPanel implements ActionListener {
                 painelPreparando_Grid.remove(listPreparando.get(x).btnEye);
                 painelPreparando_Grid.remove(listPreparando.get(x).lduracao);
 
-                painelPreparando_Grid.setMaximumSize(
-                        new Dimension(Integer.MAX_VALUE, painelPreparando_Grid.getMinimumSize().height));
+                fit_Redimen_Heigth(painelPreparando_Grid);
 
                 deliveryModel.btnPlay.addActionListener(this);
                 deliveryModel.btnEye.addActionListener(this);
@@ -285,14 +257,14 @@ public class Painel_Delivery extends JPanel implements ActionListener {
                 deliveryModel.nPedido = listEmTransito.get(x).nPedido;
 
                 painelEntregas_Grid.add(deliveryModel.nPedido);
+
                 painelEntregas_Grid.add(deliveryModel.btnPlay);
                 painelEntregas_Grid.add(deliveryModel.btnEye);
                 painelEntregas_Grid.add(deliveryModel.lduracao);
 
                 listUltimasEntregas.add(deliveryModel);
 
-                painelEntregas_Grid
-                        .setMaximumSize(new Dimension(Integer.MAX_VALUE, painelEntregas_Grid.getMinimumSize().height));
+                fit_Redimen_Heigth(painelEntregas_Grid);
 
                 linhasGridTransito = linhasGridTransito - 1;
                 painelTransito_Grid.setLayout(new GridLayout(linhasGridTransito, 4));
@@ -302,8 +274,7 @@ public class Painel_Delivery extends JPanel implements ActionListener {
                 painelTransito_Grid.remove(listEmTransito.get(x).btnEye);
                 painelTransito_Grid.remove(listEmTransito.get(x).lduracao);
 
-                painelTransito_Grid
-                        .setMaximumSize(new Dimension(Integer.MAX_VALUE, painelTransito_Grid.getMinimumSize().height));
+                fit_Redimen_Heigth(painelTransito_Grid);
 
                 deliveryModel.btnPlay.addActionListener(this);
                 deliveryModel.btnEye.addActionListener(this);

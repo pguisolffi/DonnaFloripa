@@ -1,19 +1,14 @@
-package Default;
+package Default.Telas;
 
-import java.awt.FlowLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.color.*;
-
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.MatteBorder;
+
+import Default.Paineis.Painel_Delivery;
+import Default.Paineis.Painel_Mesa;
 
 import java.awt.*;
 
@@ -36,8 +31,6 @@ public class Tela_Principal extends JFrame {
 
 		JLabel legendas_label = new JLabel();
 		legendas_label.setIcon(legendas);
-		// lLogo.setHorizontalAlignment(JLabel.TRAILING);
-		// lLogo.setBounds(1050, 700, 500, 300);
 
 		JPanel logoDonnaFloripa = new JPanel();
 		logoDonnaFloripa.setLayout(new BoxLayout(logoDonnaFloripa, BoxLayout.LINE_AXIS));
@@ -78,10 +71,8 @@ public class Tela_Principal extends JFrame {
 		panelBotaoInserir.setAlignmentY(JPanel.TOP_ALIGNMENT);
 
 		this.setLayout(new BorderLayout());
-		// this.add(lLogo);
 		this.setTitle("DONNA FLORIPA");
 		this.setIconImage(imgdf.getImage());
-		// this.setBackground(Color.ORANGE);
 		this.getContentPane().setBackground(Color.ORANGE);
 		this.setSize(1024, 768);
 		this.getContentPane().add(labelTituloPainelPrincipal, BorderLayout.PAGE_START);
@@ -89,7 +80,6 @@ public class Tela_Principal extends JFrame {
 		this.getContentPane().add(panelBotaoInserir, BorderLayout.LINE_START);
 		this.getContentPane().add(panelDasDelivery, BorderLayout.LINE_END);
 		this.getContentPane().add(logoDonnaFloripa, BorderLayout.PAGE_END);
-		// this.setLayout(null);
 		this.pack();
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

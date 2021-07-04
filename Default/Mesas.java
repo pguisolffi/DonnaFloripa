@@ -8,6 +8,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Default.Paineis.Painel_Mesa;
+
 public class Mesas extends JPanel implements ActionListener {
 	public static int indice;
 	// public static JLabel label;

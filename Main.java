@@ -1,10 +1,9 @@
-import Default.Objeto_Atendimento;
-
 import javax.swing.JPanel;
 
 import Default.Configuracoes;
-import Default.Objeto_Mesa;
-import Default.Tela_Principal;
+import Default.Objetos.Objeto_Atendimento;
+import Default.Objetos.Objeto_Mesa;
+import Default.Telas.Tela_Principal;
 
 public class Main {
 

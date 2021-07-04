@@ -6,9 +6,18 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import Default.Paineis.*;
+
 public class botesConstrutor {
 
-    JButton PlayButton, EyeButton, ConfirmButton, addDeliveryButton, EyeButtonDelivery, ConfirmButtonDelivery, add_Mesa;
+    public JButton PlayButton;
+    public JButton EyeButton;
+    public JButton ConfirmButton;
+    public JButton addDeliveryButton;
+    public JButton EyeButtonDelivery;
+    public JButton ConfirmButtonDelivery;
+    public JButton add_Mesa;
+    public JButton removeButton;
 
     public botesConstrutor() {
 
@@ -40,6 +49,10 @@ public class botesConstrutor {
         Image imgAddDeliveryNew = imgAddDelivery.getImage().getScaledInstance(60, 39, Image.SCALE_DEFAULT);
         ImageIcon imgAdd_Delivery = new ImageIcon(imgAddDeliveryNew);
 
+        ImageIcon imgRemover = new ImageIcon("C:/Projetos/Donna/DonnaFloripa/images/Remove.png");
+        Image imgRemoverNew = imgRemover.getImage().getScaledInstance(60, 39, Image.SCALE_DEFAULT);
+        ImageIcon imgRemoverItem = new ImageIcon(imgRemoverNew);
+
         // BOTÕES da MESA
         PlayButton = new JButton("");
         PlayButton.setIcon(imgAdd);
@@ -48,6 +61,13 @@ public class botesConstrutor {
         PlayButton.setBorderPainted(false);
         PlayButton.setFont(new Font("Calibri", Font.BOLD, 18));
         PlayButton.setMargin(new Insets(0, 0, 0, 0));
+        removeButton = new JButton("");
+        removeButton.setIcon(imgRemoverItem);
+        removeButton.setBackground(Color.WHITE);
+        removeButton.setForeground(new Color(1, 118, 164));
+        removeButton.setBorderPainted(false);
+        removeButton.setFont(new Font("Calibri", Font.BOLD, 18));
+        removeButton.setMargin(new Insets(0, 0, 0, 0));
         EyeButton = new JButton("");
         EyeButton.setIcon(imgEye);
         EyeButton.setBackground(Color.white);

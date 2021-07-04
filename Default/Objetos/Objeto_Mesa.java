@@ -1,4 +1,4 @@
-package Default;
+package Default.Objetos;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,26 +13,29 @@ import javax.swing.JPanel;
 public class Objeto_Mesa {
 	// ATRIBUTOS DA MESA
 	public int numero;
-	public String status, observacao;
-	public JLabel duracao, nomeMesa, entrada;
+	public String status, observacao, duracao, entrada;
+	public JLabel lduracao, lnomeMesa, lentrada;
 	public JPanel mesa, corStatus, interiorMesa;
 	public JButton btnPlay, btnEye, btnAdd;
 
 	// CONSTRUTOR QUE RECEBE OS ATRIBUTOS COMO PAR�METROS DO OBJETO MESA
-	public Objeto_Mesa(int _numero, String _status, String _observacao, JLabel _duracao, JPanel _mesa,
+	public Objeto_Mesa(int _numero, String _status, String _observacao, JLabel _lduracao, JPanel _mesa,
 			JPanel _corStatus, JPanel _interiorMesa, JButton _btnPlay, JButton _btnEye, JButton _btnAdd,
-			JLabel _nomeMesa, JLabel _entrada) {
+			JLabel _lnomeMesa, JLabel _lentrada, String _duracao, String _entrada) {
+
 		this.numero = _numero;
 		this.status = _status;
 		this.observacao = _observacao;
-		this.duracao = _duracao;
+		this.lduracao = _lduracao;
 		this.mesa = _mesa;
 		this.corStatus = _corStatus;
 		this.interiorMesa = _interiorMesa;
 		this.btnPlay = _btnPlay;
 		this.btnEye = _btnEye;
 		this.btnAdd = _btnAdd;
-		this.nomeMesa = _nomeMesa;
+		this.lnomeMesa = _lnomeMesa;
+		this.lentrada = _lentrada;
+		this.duracao = _duracao;
 		this.entrada = _entrada;
 
 	}

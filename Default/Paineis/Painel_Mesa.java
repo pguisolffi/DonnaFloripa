@@ -1,4 +1,4 @@
-package Default;
+package Default.Paineis;
 
 import java.awt.*;
 import java.awt.GridBagLayout;
@@ -13,7 +13,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -24,6 +26,12 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.Scrollable;
 
+import Default.Configuracoes;
+import Default.Globals;
+import Default.botesConstrutor;
+import Default.Objetos.Objeto_Mesa;
+import Default.Telas.Tela_AddItens;
+
 public class Painel_Mesa extends JPanel implements ActionListener {
 
 	public static List<JLabel> lista_mesas;
@@ -32,9 +40,9 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 
 	// Patric
 	int indice, numero;
-	String status = "Em Aberto", observacao;
+	String status = "Em Aberto", observacao, duracao, entrada;
 	JPanel table, corStatus, mesa, interiorMesa;
-	JLabel duracao, nomeMesa, entrada;
+	JLabel lduracao, lnomeMesa, lentrada;
 	JButton btnPlay, btnEye, btnAdd;
 
 	List<Objeto_Mesa> listModelsMesas = new ArrayList<Objeto_Mesa>();
@@ -79,7 +87,7 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 
 		// ADICIONA OS "ESCUTADORES"
 		this.botaoAddMesa.addActionListener(this);
-		AdicionaMesa(15);
+		AdicionaMesa(15);// QTDE 15
 
 	}
 
@@ -95,9 +103,9 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 			}
 
 			botesConstrutor btnsMesas = new botesConstrutor();
-			System.out.println("Resto: " + resto);
-			Objeto_Mesa mesaModel = new Objeto_Mesa(numero, status, observacao, duracao, mesa, corStatus, interiorMesa,
-					btnPlay, btnEye, btnAdd, nomeMesa, entrada);
+
+			Objeto_Mesa mesaModel = new Objeto_Mesa(numero, status, observacao, lduracao, mesa, corStatus, interiorMesa,
+					btnPlay, btnEye, btnAdd, lnomeMesa, lentrada, duracao, entrada);
 
 			mesaModel.btnPlay = btnsMesas.ConfirmButton;
 			mesaModel.btnEye = btnsMesas.EyeButton;
@@ -108,21 +116,21 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 			mesaModel.interiorMesa = new JPanel(new GridBagLayout());
 			mesaModel.interiorMesa.setLayout(new BorderLayout());
 			mesaModel.interiorMesa.setBackground(Color.white);
-			mesaModel.duracao = new JLabel("Duração: 00:11");
-			mesaModel.entrada = new JLabel("Entrada: 12:27");
-			mesaModel.duracao.setFont(new Font("Calibri", Font.BOLD, 30));
-			mesaModel.duracao.setHorizontalAlignment(JLabel.CENTER);
-			mesaModel.duracao.setVerticalAlignment(JLabel.CENTER);
-			mesaModel.nomeMesa = new JLabel("Mesa " + indice);
-			mesaModel.nomeMesa.setFont(new Font("Verdana", 1, 20));
-			mesaModel.nomeMesa.setHorizontalAlignment(JLabel.CENTER);
-			mesaModel.nomeMesa.setVerticalAlignment(JLabel.NORTH);
+			mesaModel.lduracao = new JLabel("Duração: 00:11");
+			mesaModel.lentrada = new JLabel("Entrada: 12:27");
+			mesaModel.lduracao.setFont(new Font("Calibri", Font.BOLD, 30));
+			mesaModel.lduracao.setHorizontalAlignment(JLabel.CENTER);
+			mesaModel.lduracao.setVerticalAlignment(JLabel.CENTER);
+			mesaModel.lnomeMesa = new JLabel("Mesa " + indice);
+			mesaModel.lnomeMesa.setFont(new Font("Verdana", 1, 20));
+			mesaModel.lnomeMesa.setHorizontalAlignment(JLabel.CENTER);
+			mesaModel.lnomeMesa.setVerticalAlignment(JLabel.NORTH);
 			mesaModel.mesa = new JPanel(new GridBagLayout());
 			mesaModel.mesa.setLayout(new BorderLayout());
 			mesaModel.mesa.setBackground(Color.white);
 			mesaModel.mesa.setBorder(BorderFactory.createRaisedBevelBorder());
 			mesaModel.mesa.add(mesaModel.corStatus, BorderLayout.PAGE_START);
-			mesaModel.interiorMesa.add(mesaModel.nomeMesa, BorderLayout.PAGE_START);
+			mesaModel.interiorMesa.add(mesaModel.lnomeMesa, BorderLayout.PAGE_START);
 			mesaModel.interiorMesa.add(mesaModel.btnAdd, BorderLayout.CENTER);
 			mesaModel.mesa.add(mesaModel.interiorMesa, BorderLayout.CENTER);
 
@@ -167,12 +175,23 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 
 			if (e.getSource() == listModelsMesas.get(x).btnAdd) {
 
+				Date date = new Date();
+				SimpleDateFormat formatoHoraMinuto = new SimpleDateFormat("HH:mm");
+				listModelsMesas.get(x).lentrada.setText(formatoHoraMinuto.format(date).toString());
+				listModelsMesas.get(x).entrada = date.toString();
+
 				listModelsMesas.get(x).corStatus.setBackground(Color.orange);
 				listModelsMesas.get(x).interiorMesa.remove(listModelsMesas.get(x).btnAdd);
 				listModelsMesas.get(x).interiorMesa.add(listModelsMesas.get(x).btnPlay, BorderLayout.LINE_START);
 				listModelsMesas.get(x).interiorMesa.add(listModelsMesas.get(x).btnEye, BorderLayout.CENTER);
-				listModelsMesas.get(x).interiorMesa.add(listModelsMesas.get(x).entrada, BorderLayout.LINE_END);
-				listModelsMesas.get(x).mesa.add(listModelsMesas.get(x).duracao, BorderLayout.PAGE_END);
+				listModelsMesas.get(x).interiorMesa.add(listModelsMesas.get(x).lentrada, BorderLayout.LINE_END);
+				listModelsMesas.get(x).mesa.add(listModelsMesas.get(x).lduracao, BorderLayout.PAGE_END);
+
+				Globals globals = new Globals();
+				globals.numeroPedido++;
+				// listModelsMesas.get(x).
+				Tela_AddItens tela_AddItens = new Tela_AddItens(listModelsMesas.get(x));
+
 				painel_mesas_com_scroll.updateUI();
 			}
 		}
