@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "418024807563",
+    "project_id": "donnaf-a6138",
+    "storage_bucket": "donnaf-a6138.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418024807563:android:c9e5bb7eb993de6be7c88e",
+        "android_client_info": {
+          "package_name": "appDonna.Floripa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "418024807563-gcc657r45h46cl3rkfnkn2dbs59cg25t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW5W00T6j1E02ToJ-To99Kq10hWWu6XQk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "418024807563-gcc657r45h46cl3rkfnkn2dbs59cg25t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
