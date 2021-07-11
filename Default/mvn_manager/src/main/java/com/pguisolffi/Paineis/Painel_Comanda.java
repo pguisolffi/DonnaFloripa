@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutionException;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,6 +26,8 @@ public class Painel_Comanda implements ActionListener {
 
     public static JPanel pGrid_ItensComanda, pBox_Comanda, pPanel_EspacoDireito, pPanel_DentroEspacoDireito;
     public static JLabel lTotalGeral;
+    public int numeroMesaAtual;
+    public static GridBagConstraints gbc;
 
     JPanel pPanel_Impressora, pPainel_nomeMesa, pPanel_NumeroComanda, pPanel_tituloComanda, pPanel_TotalGeral,
             pPanel_botaoSalvar;
@@ -35,6 +38,7 @@ public class Painel_Comanda implements ActionListener {
 
     public Painel_Comanda(Objeto_Mesa mesaModel) {
 
+        numeroMesaAtual = mesaModel.numero;
         pPanel_EspacoDireito = new JPanel();
         pPanel_DentroEspacoDireito = new JPanel();
         pBox_Comanda = new JPanel();
@@ -101,7 +105,9 @@ public class Painel_Comanda implements ActionListener {
         pPanel_tituloComanda.add(lTituloComanda);
         pBox_Comanda.add(pPanel_tituloComanda);
 
-        pGrid_ItensComanda.setLayout(new GridLayout(0, 3));
+        // pGrid_ItensComanda.setLayout(new GridLayout(0, 3));
+        pGrid_ItensComanda.setLayout(new GridBagLayout());
+        pGrid_ItensComanda.setBackground(Color.white);
 
         pBox_Comanda.add(pGrid_ItensComanda);
 
@@ -123,6 +129,8 @@ public class Painel_Comanda implements ActionListener {
         pPanel_botaoSalvar.setLayout(new BorderLayout());
         btn_Salvar.setText("Salvar");
         pPanel_botaoSalvar.add(btn_Salvar, BorderLayout.CENTER);
+
+        gbc = new GridBagConstraints();
 
         fit_Redimen_Heigth(pPanel_botaoSalvar);
         fit_Redimen_Heigth(pPanel_TotalGeral);
@@ -153,7 +161,7 @@ public class Painel_Comanda implements ActionListener {
 
             Action_ButtonSalvarComanda salvar = new Action_ButtonSalvarComanda();
             try {
-                salvar.GravarComanda(Painel_Itens.listModel_Atendimento);
+                salvar.GravarComanda(Painel_Itens.listModel_Atendimento, numeroMesaAtual);
             } catch (InterruptedException | ExecutionException | IOException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();

@@ -23,17 +23,22 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import com.pguisolffi.Configuracoes;
+import com.pguisolffi.Objetos.Objeto_Atendimento;
 import com.pguisolffi.Objetos.Objeto_Mesa;
 import com.pguisolffi.Telas.Tela_AddItens;
 import com.pguisolffi.Utilidades.Globals;
 import com.pguisolffi.Utilidades.MinhasThreads;
 import com.pguisolffi.Utilidades.botesConstrutor;
+import com.pguisolffi.sgbd.Bd_get;
+import com.pguisolffi.Utilidades.Formatacoes;
 
 public class Painel_Mesa extends JPanel implements ActionListener {
 
 	public static List<JLabel> lista_mesas;
 	public static List<JPanel> lista_mesas_painel;
 	public static List<JButton> lista_botoes_mesas;
+
+	// List<Objeto_Atendimento> list_atendimentoModel;
 
 	// Patric
 	int indice, numero;
@@ -53,6 +58,7 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 	public static int colunasPainelMesas = 5, linhasPainelMesas = 1;
 
 	int qtde_mesas = Configuracoes.qtde_mesas;
+	List<Objeto_Atendimento> list_modelsAtendimentos;
 
 	public Painel_Mesa() {
 
@@ -111,29 +117,17 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 			mesaModel.btnAdd = btnsMesas.PlayButton;
 			mesaModel.numero = indice;
 			mesaModel.corStatus = new JPanel();
-			mesaModel.corStatus.setBackground(Color.green);
 			mesaModel.interiorMesa = new JPanel(new GridBagLayout());
-			mesaModel.interiorMesa.setLayout(new BorderLayout());
-			mesaModel.interiorMesa.setBackground(Color.white);
-			mesaModel.lduracao = new JLabel("Duração: 00:11");
-			mesaModel.lentrada = new JLabel("Entrada: 12:27");
-			mesaModel.lduracao.setFont(new Font("Calibri", Font.BOLD, 22));
-			mesaModel.lduracao.setHorizontalAlignment(JLabel.CENTER);
-			mesaModel.lduracao.setVerticalAlignment(JLabel.CENTER);
+			mesaModel.lduracao = new JLabel();
+			mesaModel.lentrada = new JLabel();
 			mesaModel.lnomeMesa = new JLabel("Mesa " + indice);
-			mesaModel.lnomeMesa.setFont(new Font("Verdana", 1, 20));
-			mesaModel.lnomeMesa.setHorizontalAlignment(JLabel.CENTER);
-			mesaModel.lnomeMesa.setVerticalAlignment(JLabel.NORTH);
 			mesaModel.mesa = new JPanel(new GridBagLayout());
-			mesaModel.mesa.setLayout(new BorderLayout());
-			mesaModel.mesa.setBackground(Color.white);
-			mesaModel.mesa.setBorder(BorderFactory.createRaisedBevelBorder());
+			Formatacoes format = new Formatacoes();
+			format.Formatar_ObjetoMesa(mesaModel);
 			mesaModel.mesa.add(mesaModel.corStatus, BorderLayout.PAGE_START);
 			mesaModel.interiorMesa.add(mesaModel.lnomeMesa, BorderLayout.PAGE_START);
 			mesaModel.interiorMesa.add(mesaModel.btnAdd, BorderLayout.CENTER);
 			mesaModel.mesa.add(mesaModel.interiorMesa, BorderLayout.CENTER);
-
-			mesaModel.mesa.setPreferredSize(new Dimension(200, 200));
 
 			painel_mesas.add(mesaModel.mesa);
 			lista_mesas_painel.add(mesaModel.mesa);
@@ -153,13 +147,14 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 	 ************************************************/
 	public void actionPerformed(ActionEvent e) {
 
+		// Adicionar mesa na tela
 		if (e.getSource() == Painel_Mesa.botaoAddMesa) {
 
 			AdicionaMesa(1);
 
 		}
 
-		// Identificar em qual btnPlay está clicando.
+		// Iniciar "CONSUMINDO"
 		for (int x = 0; x < Painel_Mesa.listModelsMesas.size(); x++) {
 
 			if (e.getSource() == Painel_Mesa.listModelsMesas.get(x).btnPlay) {
@@ -171,7 +166,7 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 			}
 		}
 
-		// Identificar em qual btnAdd está clicando.
+		// Inciar o Atendimento (Mesa)
 		for (int x = 0; x < Painel_Mesa.listModelsMesas.size(); x++) {
 
 			if (e.getSource() == Painel_Mesa.listModelsMesas.get(x).btnAdd) {
@@ -197,9 +192,11 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 
 				Globals globals = new Globals();
 				globals.numeroPedido++;
-				// painel_Mesa.listModelsMesas.get(x).
+
+				list_modelsAtendimentos = new ArrayList<Objeto_Atendimento>();
 				try {
-					Tela_AddItens tela_AddItens = new Tela_AddItens(Painel_Mesa.listModelsMesas.get(x));
+					Tela_AddItens tela_AddItens = new Tela_AddItens(Painel_Mesa.listModelsMesas.get(x),
+							list_modelsAtendimentos);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -215,14 +212,30 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 			}
 		}
 
-		// Identificar em qual btnEye está clicando.
+		// Visualizar ítens da mesa (botão Eye)
 		for (int x = 0; x < Painel_Mesa.listModelsMesas.size(); x++) {
 
 			if (e.getSource() == Painel_Mesa.listModelsMesas.get(x).btnEye) {
 
-				// listModelsMesas.get(x).corStatus.setBackground(Color.Black);
+				list_modelsAtendimentos = new ArrayList(list_modelsAtendimentos);
+
+				try {
+					list_modelsAtendimentos = new Bd_get().Get_ItensAtendimento(x + 1);
+				} catch (InterruptedException | ExecutionException | IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+
+				try {
+					Tela_AddItens tela_AddItens = new Tela_AddItens(Painel_Mesa.listModelsMesas.get(x),
+							list_modelsAtendimentos);
+				} catch (InterruptedException | ExecutionException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
 			}
+
 		}
 
 	}

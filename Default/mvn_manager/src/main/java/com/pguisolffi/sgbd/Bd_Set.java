@@ -19,8 +19,6 @@ public class Bd_Set {
 
     public void BD_Set_Manual() throws InterruptedException, ExecutionException, IOException {
 
-        InitializeBd ini = new InitializeBd();
-
         Firestore db = FirestoreClient.getFirestore();
 
         Map<String, Object> data;
@@ -98,10 +96,8 @@ public class Bd_Set {
         }
     }
 
-    public void BD_Set_NovoAtendimento(List<Objeto_Atendimento> listItensAtendimento)
+    public void BD_Set_NovoAtendimento(List<Objeto_Atendimento> listItensAtendimento, int numeroMesa)
             throws InterruptedException, ExecutionException, IOException {
-
-        InitializeBd ini = new InitializeBd();
 
         Firestore db = FirestoreClient.getFirestore();
 
@@ -121,7 +117,7 @@ public class Bd_Set {
             data.put("nuSeqItem", listItensAtendimento.get(x).nuSeqItem);
             data.put("ehDelivery", listItensAtendimento.get(x).ehDelivery);
             data.put("valor", listItensAtendimento.get(x).fValorItem);
-            data.put("numeroMesa", listItensAtendimento.get(x).numeroMesa);
+            data.put("numeroMesa", numeroMesa);
             data.put("Descricao", listItensAtendimento.get(x).sDescricao);
             data.put("pedido", listItensAtendimento.get(x).pedido);
             data.put("tipo", listItensAtendimento.get(x).sTipo);

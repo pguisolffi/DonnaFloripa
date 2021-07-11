@@ -1,29 +1,21 @@
 package com.pguisolffi.Acoes;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingConstants;
 
 import com.pguisolffi.Objetos.Objeto_Atendimento;
 import com.pguisolffi.Objetos.Objeto_Item;
-import com.pguisolffi.Telas.Tela_AddItens;
 import com.pguisolffi.Utilidades.Globals;
 import com.pguisolffi.Utilidades.botesConstrutor;
 import com.pguisolffi.Paineis.Painel_Comanda;
 import com.pguisolffi.Paineis.Painel_Itens;
+import com.pguisolffi.Acoes.Adicionar_ItemAtendimento;
 
 import javax.swing.Box;
 
@@ -31,7 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 
-public class Actions_ButtonsItens {
+public class Actions_ButtonsItens implements ActionListener {
 
     int pedido, numeroMesa, nuSeqItem, cdItem;
     String statusAtendimento, horaInicioAtendimento, horaFimAtendimento, duracaoAtendimento, sTipo, sDescricao;
@@ -39,6 +31,8 @@ public class Actions_ButtonsItens {
     JLabel lDescricao, lValorItem;
     double fValorItem, fValorTotal = 0;
     JButton btn_remover;
+
+    JButton btnRemover;
 
     List<Objeto_Item> listModel_Item_Adicionais;
     List<Objeto_Item> listModel_Item_Almoco;
@@ -81,15 +75,16 @@ public class Actions_ButtonsItens {
 
         for (int z = 0; z < Painel_Itens.listModel_Atendimento.size(); z++) {
 
-            Painel_Comanda.pGrid_ItensComanda.setBackground(Color.white);
+            new Adicionar_ItemAtendimento(Painel_Itens.listModel_Atendimento.get(z));
 
-            Painel_Comanda.pGrid_ItensComanda.add(Painel_Itens.listModel_Atendimento.get(z).lDescricao);
-            Painel_Comanda.pGrid_ItensComanda.add(Painel_Itens.listModel_Atendimento.get(z).lValorItem);
-            Painel_Comanda.pGrid_ItensComanda.add(Painel_Itens.listModel_Atendimento.get(z).btn_remover);
+            RedimensionarAltura(Painel_Comanda.pGrid_ItensComanda);
 
-            fit_Redimen_Heigth(Painel_Comanda.pGrid_ItensComanda);
             Painel_Comanda.lTotalGeral
                     .setText("Total Geral:  " + format.format(Painel_Itens.listModel_Atendimento.get(z).fValorTotal));
+
+            btnRemover = new JButton();
+            btnRemover = Painel_Itens.listModel_Atendimento.get(z).btn_remover;
+            this.btnRemover.addActionListener(this);
 
             Painel_Comanda.pPanel_EspacoDireito.updateUI();
 
@@ -132,22 +127,34 @@ public class Actions_ButtonsItens {
 
         for (int z = 0; z < Painel_Itens.listModel_Atendimento.size(); z++) {
 
-            Painel_Comanda.pGrid_ItensComanda.setBackground(Color.white);
+            new Adicionar_ItemAtendimento(Painel_Itens.listModel_Atendimento.get(z));
 
-            Painel_Comanda.pGrid_ItensComanda.add(Painel_Itens.listModel_Atendimento.get(z).lDescricao);
-            Painel_Comanda.pGrid_ItensComanda.add(Painel_Itens.listModel_Atendimento.get(z).lValorItem);
-            Painel_Comanda.pGrid_ItensComanda.add(Painel_Itens.listModel_Atendimento.get(z).btn_remover);
-
-            fit_Redimen_Heigth(Painel_Comanda.pGrid_ItensComanda);
+            RedimensionarAltura(Painel_Comanda.pGrid_ItensComanda);
             Painel_Comanda.lTotalGeral
                     .setText("Total Geral:  " + format.format(Painel_Itens.listModel_Atendimento.get(z).fValorTotal));
+
+            btnRemover = new JButton();
+            btnRemover = Painel_Itens.listModel_Atendimento.get(z).btn_remover;
+            this.btnRemover.addActionListener(this);
 
             Painel_Comanda.pPanel_EspacoDireito.updateUI();
 
         }
     }
 
-    public void fit_Redimen_Heigth(JPanel jpanel) {
+    public void RedimensionarAltura(JPanel jpanel) {
         jpanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, jpanel.getMinimumSize().height));
+    }
+
+    public void actionPerformed(ActionEvent e) {
+
+        for (int x = 0; x < Painel_Itens.listModel_Atendimento.size(); x++) {
+
+            if (e.getSource() == Painel_Itens.listModel_Atendimento.get(x).btn_remover) {
+
+                new Remover_ItemAtendimento(Painel_Itens.listModel_Atendimento.get(x));
+
+            }
+        }
     }
 }

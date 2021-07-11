@@ -18,6 +18,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
 import com.pguisolffi.Acoes.Actions_ButtonsItens;
+import com.pguisolffi.Acoes.Inserir_Observacao;
 import com.pguisolffi.Objetos.Objeto_Atendimento;
 import com.pguisolffi.Objetos.Objeto_Item;
 import com.pguisolffi.Telas.Tela_AddItens;
@@ -47,7 +48,7 @@ public class Painel_Itens implements ActionListener {
     List<Objeto_Item> listModel_Item_Almoco;
     List<Objeto_Item> listModel_Item_ItensAdicionais;
 
-    public static List<Objeto_Atendimento> listModel_Atendimento = new ArrayList<Objeto_Atendimento>();
+    public static List<Objeto_Atendimento> listModel_Atendimento;
 
     int pedido, numeroMesa, cdItem;
     String statusAtendimento, horaInicioAtendimento, horaFimAtendimento, duracaoAtendimento, sTipo, sDescricao;
@@ -187,6 +188,7 @@ public class Painel_Itens implements ActionListener {
         pPanel_BotaoEnviar.setLayout(new CardLayout());
 
         btn_Enviar.setLabel("Enviar");
+        btn_Enviar.addActionListener(this);
         pPanel_BotaoEnviar.add(btn_Enviar, "card2");
         pPainel_SecundarioPratos.add(pPanel_BotaoEnviar);
         pPainel_PrincipalPratos.add(pPainel_SecundarioPratos);
@@ -205,6 +207,12 @@ public class Painel_Itens implements ActionListener {
             if (e.getSource() == listModel_Item_Almoco.get(x).btn_item) {
                 new Actions_ButtonsItens().AdicionarItensAdicionais(listModel_Item_Almoco, e, x);
             }
+        }
+
+        if (e.getSource() == btn_Enviar) {
+
+            String textoObservacao = tTextField_Observacoes.getText();
+            new Inserir_Observacao(textoObservacao);
         }
 
     }

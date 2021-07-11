@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 
+import com.pguisolffi.Acoes.Carregar_ItensAtendimento;
+import com.pguisolffi.Objetos.Objeto_Atendimento;
 import com.pguisolffi.Objetos.Objeto_Item;
 import com.pguisolffi.Objetos.Objeto_Mesa;
 import com.pguisolffi.Paineis.Painel_Comanda;
@@ -44,7 +46,8 @@ public class Tela_AddItens {
     Objeto_Mesa mesaModel;
     // bd_get bdGet = new bd_get();
 
-    public Tela_AddItens(Objeto_Mesa objMesa) throws InterruptedException, ExecutionException, IOException {
+    public Tela_AddItens(Objeto_Mesa objMesa, List<Objeto_Atendimento> list_atendimentosModels)
+            throws InterruptedException, ExecutionException, IOException {
 
         InitializeBd ini = new InitializeBd();
 
@@ -63,6 +66,10 @@ public class Tela_AddItens {
 
         Painel_Comanda painel_Comanda = new Painel_Comanda(mesaModel);
         Painel_Itens painel_Itens = new Painel_Itens(listItemModels_Almoco, listItemModels_ItensAdicionais);
+
+        if (!list_atendimentosModels.isEmpty()) {
+            new Carregar_ItensAtendimento(list_atendimentosModels);
+        }
 
         pPanel_guiaAlmoco.add(painel_Itens.pPainel_PrincipalPratos);
         pPanel_guiaAlmoco.add(painel_Comanda.pPanel_EspacoDireito);

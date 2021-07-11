@@ -39,7 +39,7 @@ public class App {
 
         // new Bd_Set_Itens().Bd_Set_Itens_Itens();
         // Bd_get update = new Bd_get();
-
+        // update.Get_ItensAtendimento();
         // PainelPrincipal pp = new PainelPrincipal();
         Tela_Principal tela_principal = new Tela_Principal();
         // MinhasThreads minha = new MinhasThreads("name da Thread");
