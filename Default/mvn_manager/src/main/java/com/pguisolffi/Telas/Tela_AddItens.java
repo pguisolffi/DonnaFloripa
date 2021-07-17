@@ -2,20 +2,17 @@ package com.pguisolffi.Telas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.SwingConstants;
 
 import com.pguisolffi.Acoes.Carregar_ItensAtendimento;
 import com.pguisolffi.Objetos.Objeto_Atendimento;
@@ -23,9 +20,7 @@ import com.pguisolffi.Objetos.Objeto_Item;
 import com.pguisolffi.Objetos.Objeto_Mesa;
 import com.pguisolffi.Paineis.Painel_Comanda;
 import com.pguisolffi.Paineis.Painel_Itens;
-import com.pguisolffi.Utilidades.botesConstrutor;
 import com.pguisolffi.sgbd.Bd_get;
-import com.pguisolffi.sgbd.InitializeBd;
 
 public class Tela_AddItens {
 
@@ -40,16 +35,14 @@ public class Tela_AddItens {
     JButton _btn_item, _btn_remover;
     JLabel _lDescricao, _lValorItem;
 
-    Objeto_Item itemModel = new Objeto_Item(_cdItem, _sTipo, _sDescricao, _fValorItem, _btn_item);
-    public List<Objeto_Item> listItemModels_Almoco = new ArrayList<Objeto_Item>();
-    public List<Objeto_Item> listItemModels_ItensAdicionais = new ArrayList<Objeto_Item>();
+    Objeto_Item itemModel = new Objeto_Item(0, 0, _sTipo, _sDescricao, _fValorItem, _btn_item, false);
+    public static List<Objeto_Item> listItemModels_Almoco = new ArrayList<Objeto_Item>();
+    public static List<Objeto_Item> listItemModels_ItensAdicionais = new ArrayList<Objeto_Item>();
     Objeto_Mesa mesaModel;
     // bd_get bdGet = new bd_get();
 
     public Tela_AddItens(Objeto_Mesa objMesa, List<Objeto_Atendimento> list_atendimentosModels)
             throws InterruptedException, ExecutionException, IOException {
-
-        InitializeBd ini = new InitializeBd();
 
         mesaModel = objMesa;
         fSelecaoItens = new JFrame();

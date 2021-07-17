@@ -22,6 +22,7 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 import com.pguisolffi.sgbd.Bd_Set;
 import com.pguisolffi.sgbd.Bd_get;
+import com.pguisolffi.sgbd.InitializeBd;
 
 import javax.swing.JPanel;
 
@@ -36,8 +37,8 @@ public class App {
     public static Firestore db;
 
     public static void main(String[] args) throws IOException, InterruptedException, ExecutionException {
-
-        // new Bd_Set_Itens().Bd_Set_Itens_Itens();
+        // InitializeBd ini = new InitializeBd();
+        // new Bd_Set().BD_Set_Manual();
         // Bd_get update = new Bd_get();
         // update.Get_ItensAtendimento();
         // PainelPrincipal pp = new PainelPrincipal();

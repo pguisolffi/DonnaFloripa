@@ -1,18 +1,13 @@
 package com.pguisolffi.Objetos;
 
-import java.awt.Font;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-/********************
- * SUPERCLASSE MESA *
- ********************/
 public class Objeto_Mesa {
-	// ATRIBUTOS DA MESA
+
 	public int numero;
 	public String status, observacao, duracao, entrada;
 	public JLabel lduracao, lnomeMesa, lentrada;
@@ -21,7 +16,6 @@ public class Objeto_Mesa {
 	public JButton btnPlay, btnEye, btnAdd;
 	public Thread threadDuracao;
 
-	// CONSTRUTOR QUE RECEBE OS ATRIBUTOS COMO PAR�METROS DO OBJETO MESA
 	public Objeto_Mesa(int _numero, String _status, String _observacao, JLabel _lduracao, JPanel _mesa,
 			JPanel _corStatus, JPanel _interiorMesa, JButton _btnPlay, JButton _btnEye, JButton _btnAdd,
 			JLabel _lnomeMesa, JLabel _lentrada, String _duracao, String _entrada, Boolean _isThreadActive,
@@ -47,12 +41,5 @@ public class Objeto_Mesa {
 	}
 
 	public Map<String, String> map = new HashMap<>();
-
-	// public void FazAlgumaCoisa() {
-	// System.out.println("==========================================================================");
-	// System.out.println("= CHAMANDO UM M�TODO DE DENTRO DA SUPERCLASSE MESA PARA
-	// FAZER QQ COISA ===");
-	// System.out.println("==========================================================================");
-	// }
 
 }

@@ -18,6 +18,8 @@ public class botesConstrutor {
         public JButton ConfirmButtonDelivery;
         public JButton add_Mesa;
         public JButton removeButton;
+        public JButton impressoraButton;
+        public JButton addItemButton;
 
         public botesConstrutor() {
 
@@ -61,6 +63,16 @@ public class botesConstrutor {
                                 "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/Remove.png");
                 Image imgRemoverNew = imgRemover.getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT);
                 ImageIcon imgRemoverItem = new ImageIcon(imgRemoverNew);
+
+                ImageIcon imgImpressao = new ImageIcon(
+                                "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/printer.png");
+                Image imgImpressaonew = imgImpressao.getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT);
+                ImageIcon imgImpressora = new ImageIcon(imgImpressaonew);
+
+                ImageIcon imgFoward = new ImageIcon(
+                                "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/transfer.png");
+                Image imgFowardnew = imgFoward.getImage().getScaledInstance(50, 32, Image.SCALE_DEFAULT);
+                ImageIcon transferIcon = new ImageIcon(imgFowardnew);
 
                 // BOTÕES da MESA
                 PlayButton = new JButton("");
@@ -107,6 +119,17 @@ public class botesConstrutor {
                 add_Mesa.setBackground(Color.ORANGE);
                 add_Mesa.setBorderPainted(false);
                 add_Mesa.setMargin(new Insets(0, 0, 0, 0));
+                impressoraButton = new JButton("");
+                impressoraButton.setIcon(imgImpressora);
+                impressoraButton.setBackground(Color.ORANGE);
+                impressoraButton.setBorderPainted(false);
+                impressoraButton.setMargin(new Insets(0, 0, 0, 0));
+                addItemButton = new JButton("");
+                addItemButton.setIcon(transferIcon);
+                addItemButton.setBackground(Color.ORANGE);
+                addItemButton.setBorderPainted(false);
+                addItemButton.setMargin(new Insets(0, 0, 0, 0));
+
         }
 
 }

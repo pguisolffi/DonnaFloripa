@@ -12,10 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -188,15 +186,14 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 						BorderLayout.PAGE_END);
 				Painel_Mesa.listModelsMesas.get(x).isThreadActive = true;
 
-				MinhasThreads minhasThreads = new MinhasThreads(Painel_Mesa.listModelsMesas.get(x), x);
+				new MinhasThreads(Painel_Mesa.listModelsMesas.get(x), x);
 
 				Globals globals = new Globals();
 				globals.numeroPedido++;
 
 				list_modelsAtendimentos = new ArrayList<Objeto_Atendimento>();
 				try {
-					Tela_AddItens tela_AddItens = new Tela_AddItens(Painel_Mesa.listModelsMesas.get(x),
-							list_modelsAtendimentos);
+					new Tela_AddItens(Painel_Mesa.listModelsMesas.get(x), list_modelsAtendimentos);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -217,7 +214,7 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 
 			if (e.getSource() == Painel_Mesa.listModelsMesas.get(x).btnEye) {
 
-				list_modelsAtendimentos = new ArrayList(list_modelsAtendimentos);
+				list_modelsAtendimentos = new ArrayList<Objeto_Atendimento>(list_modelsAtendimentos);
 
 				try {
 					list_modelsAtendimentos = new Bd_get().Get_ItensAtendimento(x + 1);
@@ -227,8 +224,7 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 				}
 
 				try {
-					Tela_AddItens tela_AddItens = new Tela_AddItens(Painel_Mesa.listModelsMesas.get(x),
-							list_modelsAtendimentos);
+					new Tela_AddItens(Painel_Mesa.listModelsMesas.get(x), list_modelsAtendimentos);
 				} catch (InterruptedException | ExecutionException | IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

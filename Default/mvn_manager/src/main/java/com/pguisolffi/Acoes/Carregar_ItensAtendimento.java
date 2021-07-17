@@ -1,7 +1,5 @@
 package com.pguisolffi.Acoes;
 
-import com.pguisolffi.Paineis.Painel_Comanda;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -11,13 +9,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
 import java.text.NumberFormat;
 import java.awt.*;
 
 import com.pguisolffi.Utilidades.botesConstrutor;
 import com.pguisolffi.Objetos.Objeto_Atendimento;
-import com.pguisolffi.Acoes.Remover_ItemAtendimento;
 
 public class Carregar_ItensAtendimento implements ActionListener {
 
@@ -27,39 +25,50 @@ public class Carregar_ItensAtendimento implements ActionListener {
 
     public Carregar_ItensAtendimento(List<Objeto_Atendimento> list_AtendimentosModels) {
 
-        for (int z = 0; z < list_AtendimentosModels.size(); z++) {
-
-            list_AtendimentosModels.get(z).lDescricao = new JLabel(list_AtendimentosModels.get(z).sDescricao,
-                    JLabel.RIGHT);
-            list_AtendimentosModels.get(z).lValorItem = new JLabel(
-                    String.valueOf(list_AtendimentosModels.get(z).fValorItem), JLabel.CENTER);
-            botesConstrutor btnsMesas = new botesConstrutor();
-            list_AtendimentosModels.get(z).btn_remover = btnsMesas.removeButton;
-
-            Painel_Comanda.pGrid_ItensComanda.setBackground(Color.white);
-            Painel_Comanda.pGrid_ItensComanda.add(list_AtendimentosModels.get(z).lDescricao);
-            Painel_Comanda.pGrid_ItensComanda.add(list_AtendimentosModels.get(z).lValorItem);
-            Painel_Comanda.pGrid_ItensComanda.add(list_AtendimentosModels.get(z).btn_remover);
-
-            RedimensionarAltura(Painel_Comanda.pGrid_ItensComanda);
-
-            Painel_Comanda.lTotalGeral
-                    .setText("Total Geral:  " + format.format(list_AtendimentosModels.get(z).fValorTotal));
-
-            list_Models_Atendimentos = list_AtendimentosModels;
-
-            btnRemoverItem = new JButton();
-            btnRemoverItem = list_AtendimentosModels.get(z).btn_remover;
-            btnRemoverItem.addActionListener(this);
-
-            Painel_Comanda.pPanel_EspacoDireito.updateUI();
-
+        // PEGAR A QUANTIDADE DE PRATOS COMPLETOS
+        List<String> QtdePratosNoAtendimento = new ArrayList<String>();
+        for (int x = 0; x < list_AtendimentosModels.size(); x++) {
+            if (x == 0) {
+                QtdePratosNoAtendimento.add(list_AtendimentosModels.get(x).idPratoCompleto);
+            } else {
+                if (!QtdePratosNoAtendimento.contains(list_AtendimentosModels.get(x).idPratoCompleto)) {
+                    QtdePratosNoAtendimento.add(list_AtendimentosModels.get(x).idPratoCompleto);
+                }
+            }
         }
 
-    }
+        for (int Y = 0; Y < QtdePratosNoAtendimento.size(); Y++) {
+            List<Objeto_Atendimento> pratoCompleto = new ArrayList<Objeto_Atendimento>();
+            for (int d = 0; d < list_AtendimentosModels.size(); d++) {
+                if (list_AtendimentosModels.get(d).idPratoCompleto.equals(QtdePratosNoAtendimento.get(Y))) {
 
-    public void RedimensionarAltura(JPanel jpanel) {
-        jpanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, jpanel.getMinimumSize().height));
+                    list_AtendimentosModels.get(d).lDescricao = new JLabel(list_AtendimentosModels.get(d).sDescricao,
+                            JLabel.RIGHT);
+
+                    if (list_AtendimentosModels.get(d).sDescricao.equals("Almoco")) {
+                        list_AtendimentosModels.get(d).lDescricao.setFont(new Font("Courier", Font.BOLD, 14));
+                        list_AtendimentosModels.get(d).lValorItem.setFont(new Font("Courier", Font.BOLD, 14));
+                    }
+
+                    list_AtendimentosModels.get(d).lValorItem = new JLabel(
+                            String.valueOf(list_AtendimentosModels.get(d).fValorItem), JLabel.CENTER);
+                    botesConstrutor btnsMesas = new botesConstrutor();
+
+                    list_AtendimentosModels.get(d).textObservacao = list_AtendimentosModels.get(d).sTipo
+                            .equals("Observacao") ? new JTextArea(list_AtendimentosModels.get(d).sDescricao) : null;
+
+                    list_AtendimentosModels.get(d).btn_remover = btnsMesas.removeButton;
+
+                    btnRemoverItem = new JButton();
+                    btnRemoverItem = list_AtendimentosModels.get(d).btn_remover;
+                    btnRemoverItem.addActionListener(this);
+
+                    pratoCompleto.add(list_AtendimentosModels.get(d));
+                }
+            }
+            new Adicionar_ItemAtendimento(pratoCompleto);
+        }
+
     }
 
     public void actionPerformed(ActionEvent e) {

@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutionException;
 import com.pguisolffi.Objetos.Objeto_Atendimento;
 import com.pguisolffi.sgbd.Bd_Set;
 
-public class Action_ButtonSalvarComanda {
+public class Botao_SalvarComanda {
 
     public void GravarComanda(List<Objeto_Atendimento> listModel_Atendimento, int numeroMesa)
             throws InterruptedException, ExecutionException, IOException {

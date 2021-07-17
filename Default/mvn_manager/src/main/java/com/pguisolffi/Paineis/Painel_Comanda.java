@@ -3,12 +3,16 @@ package com.pguisolffi.Paineis;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.io.IOException;
+
 import java.util.concurrent.ExecutionException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import java.awt.GridBagLayout;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,27 +20,32 @@ import javax.swing.JScrollPane;
 import javax.swing.Box;
 import javax.swing.SwingConstants;
 
-import com.pguisolffi.Acoes.Action_ButtonSalvarComanda;
+import com.pguisolffi.Acoes.Botao_SalvarComanda;
 import com.pguisolffi.Objetos.Objeto_Mesa;
 import com.pguisolffi.Utilidades.Globals;
+import com.pguisolffi.Utilidades.botesConstrutor;
+import com.pguisolffi.Objetos.Objeto_Atendimento;
 
 import javax.swing.ScrollPaneConstants;
 
-public class Painel_Comanda implements ActionListener {
+public class Painel_Comanda extends JPanel implements ActionListener {
 
-    public static JPanel pGrid_ItensComanda, pBox_Comanda, pPanel_EspacoDireito, pPanel_DentroEspacoDireito;
+    public static JPanel painelItensDaComanda, pBox_Comanda, pPanel_EspacoDireito, pPanel_DentroEspacoDireito;
     public static JLabel lTotalGeral;
     public int numeroMesaAtual;
-    public static GridBagConstraints gbc;
 
     JPanel pPanel_Impressora, pPainel_nomeMesa, pPanel_NumeroComanda, pPanel_tituloComanda, pPanel_TotalGeral,
             pPanel_botaoSalvar;
 
-    JLabel jLabel3, jLabel2, lNomeMesa, lTituloObservacoes, lNumeroComanda, lTituloComanda, jLabel8, jLabel9;
-    JButton btn_Impressora, jButton11, btn_Salvar, jButton18;
+    JLabel lNomeMesa, lNumeroComanda, lTituloComanda;
+    JButton btn_Impressora, btn_Salvar;
     JScrollPane scrollComanda;
 
+    public static List<Objeto_Atendimento> listModel_Atendimento;
+
     public Painel_Comanda(Objeto_Mesa mesaModel) {
+
+        listModel_Atendimento = new ArrayList<Objeto_Atendimento>();
 
         numeroMesaAtual = mesaModel.numero;
         pPanel_EspacoDireito = new JPanel();
@@ -50,17 +59,11 @@ public class Painel_Comanda implements ActionListener {
         lNumeroComanda = new JLabel();
         pPanel_tituloComanda = new JPanel();
         lTituloComanda = new JLabel();
-        pGrid_ItensComanda = new JPanel();
-        jLabel8 = new JLabel();
-        jLabel9 = new JLabel();
-        jButton11 = new JButton();
-        jButton18 = new JButton();
+        painelItensDaComanda = new JPanel();
         pPanel_TotalGeral = new JPanel();
         lTotalGeral = new JLabel();
         pPanel_botaoSalvar = new JPanel();
         btn_Salvar = new JButton();
-        jLabel2 = new JLabel();
-        jLabel3 = new JLabel();
         scrollComanda = new JScrollPane(pBox_Comanda);
 
         scrollComanda.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
@@ -73,10 +76,12 @@ public class Painel_Comanda implements ActionListener {
         pPanel_DentroEspacoDireito.setLayout(new BoxLayout(pPanel_DentroEspacoDireito, BoxLayout.PAGE_AXIS));
         pPanel_DentroEspacoDireito.setPreferredSize(new Dimension(400, 650));
         pBox_Comanda.setLayout(new BoxLayout(pBox_Comanda, BoxLayout.PAGE_AXIS));
-        pBox_Comanda.setBorder(BorderFactory.createLineBorder(Color.ORANGE));
+        pBox_Comanda.setBorder(BorderFactory.createRaisedBevelBorder());
+
+        botesConstrutor btnsMesas = new botesConstrutor();
 
         pPanel_Impressora.setLayout(new BorderLayout());
-        btn_Impressora.setText("Imp");
+        btn_Impressora = btnsMesas.impressoraButton;
         btn_Impressora.setHorizontalAlignment(SwingConstants.TRAILING);
         btn_Impressora.setVerticalAlignment(SwingConstants.TOP);
         pPanel_Impressora.add(btn_Impressora, BorderLayout.EAST);
@@ -105,11 +110,11 @@ public class Painel_Comanda implements ActionListener {
         pPanel_tituloComanda.add(lTituloComanda);
         pBox_Comanda.add(pPanel_tituloComanda);
 
-        // pGrid_ItensComanda.setLayout(new GridLayout(0, 3));
-        pGrid_ItensComanda.setLayout(new GridBagLayout());
-        pGrid_ItensComanda.setBackground(Color.white);
+        painelItensDaComanda.setLayout(new BoxLayout(painelItensDaComanda, BoxLayout.PAGE_AXIS));
+        painelItensDaComanda.setMaximumSize(new Dimension(390, painelItensDaComanda.getMinimumSize().height));
+        painelItensDaComanda.setBackground(Color.white);
 
-        pBox_Comanda.add(pGrid_ItensComanda);
+        pBox_Comanda.add(painelItensDaComanda);
 
         pBox_Comanda.add(Box.createRigidArea(new Dimension(0, 50)));
 
@@ -130,11 +135,9 @@ public class Painel_Comanda implements ActionListener {
         btn_Salvar.setText("Salvar");
         pPanel_botaoSalvar.add(btn_Salvar, BorderLayout.CENTER);
 
-        gbc = new GridBagConstraints();
-
         fit_Redimen_Heigth(pPanel_botaoSalvar);
         fit_Redimen_Heigth(pPanel_TotalGeral);
-        fit_Redimen_Heigth(pGrid_ItensComanda);
+        fit_Redimen_Heigth(painelItensDaComanda);
         fit_Redimen_Heigth(pPanel_tituloComanda);
         fit_Redimen_Heigth(pPanel_NumeroComanda);
         fit_Redimen_Heigth(pPanel_Impressora);
@@ -159,9 +162,9 @@ public class Painel_Comanda implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn_Salvar) {
 
-            Action_ButtonSalvarComanda salvar = new Action_ButtonSalvarComanda();
+            Botao_SalvarComanda salvar = new Botao_SalvarComanda();
             try {
-                salvar.GravarComanda(Painel_Itens.listModel_Atendimento, numeroMesaAtual);
+                salvar.GravarComanda(listModel_Atendimento, numeroMesaAtual);
             } catch (InterruptedException | ExecutionException | IOException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();

@@ -2,7 +2,6 @@ package com.pguisolffi.sgbd;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,7 @@ public class Bd_Set {
 
         Map<String, Object> data;
 
-        for (int x = 6; x < 8; x++) {
+        for (int x = 0; x < 6; x++) {
 
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
@@ -31,58 +30,112 @@ public class Bd_Set {
             data = new HashMap<>();
 
             switch (x) {
-                // case 0:
-                // data.put("cdItem", x);
-                // data.put("descricao", "Prato do Dia");
-                // data.put("tipo", "Almoco");
-                // data.put("valor", 25.00);
-                // break;
-                // case 1:
-                // data.put("cdItem", x);
-                // data.put("descricao", "Executivo de Carne");
-                // data.put("tipo", "Almoco");
-                // data.put("valor", 18.00);
-                // break;
-                // case 2:
-                // data.put("cdItem", x);
-                // data.put("descricao", "Executivo de Frango");
-                // data.put("tipo", "Almoco");
-                // data.put("valor", 15.00);
-                // break;
-                // case 3:
-                // data.put("cdItem", x);
-                // data.put("descricao", "Executivo de Peixe");
-                // data.put("tipo", "Almoco");
-                // data.put("valor", 20.00);
-                // break;
-                // case 4:
-                // data.put("cdItem", x);
-                // data.put("descricao", "À la minuta de Carne");
-                // data.put("tipo", "Almoco");
-                // data.put("valor", 20.00);
-                // break;
-                // case 5:
-                // data.put("cdItem", x);
-                // data.put("descricao", "À la minuta de Frango");
-                // data.put("tipo", "Almoco");
-                // data.put("valor", 20.00);
-                // break;
+                case 0:
+                    data.put("cdItem", x);
+                    data.put("descricao", "Bacon");
+                    data.put("tipo", "Adicionais Sanduiches");
+                    data.put("valor", 5.00);
+                    break;
+                case 1:
+                    data.put("cdItem", x);
+                    data.put("descricao", "Tomate");
+                    data.put("tipo", "Adicionais Sanduiches");
+                    data.put("valor", 2.00);
+                    break;
+                case 2:
+                    data.put("cdItem", x);
+                    data.put("descricao", "Ovo");
+                    data.put("tipo", "Adicionais Sanduiches");
+                    data.put("valor", 2.00);
+                    break;
+                case 3:
+                    data.put("cdItem", x);
+                    data.put("descricao", "Pastel");
+                    data.put("tipo", "Salgados");
+                    data.put("valor", 10.00);
+                    break;
+                case 4:
+                    data.put("cdItem", x);
+                    data.put("descricao", "Croissant Doce Leite");
+                    data.put("tipo", "Sanduiches");
+                    data.put("valor", 15.00);
+                    break;
+                case 5:
+                    data.put("cdItem", x);
+                    data.put("descricao", "Chá Gelado");
+                    data.put("tipo", "Salgados");
+                    data.put("valor", 7.00);
+                    break;
                 case 6:
                     data.put("cdItem", x);
-                    data.put("descricao", "À la minuta de Peixe");
-                    data.put("tipo", "Almoco");
-                    data.put("valor", 20.00);
+                    data.put("descricao", "Tapioca doce");
+                    data.put("tipo", "Salgados");
+                    data.put("valor", 12.00);
                     break;
                 case 7:
                     data.put("cdItem", x);
-                    data.put("descricao", "Kids");
-                    data.put("tipo", "Almoco");
+                    data.put("descricao", "Crepioca");
+                    data.put("tipo", "Sanduiches");
+                    data.put("valor", 12.00);
+                    break;
+                case 8:
+                    data.put("cdItem", x);
+                    data.put("descricao", "Crepioca da Casa");
+                    data.put("tipo", "Sanduiches");
+                    data.put("valor", 14.00);
+                    break;
+                case 9:
+                    data.put("cdItem", x);
+                    data.put("descricao", "Ovos Mexidos Simples");
+                    data.put("tipo", "Sanduiches");
+                    data.put("valor", 10.00);
+                    break;
+                case 10:
+                    data.put("cdItem", x);
+                    data.put("descricao", "Ovos Mexidos da Casa");
+                    data.put("tipo", "Sanduiches");
+                    data.put("valor", 12.00);
+                    break;
+                case 11:
+                    data.put("cdItem", x);
+                    data.put("descricao", "Omelete Simples");
+                    data.put("tipo", "Sanduiches");
+                    data.put("valor", 12.00);
+                    break;
+                case 12:
+                    data.put("cdItem", x);
+                    data.put("descricao", "Omelete da Casa");
+                    data.put("tipo", "Sanduiches");
+                    data.put("valor", 14.00);
+                    break;
+                case 13:
+                    data.put("cdItem", x);
+                    data.put("descricao", "Croissant Queijo");
+                    data.put("tipo", "Sanduiches");
+                    data.put("valor", 15.00);
+                    break;
+                case 14:
+                    data.put("cdItem", x);
+                    data.put("descricao", "Croissant Donna Floripa");
+                    data.put("tipo", "Sanduiches");
+                    data.put("valor", 15.00);
+                    break;
+                case 15:
+                    data.put("cdItem", x);
+                    data.put("descricao", "Croissant Creme Avelã");
+                    data.put("tipo", "Sanduiches");
+                    data.put("valor", 15.00);
+                    break;
+                case 16:
+                    data.put("cdItem", x);
+                    data.put("descricao", "Croissant Doce Leite");
+                    data.put("tipo", "Sanduiches");
                     data.put("valor", 15.00);
                     break;
                 default:
                     data.put("cdItem", x);
                     data.put("descricao", "Iscas");
-                    data.put("tipo", "Almoco");
+                    data.put("tipo", "Bebidas");
                     data.put("valor", 13.00);
 
             }
@@ -107,8 +160,6 @@ public class Bd_Set {
 
         for (int x = 0; x < listItensAtendimento.size(); x++) {
 
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-
             DocumentReference docRef = db.collection("Atendimento").document(
                     String.valueOf(listItensAtendimento.get(x).pedido) + "Sq" + listItensAtendimento.get(x).nuSeqItem);
 
@@ -123,6 +174,7 @@ public class Bd_Set {
             data.put("tipo", listItensAtendimento.get(x).sTipo);
             data.put("status", listItensAtendimento.get(x).statusAtendimento);
             data.put("dtFim", listItensAtendimento.get(x).horaFimAtendimento);
+            data.put("idPratoCompleto", listItensAtendimento.get(x).idPratoCompleto);
 
             // listdata.add(data);
 

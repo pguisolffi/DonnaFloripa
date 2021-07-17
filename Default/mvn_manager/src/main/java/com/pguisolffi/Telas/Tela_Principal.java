@@ -7,16 +7,32 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 import com.pguisolffi.Paineis.Painel_Delivery;
 import com.pguisolffi.Paineis.Painel_Mesa;
+import com.pguisolffi.sgbd.Bd_get;
+import com.pguisolffi.sgbd.InitializeBd;
+import com.pguisolffi.Objetos.Objeto_Item;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class Tela_Principal extends JFrame {
 	// LISTA DE OBJETOS DO TIPO PAINEL_MESA
 
-	public Tela_Principal() {
+	public List<Objeto_Item> listItemModels_Almoco = new ArrayList<Objeto_Item>();
+	public List<Objeto_Item> listItemModels_ItensAdicionais = new ArrayList<Objeto_Item>();
+
+	public Tela_Principal() throws IOException, InterruptedException, ExecutionException {
 		// initComponets();
+
+		new InitializeBd();
+
+		listItemModels_Almoco = new Bd_get().Get_Almoco();
+		listItemModels_ItensAdicionais = new Bd_get().Get_ItensAdicionais();
 
 		ImageIcon imgdf = new ImageIcon(
 				"C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/DonnaFloripa.png");
@@ -76,7 +92,8 @@ public class Tela_Principal extends JFrame {
 		this.setTitle("DONNA FLORIPA");
 		this.setIconImage(imgdf.getImage());
 		this.getContentPane().setBackground(Color.ORANGE);
-		this.setSize(1024, 768);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		// this.setSize(1024, 768);
 		this.getContentPane().add(labelTituloPainelPrincipal, BorderLayout.PAGE_START);
 		this.getContentPane().add(panelDasMesas, BorderLayout.CENTER);
 		this.getContentPane().add(panelBotaoInserir, BorderLayout.LINE_START);

@@ -1,8 +1,6 @@
 package com.pguisolffi.sgbd;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,8 +25,6 @@ public class Bd_update {
         data = new HashMap<>();
 
         for (int x = 0; x < listItensAtendimento.size(); x++) {
-
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
             DocumentReference docRef = db.collection("Atendimento")
                     .document(String.format("%08d", listItensAtendimento.get(x).nuSeqItem));

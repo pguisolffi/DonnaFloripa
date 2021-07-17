@@ -3,7 +3,6 @@ package com.pguisolffi.sgbd;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import com.google.api.core.ApiFuture;
@@ -32,7 +31,7 @@ public class Bd_get {
 
         for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
 
-            Objeto_Item itemModel = new Objeto_Item(0, null, null, 0, null);
+            Objeto_Item itemModel = new Objeto_Item(0, 0, null, null, 0, null, false);
             itemModel.cdItem = Integer.parseInt(document.getData().get("cdItem").toString());
             itemModel.sDescricao = document.getData().get("descricao").toString();
             itemModel.sTipo = document.getData().get("tipo").toString();
@@ -54,7 +53,7 @@ public class Bd_get {
 
         for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
 
-            Objeto_Item itemModel = new Objeto_Item(0, null, null, 0, null);
+            Objeto_Item itemModel = new Objeto_Item(0, 0, null, null, 0, null, false);
             itemModel.cdItem = Integer.parseInt(document.getData().get("cdItem").toString());
             itemModel.sDescricao = document.getData().get("descricao").toString();
             itemModel.sTipo = document.getData().get("tipo").toString();
@@ -78,12 +77,16 @@ public class Bd_get {
 
         for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
 
-            Objeto_Atendimento atendimento_Model = new Objeto_Atendimento(0, 0, 0, null, null, null, null, false, 0,
-                    null, null, null, null, 0, 0, null);
+            Objeto_Atendimento atendimento_Model = new Objeto_Atendimento(0, 0, 0, null, null, null, null, null, false,
+                    0, null, null, null, null, 0, 0, null, null, null);
             atendimento_Model.cdItem = Integer.parseInt(document.getData().get("cdItem").toString());
             atendimento_Model.sDescricao = document.getData().get("Descricao").toString();
             atendimento_Model.sTipo = document.getData().get("tipo").toString();
+            atendimento_Model.idPratoCompleto = document.getData().get("idPratoCompleto").toString();
             atendimento_Model.fValorItem = Double.parseDouble(document.getData().get("valor").toString());
+            atendimento_Model.statusAtendimento = document.getData().get("status").toString();
+            atendimento_Model.pedido = Integer.parseInt(document.getData().get("pedido").toString());
+            atendimento_Model.nuSeqItem = Integer.parseInt(document.getData().get("nuSeqItem").toString());
             // System.out.println(atendimento_Model.toString());
             list_Atendimento_Models.add(atendimento_Model);
 

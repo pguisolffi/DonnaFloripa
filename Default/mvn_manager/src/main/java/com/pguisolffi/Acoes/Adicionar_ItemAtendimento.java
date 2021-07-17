@@ -2,29 +2,36 @@ package com.pguisolffi.Acoes;
 
 import com.pguisolffi.Objetos.Objeto_Atendimento;
 import com.pguisolffi.Paineis.Painel_Comanda;
-import java.awt.GridBagConstraints;
+
+import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JPanel;
 
 public class Adicionar_ItemAtendimento {
-    public Adicionar_ItemAtendimento(Objeto_Atendimento objeto_Atendimento) {
 
-        if (objeto_Atendimento.sTipo == "Observacao") {
-            Painel_Comanda.gbc.ipady = 40; // make this component tall
-            Painel_Comanda.pGrid_ItensComanda.add(objeto_Atendimento.lDescricao, Painel_Comanda.gbc);
-            Painel_Comanda.gbc.ipadx = 50;
-            Painel_Comanda.pGrid_ItensComanda.add(objeto_Atendimento.btn_remover, Painel_Comanda.gbc);
-            Painel_Comanda.gbc.gridy++;
-        } else {
+    JPanel pratoCompleto;
+    public static List<JPanel> List_PratosCompletos;// = new ArrayList<JPanel>();
 
-            Painel_Comanda.gbc.ipadx = 100;
-            Painel_Comanda.pGrid_ItensComanda.add(objeto_Atendimento.lDescricao, Painel_Comanda.gbc);
-            Painel_Comanda.gbc.ipadx = 50;
-            Painel_Comanda.pGrid_ItensComanda.add(objeto_Atendimento.lValorItem, Painel_Comanda.gbc);
-            Painel_Comanda.gbc.ipadx = 50;
-            Painel_Comanda.pGrid_ItensComanda.add(objeto_Atendimento.btn_remover, Painel_Comanda.gbc);
-            Painel_Comanda.gbc.gridy++;
-        }
+    public Adicionar_ItemAtendimento(List<Objeto_Atendimento> List_Atendimentos) {
+
+        Preparar_PratoCompleto prepararPrato = new Preparar_PratoCompleto();
+        pratoCompleto = prepararPrato.Preparar_PratoInteiro(List_Atendimentos);
+
+        List_PratosCompletos = new ArrayList<JPanel>();
+        List_PratosCompletos.add(pratoCompleto);
+
+        Painel_Comanda.painelItensDaComanda.add(pratoCompleto);
+        RedimensionarAltura(pratoCompleto);
+        RedimensionarAltura(Painel_Comanda.painelItensDaComanda);
 
         Painel_Comanda.pPanel_EspacoDireito.updateUI();
 
     }
+
+    public void RedimensionarAltura(JPanel jpanel) {
+        jpanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, jpanel.getMinimumSize().height));
+    }
+
 }
