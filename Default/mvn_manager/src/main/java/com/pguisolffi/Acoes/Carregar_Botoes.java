@@ -18,6 +18,7 @@ import com.pguisolffi.Paineis.Painel_Comanda;
 import com.pguisolffi.Paineis.Painel_Itens;
 import com.pguisolffi.Utilidades.botesConstrutor;
 import com.pguisolffi.Objetos.Objeto_Atendimento;
+import com.pguisolffi.Objetos.Objeto_Item;
 
 public class Carregar_Botoes implements ActionListener {
 
@@ -49,8 +50,7 @@ public class Carregar_Botoes implements ActionListener {
             btn_Pratos = new JButton(Painel_Itens.listModel_Item_Almoco.get(y).sDescricao);
             Painel_Itens.listModel_Item_Almoco.get(y).btn_item = btn_Pratos;
             Painel_Itens.listModel_Item_Almoco.get(y).btn_item.setFont(new Font("book Antiqua", Font.BOLD, 14));
-            Painel_Itens.listModel_Item_Almoco.get(y).btn_item
-                    .setPreferredSize(new Dimension(btn_Pratos.getMaximumSize().width, 40));
+            Painel_Itens.listModel_Item_Almoco.get(y).btn_item.setPreferredSize(new Dimension(btn_Pratos.getMaximumSize().width, 40));
             Painel_Itens.listModel_Item_Almoco.get(y).btn_item.setBackground(Color.orange);
             Painel_Itens.listModel_Item_Almoco.get(y).btn_item.setMargin(new Insets(0, 0, 0, 0));
             Painel_Itens.listModel_Item_Almoco.get(y).btn_item.setBorder(null);
@@ -76,10 +76,8 @@ public class Carregar_Botoes implements ActionListener {
 
             btn_ItensAdicionais = new JButton(Painel_Itens.listModel_Item_ItensAdicionais.get(x).sDescricao);
             Painel_Itens.listModel_Item_ItensAdicionais.get(x).btn_item = btn_ItensAdicionais;
-            Painel_Itens.listModel_Item_ItensAdicionais.get(x).btn_item
-                    .setFont(new Font("book Antiqua", Font.BOLD, 12));
-            Painel_Itens.listModel_Item_ItensAdicionais.get(x).btn_item
-                    .setPreferredSize(new Dimension(btn_ItensAdicionais.getMaximumSize().width, 20));
+            Painel_Itens.listModel_Item_ItensAdicionais.get(x).btn_item.setFont(new Font("book Antiqua", Font.BOLD, 12));
+            Painel_Itens.listModel_Item_ItensAdicionais.get(x).btn_item.setPreferredSize(new Dimension(btn_ItensAdicionais.getMaximumSize().width, 20));
             Painel_Itens.listModel_Item_ItensAdicionais.get(x).btn_item.setBackground(new Color(255, 238, 180));
             Painel_Itens.listModel_Item_ItensAdicionais.get(x).btn_item.setMargin(new Insets(0, 0, 0, 0));
             Painel_Itens.listModel_Item_ItensAdicionais.get(x).btn_item.setBorder(null);
@@ -93,6 +91,7 @@ public class Carregar_Botoes implements ActionListener {
 
     public void CarregarObservacao() {
 
+        botesConstrutor btnsMesas = new botesConstrutor();
         pPanel_BotaoEnviar = new JPanel();
 
         pPanel_BotaoEnviar.setMaximumSize(new Dimension(80, 25));
@@ -100,7 +99,6 @@ public class Carregar_Botoes implements ActionListener {
         pPanel_BotaoEnviar.setPreferredSize(new Dimension(50, 25));
         pPanel_BotaoEnviar.setLayout(new CardLayout());
 
-        botesConstrutor btnsMesas = new botesConstrutor();
         btn_Enviar = btnsMesas.addItemButton;
         btn_Enviar.addActionListener(this);
         pPanel_BotaoEnviar.add(btn_Enviar);
@@ -124,32 +122,31 @@ public class Carregar_Botoes implements ActionListener {
                 for (int d = 0; d < Painel_Itens.listModel_Item_Almoco.size(); d++) {
 
                     if (d != x && Painel_Itens.listModel_Item_Almoco.get(x).isSelected) {
+
                         Desabilitar_Habilitar_Botoes desabilitar = new Desabilitar_Habilitar_Botoes();
                         desabilitar.Desabilitar_BotoesAlmoco(Painel_Itens.listModel_Item_Almoco.get(d));
                     }
 
                     if (d != x && !Painel_Itens.listModel_Item_Almoco.get(x).isSelected) {
+
                         Desabilitar_Habilitar_Botoes desabilitar = new Desabilitar_Habilitar_Botoes();
                         desabilitar.Habilitar_BotoesAlmoco(Painel_Itens.listModel_Item_Almoco.get(d));
+
                     }
 
                     if (d == x && Painel_Itens.listModel_Item_Almoco.get(x).isSelected) {
 
-                        Objeto_Atendimento objetoAtendimento = new Botoes_Produtos()
-                                .AdicionarItensAlmoco(Painel_Itens.listModel_Item_Almoco, e, x, idPrato);
-
+                        Objeto_Atendimento objetoAtendimento = new Produtos_Disponiveis().Adicionar_Itens(Painel_Itens.listModel_Item_Almoco, e, x, idPrato, "", "Almoco");
                         list_ModelAtendimentos.add(objetoAtendimento);
-
-                        Painel_Itens.listModel_Item_Almoco.get(x).indice_atendimentoItem = list_ModelAtendimentos
-                                .size();
+                        Painel_Itens.listModel_Item_Almoco.get(x).indice_atendimentoItem = list_ModelAtendimentos.size();
 
                     }
 
                     if (d == x && !Painel_Itens.listModel_Item_Almoco.get(x).isSelected) {
 
                         int index = Painel_Itens.listModel_Item_Almoco.get(x).indice_atendimentoItem - 1;
-                        list_ModelAtendimentos.remove(Painel_Comanda.listModel_Atendimento.get(index));
-                        new Remover_ItemAtendimento(Painel_Comanda.listModel_Atendimento.get(index));
+                        list_ModelAtendimentos.remove(Painel_Comanda.list_ItensDoAtendimento.get(index));
+                        new Remover_ItemAtendimento(Painel_Comanda.list_ItensDoAtendimento.get(index));
                     }
 
                 }
@@ -167,12 +164,10 @@ public class Carregar_Botoes implements ActionListener {
                     Painel_Itens.listModel_Item_ItensAdicionais.get(x).isSelected = true;
 
                 if (Painel_Itens.listModel_Item_ItensAdicionais.get(x).isSelected) {
-                    Objeto_Atendimento objetoAtendimento = new Botoes_Produtos()
-                            .AdicionarItensAdicionais(Painel_Itens.listModel_Item_ItensAdicionais, e, x, idPrato);
+                    Objeto_Atendimento objetoAtendimento = new Produtos_Disponiveis().Adicionar_Itens(Painel_Itens.listModel_Item_ItensAdicionais, e, x, idPrato, "", "Itens Adicionais");
 
                     list_ModelAtendimentos.add(objetoAtendimento);
-                    Painel_Itens.listModel_Item_ItensAdicionais.get(x).indice_atendimentoItem = list_ModelAtendimentos
-                            .size();
+                    Painel_Itens.listModel_Item_ItensAdicionais.get(x).indice_atendimentoItem = list_ModelAtendimentos.size();
                     Painel_Itens.listModel_Item_ItensAdicionais.get(x).btn_item.setBackground(Color.orange);
 
                 }
@@ -189,8 +184,10 @@ public class Carregar_Botoes implements ActionListener {
         if (e.getSource() == btn_Enviar) {
 
             String observacao = Painel_Itens.tTextField_Observacoes.getText();
+            
+            List<Objeto_Item> objetoItem_Observacao = new ArrayList<Objeto_Item>();
 
-            Objeto_Atendimento objetoAtendimento = new Botoes_Produtos().Inserir_Observacao(observacao, idPrato);
+            Objeto_Atendimento objetoAtendimento = new Produtos_Disponiveis().Adicionar_Itens(objetoItem_Observacao, e, 0, idPrato,observacao, "Observacao");
 
             list_ModelAtendimentos.add(objetoAtendimento);
 
@@ -205,15 +202,18 @@ public class Carregar_Botoes implements ActionListener {
     public void LiberarItemsParaNovoPrato() {
 
         for (int x = 0; x < Painel_Itens.listModel_Item_ItensAdicionais.size(); x++) {
+
             Painel_Itens.listModel_Item_ItensAdicionais.get(x).btn_item.setBackground(new Color(255, 238, 180));
             Painel_Itens.listModel_Item_ItensAdicionais.get(x).isSelected = false;
 
         }
 
         for (int x = 0; x < Painel_Itens.listModel_Item_Almoco.size(); x++) {
+
             Desabilitar_Habilitar_Botoes desabilitar = new Desabilitar_Habilitar_Botoes();
             desabilitar.Habilitar_BotoesAlmoco(Painel_Itens.listModel_Item_Almoco.get(x));
             Painel_Itens.listModel_Item_Almoco.get(x).isSelected = false;
+
         }
 
         list_ModelAtendimentos.clear();

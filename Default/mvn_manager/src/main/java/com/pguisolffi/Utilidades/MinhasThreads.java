@@ -34,10 +34,10 @@ public class MinhasThreads extends Thread {
         this.isThreadAtivada = mesaModel.isThreadActive;
         this.indice = indice;
         Thread.currentThread().setName(String.valueOf(indice));
-        Painel_Mesa.listModelsMesas.get(indice).threadDuracao = Thread.currentThread();
+        Painel_Mesa.list_ObjetoMesa.get(indice).threadDuracao = Thread.currentThread();
         start();
         String estado = (mesaModel.threadDuracao.getState()).toString();
-        String nome = Painel_Mesa.listModelsMesas.get(indice).threadDuracao.getName();
+        String nome = Painel_Mesa.list_ObjetoMesa.get(indice).threadDuracao.getName();
 
     }
 

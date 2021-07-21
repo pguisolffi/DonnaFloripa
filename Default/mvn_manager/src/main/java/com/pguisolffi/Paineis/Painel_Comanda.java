@@ -41,11 +41,13 @@ public class Painel_Comanda extends JPanel implements ActionListener {
     JButton btn_Impressora, btn_Salvar;
     JScrollPane scrollComanda;
 
-    public static List<Objeto_Atendimento> listModel_Atendimento;
+    public static List<Objeto_Atendimento> list_ItensDoAtendimento;
+    public static List<Objeto_Atendimento> list_RemoverItensAtendimento;
 
     public Painel_Comanda(Objeto_Mesa mesaModel) {
 
-        listModel_Atendimento = new ArrayList<Objeto_Atendimento>();
+        list_ItensDoAtendimento = new ArrayList<Objeto_Atendimento>();
+        list_RemoverItensAtendimento = new ArrayList<Objeto_Atendimento>();
 
         numeroMesaAtual = mesaModel.numero;
         pPanel_EspacoDireito = new JPanel();
@@ -161,10 +163,9 @@ public class Painel_Comanda extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn_Salvar) {
-
-            Botao_SalvarComanda salvar = new Botao_SalvarComanda();
+            
             try {
-                salvar.GravarComanda(listModel_Atendimento, numeroMesaAtual);
+                new Botao_SalvarComanda().GravarComanda(list_ItensDoAtendimento, numeroMesaAtual, list_RemoverItensAtendimento);
             } catch (InterruptedException | ExecutionException | IOException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();

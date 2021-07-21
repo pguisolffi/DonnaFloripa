@@ -13,6 +13,7 @@ import java.util.concurrent.ExecutionException;
 
 import com.pguisolffi.Paineis.Painel_Delivery;
 import com.pguisolffi.Paineis.Painel_Mesa;
+import com.pguisolffi.Utilidades.Globals;
 import com.pguisolffi.sgbd.Bd_get;
 import com.pguisolffi.sgbd.InitializeBd;
 import com.pguisolffi.Objetos.Objeto_Item;
@@ -33,6 +34,9 @@ public class Tela_Principal extends JFrame {
 
 		listItemModels_Almoco = new Bd_get().Get_Almoco();
 		listItemModels_ItensAdicionais = new Bd_get().Get_ItensAdicionais();
+
+		Globals globals = new Globals();
+		globals.numeroPedido = new Bd_get().get_MaxPedido();
 
 		ImageIcon imgdf = new ImageIcon(
 				"C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/DonnaFloripa.png");

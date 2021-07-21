@@ -14,8 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import com.pguisolffi.Acoes.Carregar_ItensAtendimento;
-import com.pguisolffi.Objetos.Objeto_Atendimento;
 import com.pguisolffi.Objetos.Objeto_Item;
 import com.pguisolffi.Objetos.Objeto_Mesa;
 import com.pguisolffi.Paineis.Painel_Comanda;
@@ -41,16 +39,12 @@ public class Tela_AddItens {
     Objeto_Mesa mesaModel;
     // bd_get bdGet = new bd_get();
 
-    public Tela_AddItens(Objeto_Mesa objMesa, List<Objeto_Atendimento> list_atendimentosModels)
-            throws InterruptedException, ExecutionException, IOException {
+    public Tela_AddItens(Objeto_Mesa objMesa) throws InterruptedException, ExecutionException, IOException {
 
         mesaModel = objMesa;
         fSelecaoItens = new JFrame();
         tGuias = new JTabbedPane();
         pPanel_guiaAlmoco = new JPanel();
-
-        listItemModels_Almoco = new Bd_get().Get_Almoco();
-        listItemModels_ItensAdicionais = new Bd_get().Get_ItensAdicionais();
 
         tGuias.setTabPlacement(JTabbedPane.LEFT);
         fSelecaoItens.add(tGuias, BorderLayout.CENTER);
@@ -58,15 +52,13 @@ public class Tela_AddItens {
         pPanel_guiaAlmoco.setLayout(new BoxLayout(pPanel_guiaAlmoco, BoxLayout.LINE_AXIS));
 
         Painel_Comanda painel_Comanda = new Painel_Comanda(mesaModel);
+
+        
+        listItemModels_Almoco = new Bd_get().Get_Almoco();
+        listItemModels_ItensAdicionais = new Bd_get().Get_ItensAdicionais();
         Painel_Itens painel_Itens = new Painel_Itens(listItemModels_Almoco, listItemModels_ItensAdicionais);
 
-        if (!list_atendimentosModels.isEmpty()) {
-            new Carregar_ItensAtendimento(list_atendimentosModels);
-        }
-
-        pPanel_guiaAlmoco.add(painel_Itens.pPainel_PrincipalPratos);
-        pPanel_guiaAlmoco.add(painel_Comanda.pPanel_EspacoDireito);
-
+        //Adiciona as Abas no Frame de Itens
         tGuias.addTab("Almoço", pPanel_guiaAlmoco);
         tGuias.setBackgroundAt(0, Color.orange);
         tGuias.addTab("Bebidas", new JPanel());
@@ -79,6 +71,9 @@ public class Tela_AddItens {
         tGuias.setForegroundAt(3, Color.white);
         tGuias.addTab("Salgados", new JPanel());
         tGuias.setBackgroundAt(4, Color.orange);
+
+        pPanel_guiaAlmoco.add(painel_Itens.pPainel_PrincipalPratos);
+        pPanel_guiaAlmoco.add(painel_Comanda.pPanel_EspacoDireito);
 
         fSelecaoItens.setSize(1000, 800);
         fSelecaoItens.setResizable(false);

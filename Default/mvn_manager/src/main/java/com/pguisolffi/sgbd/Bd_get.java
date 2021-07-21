@@ -80,6 +80,7 @@ public class Bd_get {
             Objeto_Atendimento atendimento_Model = new Objeto_Atendimento(0, 0, 0, null, null, null, null, null, false,
                     0, null, null, null, null, 0, 0, null, null, null);
             atendimento_Model.cdItem = Integer.parseInt(document.getData().get("cdItem").toString());
+            atendimento_Model.horaInicioAtendimento = document.getData().get("dtInicio").toString();
             atendimento_Model.sDescricao = document.getData().get("Descricao").toString();
             atendimento_Model.sTipo = document.getData().get("tipo").toString();
             atendimento_Model.idPratoCompleto = document.getData().get("idPratoCompleto").toString();
@@ -107,6 +108,24 @@ public class Bd_get {
 
         for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
             maxId = Integer.parseInt(document.getData().get("nuSeqItem").toString());
+        }
+
+        return maxId;
+    }
+
+    public int get_MaxPedido() throws InterruptedException, ExecutionException, IOException {
+
+        int maxId = 0;
+        InitializeBd ini = new InitializeBd();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference baseAtendimento = db.collection("Atendimento");
+        com.google.cloud.firestore.Query query = baseAtendimento.orderBy("nuSeqItem", Direction.DESCENDING).limit(1);
+
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+
+        for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
+            maxId = Integer.parseInt(document.getData().get("pedido").toString());
+            System.out.println(maxId);
         }
 
         return maxId;

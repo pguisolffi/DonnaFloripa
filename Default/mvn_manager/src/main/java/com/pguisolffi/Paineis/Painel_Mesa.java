@@ -16,11 +16,14 @@ import java.util.concurrent.ExecutionException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import com.pguisolffi.Configuracoes;
+import com.pguisolffi.Acoes.BarraCircularDeProgresso_gif;
+import com.pguisolffi.Acoes.Carregar_ItensAtendimento;
 import com.pguisolffi.Objetos.Objeto_Atendimento;
 import com.pguisolffi.Objetos.Objeto_Mesa;
 import com.pguisolffi.Telas.Tela_AddItens;
@@ -47,7 +50,7 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 	Boolean duracaoAtivada;
 	Thread threadDuracao;
 
-	public static List<Objeto_Mesa> listModelsMesas = new ArrayList<Objeto_Mesa>();
+	public static List<Objeto_Mesa> list_ObjetoMesa = new ArrayList<Objeto_Mesa>();
 
 	// private List<JLabel> mesas;
 	public static JButton botaoAddMesa;
@@ -56,7 +59,7 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 	public static int colunasPainelMesas = 5, linhasPainelMesas = 1;
 
 	int qtde_mesas = Configuracoes.qtde_mesas;
-	List<Objeto_Atendimento> list_modelsAtendimentos;
+	List<Objeto_Atendimento> list_ObjetosAtendimentos;
 
 	public Painel_Mesa() {
 
@@ -129,7 +132,7 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 
 			painel_mesas.add(mesaModel.mesa);
 			lista_mesas_painel.add(mesaModel.mesa);
-			listModelsMesas.add(mesaModel);
+			list_ObjetoMesa.add(mesaModel);
 
 			mesaModel.btnPlay.addActionListener(this);
 			mesaModel.btnEye.addActionListener(this);
@@ -153,47 +156,43 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 		}
 
 		// Iniciar "CONSUMINDO"
-		for (int x = 0; x < Painel_Mesa.listModelsMesas.size(); x++) {
+		for (int x = 0; x < Painel_Mesa.list_ObjetoMesa.size(); x++) {
 
-			if (e.getSource() == Painel_Mesa.listModelsMesas.get(x).btnPlay) {
+			if (e.getSource() == Painel_Mesa.list_ObjetoMesa.get(x).btnPlay) {
 
-				Painel_Mesa.listModelsMesas.get(x).corStatus.setBackground(Color.blue);
-				Painel_Mesa.listModelsMesas.get(x).isThreadActive = false;
-				Painel_Mesa.listModelsMesas.get(x).threadDuracao.interrupt();
+				Painel_Mesa.list_ObjetoMesa.get(x).corStatus.setBackground(Color.blue);
+				Painel_Mesa.list_ObjetoMesa.get(x).isThreadActive = false;
+				Painel_Mesa.list_ObjetoMesa.get(x).threadDuracao.interrupt();
 
 			}
 		}
 
 		// Inciar o Atendimento (Mesa)
-		for (int x = 0; x < Painel_Mesa.listModelsMesas.size(); x++) {
+		for (int x = 0; x < Painel_Mesa.list_ObjetoMesa.size(); x++) {
 
-			if (e.getSource() == Painel_Mesa.listModelsMesas.get(x).btnAdd) {
+			if (e.getSource() == Painel_Mesa.list_ObjetoMesa.get(x).btnAdd) {
 
 				Date date = new Date();
 				SimpleDateFormat formatoHoraMinuto = new SimpleDateFormat("HH:mm");
-				Painel_Mesa.listModelsMesas.get(x).lentrada
-						.setText("    " + formatoHoraMinuto.format(date).toString() + "    ");
-				Painel_Mesa.listModelsMesas.get(x).entrada = date.toString();
-				Painel_Mesa.listModelsMesas.get(x).corStatus.setBackground(Color.orange);
-				Painel_Mesa.listModelsMesas.get(x).interiorMesa.remove(Painel_Mesa.listModelsMesas.get(x).btnAdd);
-				Painel_Mesa.listModelsMesas.get(x).interiorMesa.add(Painel_Mesa.listModelsMesas.get(x).btnPlay,
-						BorderLayout.LINE_START);
-				Painel_Mesa.listModelsMesas.get(x).interiorMesa.add(Painel_Mesa.listModelsMesas.get(x).btnEye,
-						BorderLayout.CENTER);
-				Painel_Mesa.listModelsMesas.get(x).interiorMesa.add(Painel_Mesa.listModelsMesas.get(x).lentrada,
-						BorderLayout.LINE_END);
-				Painel_Mesa.listModelsMesas.get(x).mesa.add(Painel_Mesa.listModelsMesas.get(x).lduracao,
-						BorderLayout.PAGE_END);
-				Painel_Mesa.listModelsMesas.get(x).isThreadActive = true;
 
-				new MinhasThreads(Painel_Mesa.listModelsMesas.get(x), x);
+				Painel_Mesa.list_ObjetoMesa.get(x).lentrada.setText("    " + formatoHoraMinuto.format(date).toString() + "    ");
+				Painel_Mesa.list_ObjetoMesa.get(x).entrada = date.toString();
+				Painel_Mesa.list_ObjetoMesa.get(x).corStatus.setBackground(Color.orange);
+				Painel_Mesa.list_ObjetoMesa.get(x).interiorMesa.remove(Painel_Mesa.list_ObjetoMesa.get(x).btnAdd);
+				Painel_Mesa.list_ObjetoMesa.get(x).interiorMesa.add(Painel_Mesa.list_ObjetoMesa.get(x).btnPlay,BorderLayout.LINE_START);
+				Painel_Mesa.list_ObjetoMesa.get(x).interiorMesa.add(Painel_Mesa.list_ObjetoMesa.get(x).btnEye,BorderLayout.CENTER);
+				Painel_Mesa.list_ObjetoMesa.get(x).interiorMesa.add(Painel_Mesa.list_ObjetoMesa.get(x).lentrada,BorderLayout.LINE_END);
+				Painel_Mesa.list_ObjetoMesa.get(x).mesa.add(Painel_Mesa.list_ObjetoMesa.get(x).lduracao,BorderLayout.PAGE_END);
+				Painel_Mesa.list_ObjetoMesa.get(x).isThreadActive = true;
+
+				new MinhasThreads(Painel_Mesa.list_ObjetoMesa.get(x), x);
 
 				Globals globals = new Globals();
 				globals.numeroPedido++;
 
-				list_modelsAtendimentos = new ArrayList<Objeto_Atendimento>();
+				list_ObjetosAtendimentos = new ArrayList<Objeto_Atendimento>();
 				try {
-					new Tela_AddItens(Painel_Mesa.listModelsMesas.get(x), list_modelsAtendimentos);
+					new Tela_AddItens(Painel_Mesa.list_ObjetoMesa.get(x));
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -210,22 +209,29 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 		}
 
 		// Visualizar ítens da mesa (botão Eye)
-		for (int x = 0; x < Painel_Mesa.listModelsMesas.size(); x++) {
+		for (int x = 0; x < Painel_Mesa.list_ObjetoMesa.size(); x++) {
 
-			if (e.getSource() == Painel_Mesa.listModelsMesas.get(x).btnEye) {
+			if (e.getSource() == Painel_Mesa.list_ObjetoMesa.get(x).btnEye) {
 
-				list_modelsAtendimentos = new ArrayList<Objeto_Atendimento>(list_modelsAtendimentos);
+				list_ObjetosAtendimentos = new ArrayList<Objeto_Atendimento>(list_ObjetosAtendimentos);
 
 				try {
-					list_modelsAtendimentos = new Bd_get().Get_ItensAtendimento(x + 1);
+					list_ObjetosAtendimentos = new Bd_get().Get_ItensAtendimento(x + 1);
 				} catch (InterruptedException | ExecutionException | IOException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
 
 				try {
-					new Tela_AddItens(Painel_Mesa.listModelsMesas.get(x), list_modelsAtendimentos);
+
+
+					if (!list_ObjetosAtendimentos.isEmpty()) {
+					new Tela_AddItens(Painel_Mesa.list_ObjetoMesa.get(x));
+					BarraCircularDeProgresso_gif barraCircular = new BarraCircularDeProgresso_gif();
+					new Carregar_ItensAtendimento(list_ObjetosAtendimentos);
+					}
 				} catch (InterruptedException | ExecutionException | IOException e1) {
+					JOptionPane.showMessageDialog(null,"Não há ítens nessa Mesa");
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
