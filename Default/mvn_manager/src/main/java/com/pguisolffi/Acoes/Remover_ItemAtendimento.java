@@ -4,25 +4,18 @@ import com.pguisolffi.Objetos.Objeto_Atendimento;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.text.NumberFormat;
 import java.util.Arrays;
-import java.util.Locale;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.swing.JPanel;
 
 import com.pguisolffi.Paineis.Painel_Comanda;
-import com.pguisolffi.sgbd.Bd_Delete;
 
 public class Remover_ItemAtendimento {
 
-    String idPrato;
-    NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
-
+ 
     public Remover_ItemAtendimento(Objeto_Atendimento objeto_Atendimento) {
 
-        idPrato = objeto_Atendimento.idPratoCompleto;
+        //idPrato = objeto_Atendimento.idPratoCompleto;
 
         //Contar a quantidade de ìtens no Panel do Prato
         for (int x = 0; x < Adicionar_ItemAtendimento.List_Panels_de_PratosCompletos.get(0).getParent()
@@ -54,16 +47,11 @@ public class Remover_ItemAtendimento {
                         panelPratoCompleto.remove(objeto_Atendimento.btn_remover);
                 }
                 RedimensionarAltura(Painel_Comanda.painelItensDaComanda);
+                
             }
         }
 
-        Stream<Objeto_Atendimento> filtered = Painel_Comanda.list_ItensDoAtendimento.stream()
-                .filter(o -> o.fValorItem > 0);
-        double soma = filtered.collect(Collectors.summingDouble(o -> o.fValorItem));
-
-        Painel_Comanda.lTotalGeral.setText("Total Geral:  " + format.format(soma));
-
-        Painel_Comanda.pPanel_EspacoDireito.updateUI();
+        
     }
 
     public void Insere_Na_ListaDeRemocao(Objeto_Atendimento objeto_Atendimento){
@@ -72,13 +60,15 @@ public class Remover_ItemAtendimento {
 
             if (Painel_Comanda.list_ItensDoAtendimento.get(f).idPratoCompleto.equals(objeto_Atendimento.idPratoCompleto)) {
 
+                if (!Painel_Comanda.list_RemoverItensAtendimento.contains(Painel_Comanda.list_ItensDoAtendimento.get(f))){
                 try {
                     Painel_Comanda.list_RemoverItensAtendimento.add(Painel_Comanda.list_ItensDoAtendimento.get(f));
                 } catch (Exception e) {
                     //TODO: handle exception
-                }    
+                }    }
                 
             }
+            new Atualizar_Valor_Comanda();
         }
     }
 

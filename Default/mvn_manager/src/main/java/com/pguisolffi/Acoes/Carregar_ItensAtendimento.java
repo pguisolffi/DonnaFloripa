@@ -49,12 +49,12 @@ public class Carregar_ItensAtendimento implements ActionListener {
 
             for (int d = 0; d < list_AtendimentosModels.size(); d++) {
                 
-                if (list_AtendimentosModels.get(d).idPratoCompleto.equals(QtdePratosNoAtendimento.get(Y))) {
+                if ((QtdePratosNoAtendimento.get(Y).contains(list_AtendimentosModels.get(d).idPratoCompleto))) {
 
                     botesConstrutor btnsMesas = new botesConstrutor();
 
                     list_AtendimentosModels.get(d).lDescricao = new JLabel(list_AtendimentosModels.get(d).sDescricao,JLabel.RIGHT);
-                    list_AtendimentosModels.get(d).lValorItem = new JLabel(String.valueOf(list_AtendimentosModels.get(d).fValorItem), JLabel.CENTER);
+                    list_AtendimentosModels.get(d).lValorItem = new JLabel(format.format(list_AtendimentosModels.get(d).fValorItem), JLabel.CENTER);
                     list_AtendimentosModels.get(d).textObservacao = list_AtendimentosModels.get(d).sTipo.equals("Observacao") ? new JTextArea(list_AtendimentosModels.get(d).sDescricao) : null;
                     list_AtendimentosModels.get(d).btn_remover = btnsMesas.removeButton;
                     list_AtendimentosModels.get(d).lDescricao.setFont(new Font("Courier", Font.BOLD,list_AtendimentosModels.get(d).sDescricao.equals("Almoco") ? 14 : 11));
@@ -74,6 +74,8 @@ public class Carregar_ItensAtendimento implements ActionListener {
             new Adicionar_ItemAtendimento(pratoCompleto);
         }
 
+        new Atualizar_Valor_Comanda();
+
     }
 
     // AÇÃO DO BOTÃO REMOVER
@@ -84,6 +86,7 @@ public class Carregar_ItensAtendimento implements ActionListener {
             if (e.getSource() == Painel_Comanda.list_ItensDoAtendimento.get(x).btn_remover) {
 
                 Painel_Comanda.list_RemoverItensAtendimento.add(Painel_Comanda.list_ItensDoAtendimento.get(x));
+                new Atualizar_Valor_Comanda();
 
                 new Remover_ItemAtendimento(Painel_Comanda.list_ItensDoAtendimento.get(x));
 

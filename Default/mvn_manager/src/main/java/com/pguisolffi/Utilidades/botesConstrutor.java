@@ -21,6 +21,8 @@ public class botesConstrutor {
         public JButton impressoraButton;
         public JButton addItemButton;
 
+        public static ImageIcon finishIcon;
+
         public botesConstrutor() {
 
                 ImageIcon imgeye = new ImageIcon(
@@ -73,6 +75,12 @@ public class botesConstrutor {
                                 "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/transfer.png");
                 Image imgFowardnew = imgFoward.getImage().getScaledInstance(50, 32, Image.SCALE_DEFAULT);
                 ImageIcon transferIcon = new ImageIcon(imgFowardnew);
+
+                ImageIcon imgFinish = new ImageIcon(
+                "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/finish.png");
+                Image imgFinishnew = imgFinish.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+                finishIcon = new ImageIcon(imgFinishnew);
+
 
                 // BOTÕES da MESA
                 PlayButton = new JButton("");

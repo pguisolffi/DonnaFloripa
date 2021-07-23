@@ -4,8 +4,6 @@ import java.awt.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -78,13 +76,7 @@ public class Produtos_Disponiveis implements ActionListener {
             modelAtendimento.textObservacao.setLineWrap(true);
             modelAtendimento.textObservacao.setForeground(Color.BLUE);
 
-            Stream<Objeto_Atendimento> filtered = Painel_Comanda.list_ItensDoAtendimento.stream()
-                    .filter(o -> o.fValorItem > 0);
-            double soma = filtered.collect(Collectors.summingDouble(o -> o.fValorItem));
-
-            Painel_Comanda.lTotalGeral.setText("Total Geral:  " + format.format(soma));
-
-            Painel_Comanda.pPanel_EspacoDireito.updateUI();
+            new Atualizar_Valor_Comanda();
         }
 
         Painel_Comanda.list_ItensDoAtendimento.add(modelAtendimento);

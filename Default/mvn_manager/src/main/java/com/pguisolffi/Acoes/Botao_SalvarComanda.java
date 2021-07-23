@@ -21,16 +21,13 @@ public class Botao_SalvarComanda {
 
             for (int y = 0; y < list_ItensParaRemover.size(); y++) {
 
+                //Remove do Banco de Dado
+                new Bd_Delete().delete_AtendimentoItem(String.valueOf(list_ItensParaRemover.get(y).pedido + "Sq"+ list_ItensParaRemover.get(y).nuSeqItem));
+
                 //Remove da Principal lista da Comanda
                 Painel_Comanda.list_ItensDoAtendimento.remove(list_ItensParaRemover.get(y));
+                Painel_Comanda.list_RemoverItensAtendimento.remove(list_ItensParaRemover.get(y));
 
-                //Remove do Banco de Dados
-                if (list_ItensParaRemover.get(y).idPratoCompleto.equals(list_ItensParaRemover.get(y).idPratoCompleto)) {
-
-                        Bd_Delete bd_delete = new Bd_Delete();
-                        bd_delete.delete_AtendimentoItem(String.valueOf(Painel_Comanda.list_ItensDoAtendimento.get(y)
-                        .pedido + "Sq"+ Painel_Comanda.list_ItensDoAtendimento.get(y).nuSeqItem));
-                }
             }
 
         }

@@ -29,6 +29,8 @@ public class Preparar_PratoCompleto {
 
         for (int x = 0; x < list_Atend.size(); x++) {
             if (list_Atend.get(x).sTipo.equals("Almoco")) {
+                list_Atend.get(x).lDescricao.setFont(new Font("Courier", Font.BOLD, 14 ));
+                list_Atend.get(x).lValorItem.setFont(new Font("Courier", Font.BOLD, 14 ));
                 c.fill = GridBagConstraints.HORIZONTAL;
                 c.gridx = coluna;
                 c.gridy = linha;

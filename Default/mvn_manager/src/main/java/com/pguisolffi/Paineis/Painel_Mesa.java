@@ -160,6 +160,8 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 
 			if (e.getSource() == Painel_Mesa.list_ObjetoMesa.get(x).btnPlay) {
 
+
+				Painel_Mesa.list_ObjetoMesa.get(x).btnPlay.setIcon(botesConstrutor.finishIcon);
 				Painel_Mesa.list_ObjetoMesa.get(x).corStatus.setBackground(Color.blue);
 				Painel_Mesa.list_ObjetoMesa.get(x).isThreadActive = false;
 				Painel_Mesa.list_ObjetoMesa.get(x).threadDuracao.interrupt();
