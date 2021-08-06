@@ -46,6 +46,8 @@ public class Remover_ItemAtendimento {
                         panelPratoCompleto.remove(objeto_Atendimento.lValorItem);
                         panelPratoCompleto.remove(objeto_Atendimento.btn_remover);
                 }
+                new Atualizar_Valor_Comanda();
+                Painel_Comanda.pPanel_EspacoDireito.updateUI();
                 RedimensionarAltura(Painel_Comanda.painelItensDaComanda);
                 
             }

@@ -8,7 +8,8 @@ import javax.swing.JPanel;
 
 public class Objeto_Mesa {
 
-	public int numero;
+	public int numero; 
+	public int pedido;
 	public String status, observacao, duracao, entrada;
 	public JLabel lduracao, lnomeMesa, lentrada;
 	public JPanel mesa, corStatus, interiorMesa;
@@ -16,12 +17,13 @@ public class Objeto_Mesa {
 	public JButton btnPlay, btnEye, btnAdd;
 	public Thread threadDuracao;
 
-	public Objeto_Mesa(int _numero, String _status, String _observacao, JLabel _lduracao, JPanel _mesa,
+	public Objeto_Mesa(int _numero,int _pedido, String _status, String _observacao, JLabel _lduracao, JPanel _mesa,
 			JPanel _corStatus, JPanel _interiorMesa, JButton _btnPlay, JButton _btnEye, JButton _btnAdd,
 			JLabel _lnomeMesa, JLabel _lentrada, String _duracao, String _entrada, Boolean _isThreadActive,
 			Thread _threadDuracao) {
 
 		this.numero = _numero;
+		this.pedido = _pedido;
 		this.status = _status;
 		this.observacao = _observacao;
 		this.lduracao = _lduracao;

@@ -22,17 +22,20 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Tela_Principal extends JFrame {
-	// LISTA DE OBJETOS DO TIPO PAINEL_MESA
+
+	public static JFrame Frame_TelaPrincipal;
 
 	public List<Objeto_Item> listItemModels_Almoco = new ArrayList<Objeto_Item>();
 	public List<Objeto_Item> listItemModels_ItensAdicionais = new ArrayList<Objeto_Item>();
 
 	public Tela_Principal() throws IOException, InterruptedException, ExecutionException {
 		// initComponets();
+		Frame_TelaPrincipal = new JFrame();
+		Frame_TelaPrincipal.setSize(1024, 768);
 
 		new InitializeBd();
 
-		listItemModels_Almoco = new Bd_get().Get_Almoco();
+		listItemModels_Almoco = new Bd_get().Get_Produtos();
 		listItemModels_ItensAdicionais = new Bd_get().Get_ItensAdicionais();
 
 		Globals globals = new Globals();
@@ -92,21 +95,23 @@ public class Tela_Principal extends JFrame {
 		panelBotaoInserir.add(panel_Mesa.botaoAddMesa);
 		panelBotaoInserir.setAlignmentY(JPanel.TOP_ALIGNMENT);
 
-		this.setLayout(new BorderLayout());
-		this.setTitle("DONNA FLORIPA");
-		this.setIconImage(imgdf.getImage());
-		this.getContentPane().setBackground(Color.ORANGE);
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		
+
+		Frame_TelaPrincipal.setLayout(new BorderLayout());
+		Frame_TelaPrincipal.setTitle("DONNA FLORIPA");
+		Frame_TelaPrincipal.setIconImage(imgdf.getImage());
+		Frame_TelaPrincipal.getContentPane().setBackground(Color.ORANGE);
+		Frame_TelaPrincipal.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		// this.setSize(1024, 768);
-		this.getContentPane().add(labelTituloPainelPrincipal, BorderLayout.PAGE_START);
-		this.getContentPane().add(panelDasMesas, BorderLayout.CENTER);
-		this.getContentPane().add(panelBotaoInserir, BorderLayout.LINE_START);
-		this.getContentPane().add(panelDasDelivery, BorderLayout.LINE_END);
-		this.getContentPane().add(logoDonnaFloripa, BorderLayout.PAGE_END);
-		this.pack();
-		this.setVisible(true);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.show(); // MOSTRA O FRAME
+		Frame_TelaPrincipal.getContentPane().add(labelTituloPainelPrincipal, BorderLayout.PAGE_START);
+		Frame_TelaPrincipal.getContentPane().add(panelDasMesas, BorderLayout.CENTER);
+		Frame_TelaPrincipal.getContentPane().add(panelBotaoInserir, BorderLayout.LINE_START);
+		Frame_TelaPrincipal.getContentPane().add(panelDasDelivery, BorderLayout.LINE_END);
+		Frame_TelaPrincipal.getContentPane().add(logoDonnaFloripa, BorderLayout.PAGE_END);
+		Frame_TelaPrincipal.pack();
+		Frame_TelaPrincipal.setVisible(true);
+		Frame_TelaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Frame_TelaPrincipal.show(); // MOSTRA O FRAME
 
 	}
 

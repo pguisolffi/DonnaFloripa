@@ -30,7 +30,7 @@ import javax.swing.JPanel;
 import com.pguisolffi.Objetos.Objeto_Atendimento;
 import com.pguisolffi.Objetos.Objeto_Mesa;
 import com.pguisolffi.Telas.Tela_Principal;
-import com.pguisolffi.Utilidades.MinhasThreads;
+import com.pguisolffi.Utilidades.MinhasThreadsMesa;
 
 public class App {
 
@@ -43,7 +43,8 @@ public class App {
         // update.get_MaxPedido();
         // update.Get_ItensAtendimento();
         // PainelPrincipal pp = new PainelPrincipal();
-        Tela_Principal tela_principal = new Tela_Principal();
+        new Tela_Principal();
+        //new Bd_get().get_MesasNãoFinalizadas();
         // MinhasThreads minha = new MinhasThreads("name da Thread");
 
     }

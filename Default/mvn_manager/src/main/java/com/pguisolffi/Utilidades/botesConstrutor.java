@@ -20,14 +20,20 @@ public class botesConstrutor {
         public JButton removeButton;
         public JButton impressoraButton;
         public JButton addItemButton;
+        public JButton finishAtendButton;
 
         public static ImageIcon finishIcon;
+        public static ImageIcon finishIconDelivery;
 
         public botesConstrutor() {
 
+                RedimensionarComplementos redim = new RedimensionarComplementos();
+                int largura_FramePrincipal = redim.Largura_FrameMesas();
+                int Altura_FramePrincipal = redim.Altura_FrameMesas();
+
                 ImageIcon imgeye = new ImageIcon(
                                 "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/Eye.png");
-                Image imgeeyenew = imgeye.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+                Image imgeeyenew = imgeye.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.06), (int)Math.round(Altura_FramePrincipal*0.06), Image.SCALE_DEFAULT);
                 ImageIcon imgEye = new ImageIcon(imgeeyenew);
 
                 ImageIcon imgeyeDelivery = new ImageIcon(
@@ -37,17 +43,17 @@ public class botesConstrutor {
 
                 ImageIcon imgadd = new ImageIcon(
                                 "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/add.png");
-                Image imgaddnew = imgadd.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+                Image imgaddnew = imgadd.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.06), (int)Math.round(Altura_FramePrincipal*0.06), Image.SCALE_DEFAULT);
                 ImageIcon imgAdd = new ImageIcon(imgaddnew);
 
                 ImageIcon imgconfirm = new ImageIcon(
                                 "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/confirm.png");
-                Image imgconfirmnew = imgconfirm.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+                Image imgconfirmnew = imgconfirm.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.06), (int)Math.round(Altura_FramePrincipal*0.06), Image.SCALE_DEFAULT);
                 ImageIcon imgConfirm = new ImageIcon(imgconfirmnew);
 
                 ImageIcon addMesa = new ImageIcon(
                                 "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/addmesa.png");
-                Image addMesanew = addMesa.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+                Image addMesanew = addMesa.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.06), (int)Math.round(Altura_FramePrincipal*0.06), Image.SCALE_DEFAULT);
                 ImageIcon add_mesa = new ImageIcon(addMesanew);
 
                 ImageIcon imgconfirmDelivery = new ImageIcon(
@@ -78,8 +84,11 @@ public class botesConstrutor {
 
                 ImageIcon imgFinish = new ImageIcon(
                 "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/finish.png");
-                Image imgFinishnew = imgFinish.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+                Image imgFinishnew = imgFinish.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.06), (int)Math.round(Altura_FramePrincipal*0.06), Image.SCALE_DEFAULT);
                 finishIcon = new ImageIcon(imgFinishnew);
+
+                Image imgFinishnewDelivey = imgFinish.getImage().getScaledInstance(21, 21, Image.SCALE_DEFAULT);
+                finishIconDelivery = new ImageIcon(imgFinishnewDelivey);
 
 
                 // BOTÕES da MESA
@@ -137,6 +146,11 @@ public class botesConstrutor {
                 addItemButton.setBackground(Color.ORANGE);
                 addItemButton.setBorderPainted(false);
                 addItemButton.setMargin(new Insets(0, 0, 0, 0));
+                finishAtendButton = new JButton("");
+                finishAtendButton.setIcon(finishIcon);
+                finishAtendButton.setBackground(Color.white);
+                finishAtendButton.setBorderPainted(false);
+                finishAtendButton.setMargin(new Insets(0, 0, 0, 0));
 
         }
 

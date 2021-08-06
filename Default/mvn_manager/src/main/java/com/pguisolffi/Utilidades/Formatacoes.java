@@ -5,7 +5,10 @@ import java.awt.*;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
+import com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Label;
+import com.pguisolffi.Objetos.Objeto_Atendimento;
 import com.pguisolffi.Objetos.Objeto_Mesa;
 
 public class Formatacoes {
@@ -30,6 +33,18 @@ public class Formatacoes {
         mesaModel.corStatus.setBackground(Color.green);
 
         mesaModel.mesa.setPreferredSize(new Dimension(200, 200));
+
+    }
+
+    public void Formatar_Labels_Comanda(Objeto_Atendimento objeto_Atendimento){
+
+        objeto_Atendimento.btn_remover.setHorizontalAlignment(SwingConstants.TRAILING);
+        objeto_Atendimento.btn_remover.setVerticalAlignment(SwingConstants.TOP);
+        objeto_Atendimento.lDescricao.setFont(new Font("Courier", Font.BOLD,objeto_Atendimento.sTipo.equals("Itens Adicionais") ? 11 : 14 ));
+        objeto_Atendimento.lValorItem.setFont(new Font("Courier", Font.BOLD,objeto_Atendimento.sTipo.equals("Itens Adicionais") ? 11 : 14 ));
+        objeto_Atendimento.lDescricao.setHorizontalAlignment(JLabel.LEFT);
+        objeto_Atendimento.lValorItem.setHorizontalAlignment(JLabel.RIGHT);
+
 
     }
 

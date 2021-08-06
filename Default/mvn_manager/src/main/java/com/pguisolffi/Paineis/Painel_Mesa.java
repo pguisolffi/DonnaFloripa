@@ -23,14 +23,20 @@ import javax.swing.ScrollPaneConstants;
 
 import com.pguisolffi.Configuracoes;
 import com.pguisolffi.Acoes.BarraCircularDeProgresso_gif;
+import com.pguisolffi.Acoes.Botoes_Mesa;
 import com.pguisolffi.Acoes.Carregar_ItensAtendimento;
 import com.pguisolffi.Objetos.Objeto_Atendimento;
+import com.pguisolffi.Objetos.Objeto_Delivery;
 import com.pguisolffi.Objetos.Objeto_Mesa;
 import com.pguisolffi.Telas.Tela_AddItens;
 import com.pguisolffi.Utilidades.Globals;
-import com.pguisolffi.Utilidades.MinhasThreads;
+import com.pguisolffi.Utilidades.MinhasThreadsMesa;
 import com.pguisolffi.Utilidades.botesConstrutor;
 import com.pguisolffi.sgbd.Bd_get;
+import com.pguisolffi.sgbd.Bd_update;
+
+//import org.apache.commons.lang3.ObjectUtils.Null;
+
 import com.pguisolffi.Utilidades.Formatacoes;
 
 public class Painel_Mesa extends JPanel implements ActionListener {
@@ -42,7 +48,7 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 	// List<Objeto_Atendimento> list_atendimentoModel;
 
 	// Patric
-	int indice, numero;
+	public int indice, numero;
 	String status = "Em Aberto", observacao, duracao, entrada;
 	JPanel table, corStatus, mesa, interiorMesa;
 	JLabel lduracao, lnomeMesa, lentrada;
@@ -61,7 +67,7 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 	int qtde_mesas = Configuracoes.qtde_mesas;
 	List<Objeto_Atendimento> list_ObjetosAtendimentos;
 
-	public Painel_Mesa() {
+	public Painel_Mesa() throws InterruptedException, ExecutionException, IOException {
 
 		// Objeto_Mesa mesaModel = new Objeto_Mesa(indice, status, observacao, table);
 		// INSTANCIAR OBJETOS
@@ -97,46 +103,38 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 
 	}
 
-	public void AdicionaMesa(int qtde) {
+	public void AdicionaMesa(int qtde) throws InterruptedException, ExecutionException, IOException {
 
-		for (int x = 0; x < qtde; x++) {
-			indice++;
-			float resto = (indice > 1 ? indice - 1 : 2) % 5;
+		Globals.mesasNaoFinalizadas = new Bd_get().get_MesasNãoFinalizadas();
 
-			if (resto == 0) {
-				linhasPainelMesas = linhasPainelMesas + 1;
-				painel_mesas.setLayout(new GridLayout(linhasPainelMesas, colunasPainelMesas, 15, 15));
+			for (int x = 0; x < qtde; x++) {
+
+				indice++;
+				float resto = (indice > 1 ? indice - 1 : 2) % 5;
+
+				if (resto == 0) {
+					linhasPainelMesas = linhasPainelMesas + 1;
+					painel_mesas.setLayout(new GridLayout(linhasPainelMesas, colunasPainelMesas, 15, 15));
+			}
+		
+			Painel_MesaVazia p_mesaVazia = new Painel_MesaVazia();
+			Objeto_Mesa mesaVazia = p_mesaVazia.Painel_MesaVazia(indice);
+
+			int mesaAtual = x+1;		
+
+			if(Globals.mesasNaoFinalizadas.contains(mesaAtual)){
+				mesaVazia.numero = mesaAtual;
+				mesaVazia.entrada = new Bd_get().get_DataInicioAtendimento(mesaAtual);
+				new Painel_MesaAtendIniciado(mesaVazia,true);
 			}
 
-			botesConstrutor btnsMesas = new botesConstrutor();
+			painel_mesas.add(mesaVazia.mesa);
+			lista_mesas_painel.add(mesaVazia.mesa);
+			list_ObjetoMesa.add(mesaVazia);
 
-			Objeto_Mesa mesaModel = new Objeto_Mesa(numero, status, observacao, lduracao, mesa, corStatus, interiorMesa,
-					btnPlay, btnEye, btnAdd, lnomeMesa, lentrada, duracao, entrada, duracaoAtivada, threadDuracao);
-
-			mesaModel.btnPlay = btnsMesas.ConfirmButton;
-			mesaModel.btnEye = btnsMesas.EyeButton;
-			mesaModel.btnAdd = btnsMesas.PlayButton;
-			mesaModel.numero = indice;
-			mesaModel.corStatus = new JPanel();
-			mesaModel.interiorMesa = new JPanel(new GridBagLayout());
-			mesaModel.lduracao = new JLabel();
-			mesaModel.lentrada = new JLabel();
-			mesaModel.lnomeMesa = new JLabel("Mesa " + indice);
-			mesaModel.mesa = new JPanel(new GridBagLayout());
-			Formatacoes format = new Formatacoes();
-			format.Formatar_ObjetoMesa(mesaModel);
-			mesaModel.mesa.add(mesaModel.corStatus, BorderLayout.PAGE_START);
-			mesaModel.interiorMesa.add(mesaModel.lnomeMesa, BorderLayout.PAGE_START);
-			mesaModel.interiorMesa.add(mesaModel.btnAdd, BorderLayout.CENTER);
-			mesaModel.mesa.add(mesaModel.interiorMesa, BorderLayout.CENTER);
-
-			painel_mesas.add(mesaModel.mesa);
-			lista_mesas_painel.add(mesaModel.mesa);
-			list_ObjetoMesa.add(mesaModel);
-
-			mesaModel.btnPlay.addActionListener(this);
-			mesaModel.btnEye.addActionListener(this);
-			mesaModel.btnAdd.addActionListener(this);
+			mesaVazia.btnPlay.addActionListener(this);
+			mesaVazia.btnEye.addActionListener(this);
+			mesaVazia.btnAdd.addActionListener(this);
 
 			painel_mesas_com_scroll.revalidate();
 		}
@@ -151,7 +149,12 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 		// Adicionar mesa na tela
 		if (e.getSource() == Painel_Mesa.botaoAddMesa) {
 
-			AdicionaMesa(1);
+			try {
+				AdicionaMesa(1);
+			} catch (InterruptedException | ExecutionException | IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 		}
 
@@ -159,54 +162,23 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 		for (int x = 0; x < Painel_Mesa.list_ObjetoMesa.size(); x++) {
 
 			if (e.getSource() == Painel_Mesa.list_ObjetoMesa.get(x).btnPlay) {
-
-
-				Painel_Mesa.list_ObjetoMesa.get(x).btnPlay.setIcon(botesConstrutor.finishIcon);
-				Painel_Mesa.list_ObjetoMesa.get(x).corStatus.setBackground(Color.blue);
-				Painel_Mesa.list_ObjetoMesa.get(x).isThreadActive = false;
-				Painel_Mesa.list_ObjetoMesa.get(x).threadDuracao.interrupt();
+				
+				try {
+					new Bd_update().BD_Update_Status_Atend_Mesa(Painel_Mesa.list_ObjetoMesa.get(x).numero, "Consumindo");
+					new Painel_MesaConsumindo(x);
+				} catch (InterruptedException | ExecutionException | IOException e1) {
+					e1.printStackTrace();
+				}			
 
 			}
 		}
 
 		// Inciar o Atendimento (Mesa)
 		for (int x = 0; x < Painel_Mesa.list_ObjetoMesa.size(); x++) {
-
 			if (e.getSource() == Painel_Mesa.list_ObjetoMesa.get(x).btnAdd) {
-
-				Date date = new Date();
-				SimpleDateFormat formatoHoraMinuto = new SimpleDateFormat("HH:mm");
-
-				Painel_Mesa.list_ObjetoMesa.get(x).lentrada.setText("    " + formatoHoraMinuto.format(date).toString() + "    ");
-				Painel_Mesa.list_ObjetoMesa.get(x).entrada = date.toString();
-				Painel_Mesa.list_ObjetoMesa.get(x).corStatus.setBackground(Color.orange);
-				Painel_Mesa.list_ObjetoMesa.get(x).interiorMesa.remove(Painel_Mesa.list_ObjetoMesa.get(x).btnAdd);
-				Painel_Mesa.list_ObjetoMesa.get(x).interiorMesa.add(Painel_Mesa.list_ObjetoMesa.get(x).btnPlay,BorderLayout.LINE_START);
-				Painel_Mesa.list_ObjetoMesa.get(x).interiorMesa.add(Painel_Mesa.list_ObjetoMesa.get(x).btnEye,BorderLayout.CENTER);
-				Painel_Mesa.list_ObjetoMesa.get(x).interiorMesa.add(Painel_Mesa.list_ObjetoMesa.get(x).lentrada,BorderLayout.LINE_END);
-				Painel_Mesa.list_ObjetoMesa.get(x).mesa.add(Painel_Mesa.list_ObjetoMesa.get(x).lduracao,BorderLayout.PAGE_END);
-				Painel_Mesa.list_ObjetoMesa.get(x).isThreadActive = true;
-
-				new MinhasThreads(Painel_Mesa.list_ObjetoMesa.get(x), x);
-
-				Globals globals = new Globals();
-				globals.numeroPedido++;
-
-				list_ObjetosAtendimentos = new ArrayList<Objeto_Atendimento>();
-				try {
-					new Tela_AddItens(Painel_Mesa.list_ObjetoMesa.get(x));
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ExecutionException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-				Painel_Mesa.painel_mesas_com_scroll.updateUI();
+				Globals.ehAtendimentoAntigo = false;
+				Globals.objMesaAtual = Painel_Mesa.list_ObjetoMesa.get(x);
+				new Botoes_Mesa().Botao_IniciarAtendimentoNaMesa(Painel_Mesa.list_ObjetoMesa.get(x),x);
 			}
 		}
 
@@ -215,17 +187,18 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 
 			if (e.getSource() == Painel_Mesa.list_ObjetoMesa.get(x).btnEye) {
 
-				list_ObjetosAtendimentos = new ArrayList<Objeto_Atendimento>(list_ObjetosAtendimentos);
+				Globals.ehAtendimentoAntigo = true;
+				
 
 				try {
-					list_ObjetosAtendimentos = new Bd_get().Get_ItensAtendimento(x + 1);
+					list_ObjetosAtendimentos = new Bd_get().Get_ItensAtendimentoMesas(x + 1);
+					Globals.nuseqItemAtual = new Bd_get().get_MaxNuSeq(list_ObjetosAtendimentos.get(0).pedido) + 1;
 				} catch (InterruptedException | ExecutionException | IOException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
 
 				try {
-
 
 					if (!list_ObjetosAtendimentos.isEmpty()) {
 					new Tela_AddItens(Painel_Mesa.list_ObjetoMesa.get(x));

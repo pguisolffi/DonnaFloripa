@@ -3,8 +3,11 @@ package com.pguisolffi.Paineis;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -15,13 +18,19 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import com.pguisolffi.Configuracoes;
+import com.pguisolffi.Acoes.Botoes_Delivery;
 import com.pguisolffi.Objetos.Objeto_Delivery;
+import com.pguisolffi.Utilidades.Globals;
 import com.pguisolffi.Utilidades.botesConstrutor;
+import com.pguisolffi.sgbd.Bd_get;
 
 public class Painel_Delivery extends JPanel implements ActionListener {
 
     // Patric
-    int numeroPedido, linhasGridPreparando = 1, linhasGridTransito = 1, linhasGridEntregas = 1;
+    public static int numeroPedido;
+    public static int linhasGridPreparando = 1;
+    public static int linhasGridTransito = 1;
+    public static int linhasGridEntregas = 1;
     String duracao, horaEntrada;
     List<JLabel> list_L_Duracao, list_L_numeroPedido, list_l_Editar;
     JLabel lduracao, lHoraEntrega, lFinalizar, liberar, lPreparando, lEmTransito, lUltimasEntregas, lTitulo, lNPedido;
@@ -33,19 +42,18 @@ public class Painel_Delivery extends JPanel implements ActionListener {
             painelTituloEntregas;
 
     // List<Objeto_Delivery> listaDeliveryModels = new ArrayList<Objeto_Delivery>();
-    List<Objeto_Delivery> listPreparando = new ArrayList<Objeto_Delivery>();
-    List<Objeto_Delivery> listEmTransito = new ArrayList<Objeto_Delivery>();
-    List<Objeto_Delivery> listUltimasEntregas = new ArrayList<Objeto_Delivery>();
+    public static List<Objeto_Delivery> listPreparando = new ArrayList<Objeto_Delivery>();
+    public static List<Objeto_Delivery> listEmTransito = new ArrayList<Objeto_Delivery>();
+    public static List<Objeto_Delivery> listUltimasEntregas = new ArrayList<Objeto_Delivery>();
 
-    JPanel painelPreparando_Grid = new JPanel(new GridLayout(linhasGridPreparando, 4));
-    JPanel painelTransito_Grid = new JPanel(new GridLayout(linhasGridTransito, 4));
-    JPanel painelEntregas_Grid = new JPanel(new GridLayout(linhasGridEntregas, 4));
+    public static JPanel painelPreparando_Grid = new JPanel(new GridLayout(linhasGridPreparando, 4));
+    public static JPanel painelTransito_Grid = new JPanel(new GridLayout(linhasGridTransito, 4));
+    public static JPanel painelEntregas_Grid = new JPanel(new GridLayout(linhasGridEntregas, 4));
 
     // private List<JLabel> mesas;
-
     int qtde_mesas = Configuracoes.qtde_mesas;
 
-    public Painel_Delivery() {
+    public Painel_Delivery() throws InterruptedException, ExecutionException, IOException {
 
         // INSTANCIANDO
         list_L_Duracao = new ArrayList<JLabel>();
@@ -147,9 +155,38 @@ public class Painel_Delivery extends JPanel implements ActionListener {
             painelPrincipal_Delivery.add(painelEntregas_Grid);
         }
 
+
+        List<Integer> Pedidos_deliverysPreparando = new Bd_get().get_Deliverys("Em Aberto");
+        List<Integer> Pedidos_deliverysEmTransito = new Bd_get().get_Deliverys("Em Transito");
+        List<Integer> Pedidos_deliverysEntregue = new Bd_get().get_Deliverys("Entregue");
+
+
+        if (!Pedidos_deliverysPreparando.isEmpty()){
+            for (int x = 0; x <Pedidos_deliverysPreparando.size();x++) {
+                Globals.ehAtendimentoAntigo = true;
+                new Botoes_Delivery().Preparando(Pedidos_deliverysPreparando.get(x));
+            }
+        }
+
+        if (!Pedidos_deliverysEmTransito.isEmpty()){
+            for (int x = 0; x <Pedidos_deliverysEmTransito.size();x++) {
+                Globals.ehAtendimentoAntigo = true;
+                new Botoes_Delivery().EmTransito(Pedidos_deliverysEmTransito.get(x));
+            }
+        }
+
+        if (!Pedidos_deliverysEntregue.isEmpty()){
+            Globals.ehAtendimentoAntigo = true;
+            for (int x = 0; x <Pedidos_deliverysEntregue.size();x++) {
+                new Botoes_Delivery().Entregue(Pedidos_deliverysEntregue.get(x));
+            }
+        }
+
+
+
+
         this.add(scrollDelivery);
 
-        // ADICIONA OS "ESCUTADORES"
         this.btnPlay.addActionListener(this);
 
     }
@@ -160,128 +197,11 @@ public class Painel_Delivery extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
 
+        //AO CLICAR NA MOTINHO E ENVIAR UM NOVO ATENDIMENTO
         if (e.getSource() == btnPlay) {
-
-            botesConstrutor btnsMesas = new botesConstrutor();
-            Objeto_Delivery deliveryModel = new Objeto_Delivery(numeroPedido, duracao, horaEntrada, lduracao, lNPedido,
-                    lHoraEntrega, btnPlay, btnEye, btnAdd);
-
-            linhasGridPreparando = linhasGridPreparando + 1;
-            painelPreparando_Grid.setLayout(new GridLayout(linhasGridPreparando, 4));
-            fit_Redimen_Heigth(painelPreparando_Grid);
-            deliveryModel.btnPlay = btnsMesas.ConfirmButtonDelivery;
-            deliveryModel.btnPlay.setAlignmentX(JButton.CENTER_ALIGNMENT);
-            deliveryModel.btnEye = btnsMesas.EyeButtonDelivery;
-            deliveryModel.btnEye.setAlignmentX(JButton.CENTER_ALIGNMENT);
-            deliveryModel.horaEntrada = "12:20";
-            deliveryModel.lduracao = new JLabel("06:00");
-            deliveryModel.lduracao.setHorizontalAlignment(JLabel.CENTER);
-            deliveryModel.nPedido = new JLabel("1112231");
-            deliveryModel.nPedido.setHorizontalAlignment(JLabel.CENTER);
-
-            painelPreparando_Grid.add(deliveryModel.nPedido);
-            painelPreparando_Grid.add(deliveryModel.btnPlay);
-            painelPreparando_Grid.add(deliveryModel.btnEye);
-            painelPreparando_Grid.add(deliveryModel.lduracao);
-
-            listPreparando.add(deliveryModel);
-
-            deliveryModel.btnPlay.addActionListener(this);
-            deliveryModel.btnEye.addActionListener(this);
-
-            painelPrincipal_Delivery.updateUI();
-
-        }
-
-        for (int x = 0; x < listPreparando.size(); x++) {
-
-            if (e.getSource() == listPreparando.get(x).btnPlay) {
-
-                botesConstrutor btnsMesas = new botesConstrutor();
-                linhasGridTransito = linhasGridTransito + 1;
-                painelTransito_Grid.setLayout(new GridLayout(linhasGridTransito, 4));
-
-                Objeto_Delivery deliveryModel = new Objeto_Delivery(numeroPedido, duracao, horaEntrada, lduracao,
-                        lNPedido, lHoraEntrega, btnPlay, btnEye, btnAdd);
-
-                deliveryModel.btnPlay = btnsMesas.ConfirmButtonDelivery;
-                deliveryModel.btnPlay.setAlignmentX(JButton.CENTER_ALIGNMENT);
-                deliveryModel.btnEye = btnsMesas.EyeButtonDelivery;
-                deliveryModel.btnEye.setAlignmentX(JButton.CENTER_ALIGNMENT);
-                deliveryModel.lduracao = listPreparando.get(x).lduracao;
-                deliveryModel.nPedido = listPreparando.get(x).nPedido;
-
-                painelTransito_Grid.add(deliveryModel.nPedido);
-                painelTransito_Grid.add(deliveryModel.btnPlay);
-                painelTransito_Grid.add(deliveryModel.btnEye);
-                painelTransito_Grid.add(deliveryModel.lduracao);
-
-                listEmTransito.add(deliveryModel);
-
-                fit_Redimen_Heigth(painelTransito_Grid);
-
-                linhasGridPreparando = linhasGridPreparando - 1;
-                painelPreparando_Grid.setLayout(new GridLayout(linhasGridPreparando, 4));
-
-                painelPreparando_Grid.remove(listPreparando.get(x).nPedido);
-                painelPreparando_Grid.remove(listPreparando.get(x).btnPlay);
-                painelPreparando_Grid.remove(listPreparando.get(x).btnEye);
-                painelPreparando_Grid.remove(listPreparando.get(x).lduracao);
-
-                fit_Redimen_Heigth(painelPreparando_Grid);
-
-                deliveryModel.btnPlay.addActionListener(this);
-                deliveryModel.btnEye.addActionListener(this);
-
-                painelPrincipal_Delivery.updateUI();
-
-            }
-        }
-
-        for (int x = 0; x < listEmTransito.size(); x++) {
-
-            if (e.getSource() == listEmTransito.get(x).btnPlay) {
-
-                botesConstrutor btnsMesas = new botesConstrutor();
-                linhasGridEntregas = linhasGridEntregas + 1;
-                painelEntregas_Grid.setLayout(new GridLayout(linhasGridEntregas, 4));
-
-                Objeto_Delivery deliveryModel = new Objeto_Delivery(numeroPedido, duracao, horaEntrada, lduracao,
-                        lNPedido, lHoraEntrega, btnPlay, btnEye, btnAdd);
-
-                deliveryModel.btnPlay = btnsMesas.ConfirmButtonDelivery;
-                deliveryModel.btnPlay.setAlignmentX(JButton.CENTER_ALIGNMENT);
-                deliveryModel.btnEye = btnsMesas.EyeButtonDelivery;
-                deliveryModel.btnEye.setAlignmentX(JButton.CENTER_ALIGNMENT);
-                deliveryModel.lduracao = listEmTransito.get(x).lduracao;
-                deliveryModel.nPedido = listEmTransito.get(x).nPedido;
-
-                painelEntregas_Grid.add(deliveryModel.nPedido);
-
-                painelEntregas_Grid.add(deliveryModel.btnPlay);
-                painelEntregas_Grid.add(deliveryModel.btnEye);
-                painelEntregas_Grid.add(deliveryModel.lduracao);
-
-                listUltimasEntregas.add(deliveryModel);
-
-                fit_Redimen_Heigth(painelEntregas_Grid);
-
-                linhasGridTransito = linhasGridTransito - 1;
-                painelTransito_Grid.setLayout(new GridLayout(linhasGridTransito, 4));
-
-                painelTransito_Grid.remove(listEmTransito.get(x).nPedido);
-                painelTransito_Grid.remove(listEmTransito.get(x).btnPlay);
-                painelTransito_Grid.remove(listEmTransito.get(x).btnEye);
-                painelTransito_Grid.remove(listEmTransito.get(x).lduracao);
-
-                fit_Redimen_Heigth(painelTransito_Grid);
-
-                deliveryModel.btnPlay.addActionListener(this);
-                deliveryModel.btnEye.addActionListener(this);
-
-                painelPrincipal_Delivery.updateUI();
-
-            }
+            Globals.numeroPedido++;
+            Globals.ehAtendimentoAntigo = false;
+            new Botoes_Delivery().Preparando(Globals.numeroPedido);    
         }
 
     }

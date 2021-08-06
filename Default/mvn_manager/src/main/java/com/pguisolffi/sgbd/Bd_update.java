@@ -1,53 +1,86 @@
 package com.pguisolffi.sgbd;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
+import com.google.cloud.firestore.QuerySnapshot;
 import com.google.firebase.cloud.FirestoreClient;
-import com.pguisolffi.Objetos.Objeto_Atendimento;
 
 public class Bd_update {
 
-    public void BD_Update_Atendimento(List<Objeto_Atendimento> listItensAtendimento, int numeroMesa)
-            throws InterruptedException, ExecutionException, IOException {
+    public void BD_Update_Status_Atend_Delivery(int numeroPedido,String status)
+                throws InterruptedException, ExecutionException, IOException {
 
         Firestore db = FirestoreClient.getFirestore();
+        
+        //CRIA REFERENCIA A BASE DE DADOS         
+        CollectionReference baseAtendimento = db.collection("Atendimento");
 
-        Map<String, Object> data;
-        // List<Map<String, Object>> listdata = new ArrayList<Map<String, Object>>();
-        data = new HashMap<>();
+        //BUSCA TODAS AS INFORMAÇÕES CONFORME A QUERY
+        com.google.cloud.firestore.Query query = baseAtendimento.whereEqualTo("pedido", numeroPedido);
+        
+        //GUARDA A INFORMAÇÃO COMPLETA DA QUERY
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
 
-        for (int x = 0; x < listItensAtendimento.size(); x++) {
+        //CRIA UMA LISTA DE DOCUMENTOS RETORNADOS NA QUERY
+        List<QueryDocumentSnapshot> documents = querySnapshot.get().getDocuments();
 
-            DocumentReference docRef = db.collection("Atendimento")
-                    .document(String.format("%08d", listItensAtendimento.get(x).nuSeqItem));
+        //PARA CADA DOCUMENTO O SISTEMA ATUALIZA O STATUS
+        for (int x = 0; x < documents.size(); x++ ) {
 
-            data.put("cdItem", listItensAtendimento.get(x).cdItem);
-            data.put("dtInicio", listItensAtendimento.get(x).horaInicioAtendimento);
-            data.put("nuSeqItem", listItensAtendimento.get(x).nuSeqItem);
-            data.put("ehDelivery", listItensAtendimento.get(x).ehDelivery);
-            data.put("valor", listItensAtendimento.get(x).fValorItem);
-            data.put("numeroMesa", numeroMesa);
-            data.put("Descricao", listItensAtendimento.get(x).sDescricao);
-            data.put("pedido", listItensAtendimento.get(x).pedido);
-            data.put("tipo", listItensAtendimento.get(x).sTipo);
-            data.put("status", listItensAtendimento.get(x).statusAtendimento);
-            data.put("dtFim", listItensAtendimento.get(x).horaFimAtendimento);
-
-            // listdata.add(data);
-
-            ApiFuture<WriteResult> result = docRef.update(data);
-
-            System.out.println("Update time : " + result.get().getUpdateTime());
-
+            documents.get(x).getReference().update("status", status);              
         }
     }
 
+    public void BD_Update_Status_Atend_Mesa(int pedidoMesa,String status) throws InterruptedException, ExecutionException, IOException {
+
+            Firestore db = FirestoreClient.getFirestore();
+
+            //CRIA REFERENCIA A BASE DE DADOS         
+            CollectionReference baseAtendimento = db.collection("Atendimento");
+
+            //BUSCA TODAS AS INFORMAÇÕES CONFORME A QUERY
+            com.google.cloud.firestore.Query query = baseAtendimento.whereEqualTo("pedido", pedidoMesa).whereEqualTo("status", status.equals("Consumindo") ? "Preparando" : "Consumindo");
+
+            //GUARDA A INFORMAÇÃO COMPLETA DA QUERY
+            ApiFuture<QuerySnapshot> querySnapshot = query.get();
+
+            //CRIA UMA LISTA DE DOCUMENTOS RETORNADOS NA QUERY
+            List<QueryDocumentSnapshot> documents = querySnapshot.get().getDocuments();
+
+            //PARA CADA DOCUMENTO O SISTEMA ATUALIZA O STATUS
+            for (int x = 0; x < documents.size(); x++ ) {
+
+                documents.get(x).getReference().update("status", status);              
+            }
+    }
+
+    public void BD_Update_dtFim_Atendimento(int numeroPedido,String datafinal)
+    throws InterruptedException, ExecutionException, IOException {
+
+        Firestore db = FirestoreClient.getFirestore();
+
+        //CRIA REFERENCIA A BASE DE DADOS         
+        CollectionReference baseAtendimento = db.collection("Atendimento");
+
+        //BUSCA TODAS AS INFORMAÇÕES CONFORME A QUERY
+        com.google.cloud.firestore.Query query = baseAtendimento.whereEqualTo("pedido", numeroPedido);
+
+        //GUARDA A INFORMAÇÃO COMPLETA DA QUERY
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+
+        //CRIA UMA LISTA DE DOCUMENTOS RETORNADOS NA QUERY
+        List<QueryDocumentSnapshot> documents = querySnapshot.get().getDocuments();
+
+        //PARA CADA DOCUMENTO O SISTEMA ATUALIZA O STATUS
+        for (int x = 0; x < documents.size(); x++ ) {
+
+            documents.get(x).getReference().update("dtFim", datafinal);              
+        }
+    }
 }

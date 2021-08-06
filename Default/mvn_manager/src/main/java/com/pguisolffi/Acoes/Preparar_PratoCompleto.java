@@ -7,6 +7,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import com.pguisolffi.Objetos.Objeto_Atendimento;
+import com.pguisolffi.Utilidades.Formatacoes;
 
 public class Preparar_PratoCompleto {
 
@@ -29,8 +30,7 @@ public class Preparar_PratoCompleto {
 
         for (int x = 0; x < list_Atend.size(); x++) {
             if (list_Atend.get(x).sTipo.equals("Almoco")) {
-                list_Atend.get(x).lDescricao.setFont(new Font("Courier", Font.BOLD, 14 ));
-                list_Atend.get(x).lValorItem.setFont(new Font("Courier", Font.BOLD, 14 ));
+                new Formatacoes().Formatar_Labels_Comanda(list_Atend.get(x));
                 c.fill = GridBagConstraints.HORIZONTAL;
                 c.gridx = coluna;
                 c.gridy = linha;
@@ -63,6 +63,7 @@ public class Preparar_PratoCompleto {
 
         for (int z = 0; z < list_Atend.size(); z++) {
             if (list_Atend.get(z).sTipo.equals("Itens Adicionais")) {
+                new Formatacoes().Formatar_Labels_Comanda(list_Atend.get(z));
                 c.fill = GridBagConstraints.HORIZONTAL;
                 c.gridx = coluna;
                 c.gridy = linha;
@@ -97,6 +98,7 @@ public class Preparar_PratoCompleto {
 
         for (int y = 0; y < list_Atend.size(); y++) {
             if (list_Atend.get(y).sTipo.equals("Observacao") && !list_Atend.get(y).sDescricao.equals("")) {
+                new Formatacoes().Formatar_Labels_Comanda(list_Atend.get(y));
                 c.fill = GridBagConstraints.HORIZONTAL;
                 c.gridx = coluna;
                 c.gridy = linha;
@@ -110,6 +112,40 @@ public class Preparar_PratoCompleto {
                 RedimensionarAltura(pratoCompleto);
             }
         }
+
+        for (int x = 0; x < list_Atend.size(); x++) {
+            if (list_Atend.get(x).sTipo.equals("Bebidas")) {
+                new Formatacoes().Formatar_Labels_Comanda(list_Atend.get(x));
+                c.fill = GridBagConstraints.HORIZONTAL;
+                c.gridx = coluna;
+                c.gridy = linha;
+                c.ipadx = 1;
+                c.weightx = 0.2;
+                // c.anchor = GridBagConstraints.FIRST_LINE_START;
+                gridItens.add(list_Atend.get(x).lDescricao, c);
+                c.fill = GridBagConstraints.HORIZONTAL;
+                coluna = coluna + 1;
+                c.gridx = coluna;
+                c.gridy = linha;
+                // c.weightx = 1;
+                c.anchor = GridBagConstraints.BELOW_BASELINE_TRAILING;
+                gridItens.add(list_Atend.get(x).lValorItem, c);
+                c.fill = GridBagConstraints.HORIZONTAL;
+                coluna = coluna + 1;
+                c.gridx = coluna;
+                c.gridy = linha;
+                // c.weightx = 1;
+                // c.anchor = GridBagConstraints.FIRST_LINE_END;
+                gridItens.add(list_Atend.get(x).btn_remover, c);
+                pratoCompleto.add(gridItens);
+
+                linha = linha + 1;
+                c.gridy = linha;
+                coluna = 0;
+
+            }
+        }
+
 
         return pratoCompleto;
 

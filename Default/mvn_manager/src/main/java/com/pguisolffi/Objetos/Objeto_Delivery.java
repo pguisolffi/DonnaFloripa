@@ -9,9 +9,11 @@ public class Objeto_Delivery {
     public String duracao, horaEntrada;
     public JLabel lduracao, nPedido, horaEntrega;
     public JButton btnPlay, btnEye, btnAdd;
+    public boolean isThreadActive;
+    public Thread threadDuracao;
 
     public Objeto_Delivery(int _numeroPedido, String _duracao, String _horaEntrada, JLabel _lduracao, JLabel _nPedido,
-            JLabel _horaEntrega, JButton _btnPlay, JButton _btnEye, JButton _btnAdd) {
+            JLabel _horaEntrega, JButton _btnPlay, JButton _btnEye, JButton _btnAdd, boolean _isThreadActive,Thread _threadDuracao) {
         this.numeroPedido = _numeroPedido;
         this.duracao = _duracao;
         this.horaEntrada = _horaEntrada;
@@ -21,6 +23,8 @@ public class Objeto_Delivery {
         this.btnPlay = _btnPlay;
         this.btnEye = _btnEye;
         this.btnAdd = _btnAdd;
+        this.isThreadActive = _isThreadActive;
+        this.threadDuracao = _threadDuracao;
 
     }
 

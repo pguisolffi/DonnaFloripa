@@ -44,12 +44,12 @@ public class Painel_Comanda extends JPanel implements ActionListener {
     public static List<Objeto_Atendimento> list_ItensDoAtendimento;
     public static List<Objeto_Atendimento> list_RemoverItensAtendimento;
 
-    public Painel_Comanda(Objeto_Mesa mesaModel) {
+    public Painel_Comanda(int numeroMesa) {
 
         list_ItensDoAtendimento = new ArrayList<Objeto_Atendimento>();
         list_RemoverItensAtendimento = new ArrayList<Objeto_Atendimento>();
 
-        numeroMesaAtual = mesaModel.numero;
+        numeroMesaAtual = numeroMesa;
         pPanel_EspacoDireito = new JPanel();
         pPanel_DentroEspacoDireito = new JPanel();
         pBox_Comanda = new JPanel();
@@ -92,14 +92,14 @@ public class Painel_Comanda extends JPanel implements ActionListener {
         pPainel_nomeMesa.setLayout(new BorderLayout());
         lNomeMesa.setFont(new Font("Tahoma", 1, 24));
         lNomeMesa.setHorizontalAlignment(SwingConstants.CENTER);
-        lNomeMesa.setText("Mesa " + mesaModel.numero);
+        lNomeMesa.setText(!Globals.ehDelivery ? "Mesa " + numeroMesa : "Delivery" );
         lNomeMesa.setPreferredSize(null);
         pPainel_nomeMesa.add(lNomeMesa, BorderLayout.CENTER);
         pBox_Comanda.add(pPainel_nomeMesa);
 
         lNumeroComanda.setForeground(new Color(0, 102, 255));
         int identificadorComanda = Globals.numeroPedido;
-        lNumeroComanda.setText("(Pedido: " + String.format("%08d", identificadorComanda) + ")");
+        lNumeroComanda.setText("(Pedido: " + String.format("%08d", Globals.ehDelivery ? Globals.pedidoAtual : identificadorComanda) + ")");
         lNumeroComanda.setPreferredSize(null);
         pPanel_NumeroComanda.add(lNumeroComanda);
 
@@ -166,10 +166,15 @@ public class Painel_Comanda extends JPanel implements ActionListener {
             
             try {
                 new Botao_SalvarComanda().GravarComanda(list_ItensDoAtendimento, numeroMesaAtual, list_RemoverItensAtendimento);
+
+                if(!Globals.ehAtendimentoAntigo)
+                    new Painel_MesaAtendIniciado(Globals.objMesaAtual,false);
+                    
             } catch (InterruptedException | ExecutionException | IOException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
+
 
         }
 

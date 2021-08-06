@@ -17,7 +17,6 @@ public class Adicionar_ItemAtendimento {
     public Adicionar_ItemAtendimento(List<Objeto_Atendimento> List_Atendimentos) {
 
         //Criar um Panel único com todos os ítens de um prato completo
-        //Preparar_PratoCompleto prepararPrato = new Preparar_PratoCompleto();
         pratoCompleto = new Preparar_PratoCompleto().Preparar_PratoInteiro(List_Atendimentos);
 
         //Adicionar o prato Completo na comanda

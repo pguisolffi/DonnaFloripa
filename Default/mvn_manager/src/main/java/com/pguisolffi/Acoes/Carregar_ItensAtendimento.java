@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
-import org.apache.commons.lang3.RandomStringUtils;
+//import org.apache.commons.lang3.RandomStringUtils;
 
 import java.text.NumberFormat;
 import java.awt.*;
@@ -57,9 +57,6 @@ public class Carregar_ItensAtendimento implements ActionListener {
                     list_AtendimentosModels.get(d).lValorItem = new JLabel(format.format(list_AtendimentosModels.get(d).fValorItem), JLabel.CENTER);
                     list_AtendimentosModels.get(d).textObservacao = list_AtendimentosModels.get(d).sTipo.equals("Observacao") ? new JTextArea(list_AtendimentosModels.get(d).sDescricao) : null;
                     list_AtendimentosModels.get(d).btn_remover = btnsMesas.removeButton;
-                    list_AtendimentosModels.get(d).lDescricao.setFont(new Font("Courier", Font.BOLD,list_AtendimentosModels.get(d).sDescricao.equals("Almoco") ? 14 : 11));
-                    list_AtendimentosModels.get(d).lValorItem.setFont(new Font("Courier", Font.BOLD,list_AtendimentosModels.get(d).sDescricao.equals("Almoco") ? 14 : 11));
-
                     Painel_Comanda.list_ItensDoAtendimento.add(list_AtendimentosModels.get(d));
 
                     btnRemoverItem = new JButton();
@@ -78,7 +75,7 @@ public class Carregar_ItensAtendimento implements ActionListener {
 
     }
 
-    // AÇÃO DO BOTÃO REMOVER
+    // AÇÃO DO BOTÃO REMOVER ítem da comanda
     public void actionPerformed(ActionEvent e) {
 
         for (int x = 0; x < Painel_Comanda.list_ItensDoAtendimento.size(); x++) {

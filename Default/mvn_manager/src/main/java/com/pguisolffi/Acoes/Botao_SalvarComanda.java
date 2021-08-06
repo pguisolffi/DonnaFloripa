@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutionException;
 
 import com.pguisolffi.Objetos.Objeto_Atendimento;
 import com.pguisolffi.Paineis.Painel_Comanda;
+import com.pguisolffi.Telas.Tela_AddItens;
 import com.pguisolffi.sgbd.Bd_Delete;
 import com.pguisolffi.sgbd.Bd_Set;
 
@@ -26,14 +27,16 @@ public class Botao_SalvarComanda {
 
                 //Remove da Principal lista da Comanda
                 Painel_Comanda.list_ItensDoAtendimento.remove(list_ItensParaRemover.get(y));
-                Painel_Comanda.list_RemoverItensAtendimento.remove(list_ItensParaRemover.get(y));
-
             }
 
-        }
+            Painel_Comanda.list_RemoverItensAtendimento.clear();
 
+        }
+        
         //AO SALVAR - Inserir no Banco de dados os ítens da comanda (Insert/Update Atendimento)  
         new Bd_Set().BD_Set_NovoAtendimento( Painel_Comanda.list_ItensDoAtendimento, numeroMesa);
+
+        Tela_AddItens.Frame_SelecaoItens.dispose();      
 
     }
 
