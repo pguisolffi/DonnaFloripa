@@ -21,21 +21,21 @@ import java.text.NumberFormat;
 
 public class Painel_Itens {
 
-    JPanel pPanel_text_Observacoes, pPanelTituloPratos, pPanelTituloAdicionais, pPanel_Titulo_Observacoes,pPanelTituloBebidas;
+    JPanel pPanel_text_Observacoes,pPanel_text_ObservacoesSanduiche,pPanel_Titulo_ObservacoesSanduiche, pPanelTituloPratos,pPanelTituloSanduiche, pPanelTituloAdicionais,pPanelTituloCafesGelados, pPanel_Titulo_Observacoes,pPanelTituloBebidas;
 
-    public static JPanel pPainel_SecundarioPratos,pPainel_SecundarioBebidas;
-    public static JPanel pPainelItens,Panel_LadoEsquerdoBebidas;
-    public static JPanel pPanel_ItensAdicionais;
+    public static JPanel pPainel_SecundarioPratos,pPainel_SecundarioBebidas,pPainel_SecundarioCafes,pPainel_SecundarioSanduiche;
+    public static JPanel pPainelItens,Panel_LadoEsquerdoBebidas,pPanel_CafesGelados,Panel_LadoEsquerdoCafes;
+    public static JPanel pPanel_ItensAdicionais,pPainelItensSanduiche,pPanel_ItensAdicionaisSanduiche;
 
-    public JPanel pPainel_PrincipalPratos, panel_PrincipalBebidas;
+    public JPanel pPanelTituloAdicionaisSanduiche,pPainel_PrincipalPratos,pPanelTituloCafes, panel_PrincipalBebidas,panel_PrincipalCafes,pPainel_PrincipalSanduiche;
 
-    JLabel lTituloPratos,lTituloBebidas, lTitulosAdicionais, lTitulo_Observacoes;
+    JLabel lTituloPratos,lTitulo_ObservacoesSanduiche,lTituloBebidas,lTitulosAdicionaisSanduiche,lTituloCafes,lTituloSanduiche,lTitulosAdicionais, lTitulosCafesGelados, lTitulo_Observacoes;
 
-    JSeparator jSeparator_TituloPratos, jSeparator_Observacoes, jSeparatorItensAdicionais,
-            jSeparator_PratosToAdicionais;
+    JSeparator jSeparator_TituloPratos,jSeparator_TituloSanduiche,jSeparatorItensAdicionaisSanduiche, jSeparator_Observacoes, jSeparatorItensAdicionais, jSeparatorCafes,jSeparatorCafesGelados,
+            jSeparator_PratosToAdicionais,jSeparator_ObservacoesSanduiche;
 
 
-    public static JTextArea tTextField_Observacoes;
+    public static JTextArea tTextField_Observacoes,tTextField_ObservacoesSanduiche;
     public static List<Objeto_Item> listModel_Produtos = new ArrayList<Objeto_Item>();
 
     NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
@@ -126,6 +126,89 @@ public class Painel_Itens {
 
     }
 
+    public JPanel Panel_Sanduiche(List<Objeto_Item> listObj_Produtos) {
+
+        format.setCurrency(Currency.getInstance("BRL"));
+
+        listModel_Produtos = listObj_Produtos;
+
+        pPainel_PrincipalSanduiche = new JPanel();
+        pPainel_SecundarioSanduiche = new JPanel();
+        pPanelTituloSanduiche = new JPanel();
+        lTituloSanduiche = new JLabel();
+        jSeparator_TituloSanduiche = new JSeparator();
+        pPainelItensSanduiche = new JPanel(new FlowLayout());
+        pPanelTituloAdicionaisSanduiche = new JPanel();
+        lTitulosAdicionaisSanduiche = new JLabel();
+        jSeparatorItensAdicionaisSanduiche = new JSeparator();
+        pPanel_ItensAdicionaisSanduiche = new JPanel(new FlowLayout());
+        pPanel_Titulo_ObservacoesSanduiche = new JPanel();
+        jSeparator_ObservacoesSanduiche = new JSeparator();
+        pPanel_text_ObservacoesSanduiche = new JPanel();
+        tTextField_ObservacoesSanduiche = new JTextArea();
+        lTitulo_ObservacoesSanduiche = new JLabel();
+
+        pPainel_PrincipalSanduiche.setMinimumSize(new Dimension(400, 800));
+        pPainel_PrincipalSanduiche.setPreferredSize(new Dimension(400, 750));
+        pPainel_SecundarioSanduiche.setLayout(new BoxLayout(pPainel_SecundarioSanduiche, BoxLayout.PAGE_AXIS));
+
+        pPanelTituloSanduiche.setMaximumSize(new Dimension(2300, 30));
+        lTituloSanduiche.setFont(new Font("Leelawadee UI Semilight", 2, 14)); // NOI18N
+        lTituloSanduiche.setText("Pratos Executivos");
+        pPanelTituloSanduiche.add(lTituloSanduiche);
+        pPainel_SecundarioSanduiche.add(pPanelTituloSanduiche);
+
+        jSeparator_TituloSanduiche.setMaximumSize(new Dimension(20, 20));
+        jSeparator_TituloSanduiche.setPreferredSize(new Dimension(0, 10));
+        pPainel_SecundarioSanduiche.add(jSeparator_TituloSanduiche);
+
+        // ****ADICIONAR PRATOS
+        Carregar_Botoes carregar_Botoes = new Carregar_Botoes();
+        carregar_Botoes.CarregarSanduiches();
+
+        pPainel_SecundarioSanduiche.add(Box.createRigidArea(new Dimension(0, 25)));
+
+        pPanelTituloAdicionaisSanduiche.setMaximumSize(new Dimension(2300, 30));
+        lTitulosAdicionaisSanduiche.setFont(new Font("Leelawadee UI Semilight", 2, 14)); // NOI18N
+        lTitulosAdicionaisSanduiche.setHorizontalAlignment(SwingConstants.CENTER);
+        lTitulosAdicionaisSanduiche.setText("Ítens adicionais");
+        lTitulosAdicionaisSanduiche.setHorizontalTextPosition(SwingConstants.CENTER);
+        pPanelTituloAdicionaisSanduiche.add(lTitulosAdicionaisSanduiche);
+        pPainel_SecundarioSanduiche.add(pPanelTituloAdicionaisSanduiche);
+        jSeparatorItensAdicionaisSanduiche.setMaximumSize(new Dimension(20, 20));
+        jSeparatorItensAdicionaisSanduiche.setPreferredSize(new Dimension(0, 10));
+        pPainel_SecundarioSanduiche.add(jSeparatorItensAdicionaisSanduiche);
+
+        // ****ADICIONAR ITENS_ADICIONAIS
+        carregar_Botoes.CarregarAdicionaisSanduiches();
+
+        pPanel_Titulo_ObservacoesSanduiche.setMaximumSize(new Dimension(2300, 30));
+        lTitulo_ObservacoesSanduiche.setFont(new Font("Leelawadee UI Semilight", 2, 14)); // NOI18N
+        lTitulo_ObservacoesSanduiche.setText("Observações");
+        pPanel_Titulo_ObservacoesSanduiche.add(lTitulo_ObservacoesSanduiche);
+        pPainel_SecundarioSanduiche.add(pPanel_Titulo_ObservacoesSanduiche);
+
+        jSeparator_ObservacoesSanduiche.setMaximumSize(new Dimension(20, 20));
+        jSeparator_ObservacoesSanduiche.setPreferredSize(new Dimension(0, 10));
+        pPainel_SecundarioSanduiche.add(jSeparator_ObservacoesSanduiche);
+
+        tTextField_ObservacoesSanduiche.setToolTipText("Digite a Observação");
+        tTextField_ObservacoesSanduiche.setMinimumSize(new Dimension(200, 50));
+        tTextField_ObservacoesSanduiche.setPreferredSize(new Dimension(400, 50));
+        tTextField_ObservacoesSanduiche.setLineWrap(true);
+        pPanel_text_ObservacoesSanduiche.add(tTextField_ObservacoesSanduiche);
+        pPainel_SecundarioSanduiche.add(pPanel_text_ObservacoesSanduiche);
+
+        pPainel_SecundarioSanduiche.add(Box.createRigidArea(new Dimension(0, 30)));
+
+        carregar_Botoes.CarregarObservacao(pPainel_SecundarioSanduiche);
+
+        pPainel_PrincipalSanduiche.add(pPainel_SecundarioSanduiche);
+
+        return pPainel_PrincipalSanduiche;
+
+    }
+
 
     public JPanel Panel_Bebidas(List<Objeto_Item> listObj_Produtos) {
 
@@ -167,6 +250,66 @@ public class Painel_Itens {
 
         panel_PrincipalBebidas.add(pPainel_SecundarioBebidas);
         return panel_PrincipalBebidas;
+
+    }
+
+    public JPanel Panel_Cafes(List<Objeto_Item> listObj_Produtos) {
+
+        format.setCurrency(Currency.getInstance("BRL"));
+
+        listModel_Produtos = listObj_Produtos;
+
+        panel_PrincipalCafes = new JPanel();
+        pPainel_SecundarioCafes = new JPanel();
+        pPanelTituloCafes = new JPanel();
+        lTituloCafes = new JLabel();
+        jSeparatorCafes = new JSeparator();
+        pPanel_CafesGelados = new JPanel(new FlowLayout());
+        Panel_LadoEsquerdoCafes = new JPanel(new FlowLayout());
+        pPanelTituloCafesGelados = new JPanel();
+        jSeparator_TituloPratos = new JSeparator();
+        pPanel_text_Observacoes = new JPanel();
+        tTextField_Observacoes = new JTextArea();
+        lTitulosCafesGelados = new JLabel();
+
+        panel_PrincipalCafes.setMinimumSize(new Dimension(400, 400));
+        panel_PrincipalCafes.setPreferredSize(new Dimension(400, 400));
+        pPainel_SecundarioCafes.setLayout(new BoxLayout(pPainel_SecundarioCafes, BoxLayout.PAGE_AXIS));
+
+        pPanelTituloCafes.setMaximumSize(new Dimension(2300, 30));
+        lTituloCafes.setFont(new Font("Leelawadee UI Semilight", 2, 14)); // NOI18N
+        lTituloCafes.setText("Cafés Quentes");
+        pPanelTituloCafes.add(lTituloCafes);
+        pPainel_SecundarioCafes.add(pPanelTituloCafes);
+
+        jSeparator_TituloPratos.setMaximumSize(new Dimension(20, 20));
+        jSeparator_TituloPratos.setPreferredSize(new Dimension(0, 10));
+        pPainel_SecundarioCafes.add(jSeparator_TituloPratos);
+
+        // ****ADICIONAR OS botões das bebidas
+        Carregar_Botoes carregar_Botoes = new Carregar_Botoes();
+        carregar_Botoes.CarregarCafesQuentes();
+
+        pPainel_SecundarioCafes.add(Box.createRigidArea(new Dimension(0, 25)));
+
+        pPanelTituloCafesGelados.setMaximumSize(new Dimension(2300, 30));
+        lTitulosCafesGelados.setFont(new Font("Leelawadee UI Semilight", 2, 14)); // NOI18N
+        lTitulosCafesGelados.setHorizontalAlignment(SwingConstants.CENTER);
+        lTitulosCafesGelados.setText("Cafés Gelados");
+        lTitulosCafesGelados.setHorizontalTextPosition(SwingConstants.CENTER);
+        pPanelTituloCafesGelados.add(lTitulosCafesGelados);
+        pPainel_SecundarioCafes.add(pPanelTituloCafesGelados);
+        jSeparatorCafes.setMaximumSize(new Dimension(20, 20));
+        jSeparatorCafes.setPreferredSize(new Dimension(0, 10));
+        pPainel_SecundarioCafes.add(jSeparatorCafes);
+
+        // ****ADICIONAR ITENS_ADICIONAIS
+        carregar_Botoes.CarregarCafesGelados();
+
+        pPainel_SecundarioCafes.add(Box.createRigidArea(new Dimension(0, 25)));
+
+        panel_PrincipalCafes.add(pPainel_SecundarioCafes);
+        return panel_PrincipalCafes;
 
     }
 

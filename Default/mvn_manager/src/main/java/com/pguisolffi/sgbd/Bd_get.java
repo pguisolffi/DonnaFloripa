@@ -153,7 +153,7 @@ public class Bd_get {
         new InitializeBd();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference baseAtendimento = db.collection("Atendimento");
-        com.google.cloud.firestore.Query query = baseAtendimento.orderBy("nuSeqItem", Direction.DESCENDING).limit(1);
+        com.google.cloud.firestore.Query query = baseAtendimento.orderBy("pedido", Direction.DESCENDING).limit(1);
 
         ApiFuture<QuerySnapshot> querySnapshot = query.get();
 
@@ -214,6 +214,22 @@ public class Bd_get {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference baseAtendimento = db.collection("Atendimento");
         com.google.cloud.firestore.Query query = baseAtendimento.whereNotEqualTo("status", "Finalizado").whereEqualTo("numeroMesa", numeroMesa).orderBy("status",Direction.DESCENDING).limit(1);
+        
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+
+        for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
+            dtIncio = document.getData().get("dtInicio").toString();
+        }
+        return dtIncio;
+    }
+
+    public String get_DataInicioAtendimentoDelivery(int pedido) throws InterruptedException, ExecutionException, IOException {
+
+        String dtIncio = "";
+        new InitializeBd();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference baseAtendimento = db.collection("Atendimento");
+        com.google.cloud.firestore.Query query = baseAtendimento.whereNotEqualTo("status", "Qualquer").whereEqualTo("pedido", pedido).orderBy("status",Direction.DESCENDING).limit(1);
         
         ApiFuture<QuerySnapshot> querySnapshot = query.get();
 

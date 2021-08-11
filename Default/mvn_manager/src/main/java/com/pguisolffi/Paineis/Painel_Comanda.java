@@ -21,6 +21,7 @@ import javax.swing.Box;
 import javax.swing.SwingConstants;
 
 import com.pguisolffi.Acoes.Botao_SalvarComanda;
+import com.pguisolffi.Acoes.Botoes_Delivery;
 import com.pguisolffi.Objetos.Objeto_Mesa;
 import com.pguisolffi.Utilidades.Globals;
 import com.pguisolffi.Utilidades.botesConstrutor;
@@ -167,11 +168,15 @@ public class Painel_Comanda extends JPanel implements ActionListener {
             try {
                 new Botao_SalvarComanda().GravarComanda(list_ItensDoAtendimento, numeroMesaAtual, list_RemoverItensAtendimento);
 
-                if(!Globals.ehAtendimentoAntigo)
+                // Se for novo atendimento na mesa
+                if(!Globals.ehAtendimentoAntigo && !Globals.ehDelivery)
                     new Painel_MesaAtendIniciado(Globals.objMesaAtual,false);
+
+                if(!Globals.ehAtendimentoAntigo && Globals.ehDelivery)
+                    new Botoes_Delivery().Preparando(Globals.numeroPedido);
+
                     
             } catch (InterruptedException | ExecutionException | IOException e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
 

@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import java.awt.BorderLayout;
 
 import com.pguisolffi.Acoes.Botoes_Mesa;
+import com.pguisolffi.Objetos.Objeto_Atendimento;
 import com.pguisolffi.Objetos.Objeto_Mesa;
 import com.pguisolffi.Utilidades.Globals;
 import com.pguisolffi.Utilidades.botesConstrutor;
@@ -20,16 +21,14 @@ public class Painel_MesaConsumindo implements ActionListener {
     
     int indice = 0;
 
-    public Painel_MesaConsumindo(int index) {
-
-        indice = index;
+    public Painel_MesaConsumindo(Objeto_Mesa objMesa) {
 
         botesConstrutor btns = new botesConstrutor();
-        Painel_Mesa.list_ObjetoMesa.get(index).interiorMesa.remove(Painel_Mesa.list_ObjetoMesa.get(index).btnPlay);
-        Painel_Mesa.list_ObjetoMesa.get(index).btnPlay = btns.finishAtendButton;
-        Painel_Mesa.list_ObjetoMesa.get(index).interiorMesa.add(Painel_Mesa.list_ObjetoMesa.get(index).btnPlay,BorderLayout.LINE_START);
-        Painel_Mesa.list_ObjetoMesa.get(index).corStatus.setBackground(Color.blue);
-        Painel_Mesa.list_ObjetoMesa.get(index).btnPlay.addActionListener(this);
+        objMesa.interiorMesa.remove(objMesa.btnPlay);
+        objMesa.btnPlay = btns.finishAtendButton;
+        objMesa.interiorMesa.add(objMesa.btnPlay,BorderLayout.LINE_START);
+        objMesa.corStatus.setBackground(Color.blue);
+        objMesa.btnPlay.addActionListener(this);
     }
 
     @Override

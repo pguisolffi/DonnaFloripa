@@ -20,7 +20,9 @@ import javax.swing.ScrollPaneConstants;
 import com.pguisolffi.Configuracoes;
 import com.pguisolffi.Acoes.Botoes_Delivery;
 import com.pguisolffi.Objetos.Objeto_Delivery;
+import com.pguisolffi.Telas.Tela_AddItens;
 import com.pguisolffi.Utilidades.Globals;
+import com.pguisolffi.Utilidades.RedimensionarComplementos;
 import com.pguisolffi.Utilidades.botesConstrutor;
 import com.pguisolffi.sgbd.Bd_get;
 
@@ -55,6 +57,10 @@ public class Painel_Delivery extends JPanel implements ActionListener {
 
     public Painel_Delivery() throws InterruptedException, ExecutionException, IOException {
 
+        RedimensionarComplementos redim = new RedimensionarComplementos();
+        int largura_FramePrincipal = redim.Largura_FrameMesas();
+        int Altura_FramePrincipal = redim.Altura_FrameMesas();
+
         // INSTANCIANDO
         list_L_Duracao = new ArrayList<JLabel>();
         list_L_numeroPedido = new ArrayList<JLabel>();
@@ -87,7 +93,7 @@ public class Painel_Delivery extends JPanel implements ActionListener {
 
         // CORES, FONTS
         {
-            lTitulo.setFont(new Font("Courier", Font.BOLD, 20));
+            lTitulo.setFont(new Font("Courier", Font.BOLD, (int)Math.round(largura_FramePrincipal*0.02)));
             painelTituloPreparando.setBackground(Color.lightGray);
             painelTituloTransito.setBackground(Color.lightGray);
             painelTituloEntregas.setBackground(Color.lightGray);
@@ -101,7 +107,8 @@ public class Painel_Delivery extends JPanel implements ActionListener {
             scrollDelivery.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
             scrollDelivery.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
             painelPrincipal_Delivery.setBorder(BorderFactory.createLineBorder(Color.black));
-            scrollDelivery.setPreferredSize(new Dimension(300, 650));
+            //300/650
+            scrollDelivery.setPreferredSize(new Dimension((int)Math.round(largura_FramePrincipal*0.3), (int)Math.round(Altura_FramePrincipal*0.8452)));
             scrollDelivery.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
             scrollDelivery.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         }
@@ -156,7 +163,7 @@ public class Painel_Delivery extends JPanel implements ActionListener {
         }
 
 
-        List<Integer> Pedidos_deliverysPreparando = new Bd_get().get_Deliverys("Em Aberto");
+        List<Integer> Pedidos_deliverysPreparando = new Bd_get().get_Deliverys("Preparando");
         List<Integer> Pedidos_deliverysEmTransito = new Bd_get().get_Deliverys("Em Transito");
         List<Integer> Pedidos_deliverysEntregue = new Bd_get().get_Deliverys("Entregue");
 
@@ -164,6 +171,7 @@ public class Painel_Delivery extends JPanel implements ActionListener {
         if (!Pedidos_deliverysPreparando.isEmpty()){
             for (int x = 0; x <Pedidos_deliverysPreparando.size();x++) {
                 Globals.ehAtendimentoAntigo = true;
+                Globals.ehDelivery = true;
                 new Botoes_Delivery().Preparando(Pedidos_deliverysPreparando.get(x));
             }
         }
@@ -201,7 +209,13 @@ public class Painel_Delivery extends JPanel implements ActionListener {
         if (e.getSource() == btnPlay) {
             Globals.numeroPedido++;
             Globals.ehAtendimentoAntigo = false;
-            new Botoes_Delivery().Preparando(Globals.numeroPedido);    
+            Globals.ehDelivery = true;
+            try {
+                new Tela_AddItens(null);
+                //new Botoes_Delivery().Preparando(Globals.numeroPedido);
+            } catch (InterruptedException | ExecutionException | IOException e1) {
+                e1.printStackTrace();
+            }    
         }
 
     }

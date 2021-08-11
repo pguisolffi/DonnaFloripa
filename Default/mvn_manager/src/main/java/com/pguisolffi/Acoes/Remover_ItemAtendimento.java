@@ -36,6 +36,10 @@ public class Remover_ItemAtendimento {
                         panelPratoCompleto.removeAll();
                         Insere_Na_ListaDeRemocao(objeto_Atendimento);
                         break;
+                    case "Sanduiches":
+                        panelPratoCompleto.removeAll();
+                        Insere_Na_ListaDeRemocao(objeto_Atendimento);
+                        break;    
                     case "Observacao":
                         panelPratoCompleto.remove(objeto_Atendimento.textObservacao);
                         panelPratoCompleto.remove(objeto_Atendimento.btn_remover);

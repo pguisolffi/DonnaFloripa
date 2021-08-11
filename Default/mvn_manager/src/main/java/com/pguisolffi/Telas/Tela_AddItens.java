@@ -32,7 +32,7 @@ public class Tela_AddItens {
 
     public static JFrame Frame_SelecaoItens;
     JTabbedPane tGuias;
-    public static JPanel pPanel_guiaAlmoco,pPanel_guiaBebidas,Panel_Produtos;
+    public static JPanel pPanel_guiaAlmoco,pPanel_guiaBebidas,pPanel_guiaCafes,Panel_Produtos,pPanel_guiaSanduiches;
     public boolean ehDelivery;
 
     Objeto_Item itemModel = new Objeto_Item(0, 0, null, null, 0, null, null, false);
@@ -53,8 +53,12 @@ public class Tela_AddItens {
         Panel_Produtos.setLayout(new BoxLayout(Panel_Produtos, BoxLayout.LINE_AXIS));
         pPanel_guiaAlmoco = new JPanel();
         pPanel_guiaBebidas = new JPanel();
+        pPanel_guiaCafes = new JPanel();
+        pPanel_guiaSanduiches = new JPanel();
         pPanel_guiaAlmoco.setLayout(new BoxLayout(pPanel_guiaAlmoco, BoxLayout.LINE_AXIS));
         pPanel_guiaBebidas.setLayout(new BoxLayout(pPanel_guiaBebidas, BoxLayout.LINE_AXIS));
+        pPanel_guiaCafes.setLayout(new BoxLayout(pPanel_guiaCafes, BoxLayout.LINE_AXIS));
+        pPanel_guiaSanduiches.setLayout(new BoxLayout(pPanel_guiaSanduiches, BoxLayout.LINE_AXIS));
         // pPanel_guiaAlmoco.setBorder(BorderFactory.createEmptyBorder());
         // pPanel_guiaBebidas.setBorder(BorderFactory.createEmptyBorder());
 
@@ -72,15 +76,21 @@ public class Tela_AddItens {
         tGuias.setForegroundAt(1, Color.white);
         tGuias.addTab("Doces e Bolos", new JPanel());
         tGuias.setBackgroundAt(2, Color.orange);
-        tGuias.addTab("Cafés", new JPanel());
+        tGuias.addTab("Cafés", pPanel_guiaCafes);
         tGuias.setBackgroundAt(3, Color.black);
         tGuias.setForegroundAt(3, Color.white);
         tGuias.addTab("Salgados", new JPanel());
         tGuias.setBackgroundAt(4, Color.orange);
+        tGuias.addTab("Sanduíches", pPanel_guiaSanduiches);
+        tGuias.setBackgroundAt(5, Color.black);
+        tGuias.setForegroundAt(5, Color.white);
         tGuias.setTabPlacement(JTabbedPane.LEFT);
 
         pPanel_guiaAlmoco.add(new Painel_Itens().Panel_Almoco(listItemModels_Produtos));
         pPanel_guiaBebidas.add(new Painel_Itens().Panel_Bebidas(listItemModels_Produtos));
+        pPanel_guiaCafes.add(new Painel_Itens().Panel_Cafes(listItemModels_Produtos));
+        pPanel_guiaSanduiches.add(new Painel_Itens().Panel_Sanduiche(listItemModels_Produtos));
+
 
         Insets insets = UIManager.getInsets("TabbedPane.contentBorderInsets");
         insets.top = -1;

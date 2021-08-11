@@ -6,9 +6,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import java.awt.event.ActionEvent;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ import javax.swing.JPanel;
 import com.pguisolffi.Objetos.Objeto_Atendimento;
 import com.pguisolffi.Objetos.Objeto_Delivery;
 import com.pguisolffi.Paineis.Painel_Delivery;
+import com.pguisolffi.Paineis.Painel_DeliveryAtendimentoIniciado;
 import com.pguisolffi.Telas.Tela_AddItens;
 import com.pguisolffi.Utilidades.Globals;
 import com.pguisolffi.Utilidades.ThreadDelivery;
@@ -54,49 +56,18 @@ public class Botoes_Delivery implements ActionListener{
 
     }
    
-    public void Preparando(int numeroPedido){
+    public void Preparando(int numeroPedido) throws InterruptedException, ExecutionException, IOException{
 
-        botesConstrutor btnsMesas = new botesConstrutor();
-        Objeto_Delivery deliveryModel = new Objeto_Delivery(0, null, null, null, null,
-        null, null, null, null,false,null);
+        Objeto_Delivery objeto_Delivery = new Objeto_Delivery(0, null, null, null, null, null, null, null, null, false, null);
+        objeto_Delivery.numeroPedido = numeroPedido;
+        Globals.objDeliveryAtual = objeto_Delivery;
 
-        Globals.ehDelivery = true;    
 
-        int linhas = Painel_Delivery.painelPreparando_Grid.getComponentCount()/4;
-        Painel_Delivery.painelPreparando_Grid.setLayout(new GridLayout(linhas+1, 4));
-        fit_Redimen_Heigth(Painel_Delivery.painelPreparando_Grid);
-        
-        deliveryModel.numeroPedido = numeroPedido;
-        deliveryModel.btnPlay = btnsMesas.ConfirmButtonDelivery;
-        deliveryModel.btnPlay.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        deliveryModel.btnEye = btnsMesas.EyeButtonDelivery;
-        deliveryModel.btnEye.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        deliveryModel.horaEntrada = LocalDateTime.now().toString();
-        deliveryModel.lduracao = new JLabel();
-        deliveryModel.lduracao.setHorizontalAlignment(JLabel.CENTER);
-        deliveryModel.nPedido = new JLabel(String.valueOf(numeroPedido));
-        deliveryModel.nPedido.setHorizontalAlignment(JLabel.CENTER);
+        if (Globals.ehAtendimentoAntigo)
+            new Painel_DeliveryAtendimentoIniciado(objeto_Delivery, true);
 
-        Painel_Delivery.painelPreparando_Grid.add(deliveryModel.nPedido);
-        Painel_Delivery.painelPreparando_Grid.add(deliveryModel.btnPlay);
-        Painel_Delivery.painelPreparando_Grid.add(deliveryModel.btnEye);
-        Painel_Delivery.painelPreparando_Grid.add(deliveryModel.lduracao);
-
-        Painel_Delivery.listPreparando.add(deliveryModel);
-
-        new ThreadDelivery(deliveryModel);
-
-        deliveryModel.btnPlay.addActionListener(this);
-        deliveryModel.btnEye.addActionListener(this);
-
-        if (!Globals.ehAtendimentoAntigo){
-            try {
-                new Tela_AddItens(null);
-            } catch (InterruptedException | ExecutionException | IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-        }   
+        if (!Globals.ehAtendimentoAntigo)
+            new Painel_DeliveryAtendimentoIniciado(objeto_Delivery, false);    
 
         Painel_Delivery.painelPrincipal_Delivery.updateUI();
 
@@ -227,7 +198,6 @@ public class Botoes_Delivery implements ActionListener{
                     new Bd_update().BD_Update_Status_Atend_Delivery(Painel_Delivery.listPreparando.get(x).numeroPedido, "Em Transito");
                     new Botoes_Delivery().EmTransito(x);
                 } catch (InterruptedException | ExecutionException | IOException e1) {
-                    // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }   
             }

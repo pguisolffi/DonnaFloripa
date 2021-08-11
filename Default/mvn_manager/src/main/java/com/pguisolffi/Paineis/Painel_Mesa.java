@@ -31,6 +31,7 @@ import com.pguisolffi.Objetos.Objeto_Mesa;
 import com.pguisolffi.Telas.Tela_AddItens;
 import com.pguisolffi.Utilidades.Globals;
 import com.pguisolffi.Utilidades.MinhasThreadsMesa;
+import com.pguisolffi.Utilidades.RedimensionarComplementos;
 import com.pguisolffi.Utilidades.botesConstrutor;
 import com.pguisolffi.sgbd.Bd_get;
 import com.pguisolffi.sgbd.Bd_update;
@@ -69,6 +70,12 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 
 	public Painel_Mesa() throws InterruptedException, ExecutionException, IOException {
 
+		
+        RedimensionarComplementos redim = new RedimensionarComplementos();
+        int largura_FramePrincipal = redim.Largura_FrameMesas();
+        int Altura_FramePrincipal = redim.Altura_FrameMesas();
+
+
 		// Objeto_Mesa mesaModel = new Objeto_Mesa(indice, status, observacao, table);
 		// INSTANCIAR OBJETOS
 		lista_mesas = new ArrayList<>(); // ------------------------------- LISTA DE MESAS
@@ -89,7 +96,10 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 
 		// CARATER�STICAS DOS OBJETOS
 		// painel_mesas.setPreferredSize(new Dimension(300, 150));
-		painel_mesas_com_scroll.setPreferredSize(new Dimension(1500, 650));
+		//1500,650
+		//painel_mesas_com_scroll.setPreferredSize(new Dimension(1500,650));
+
+painel_mesas_com_scroll.setPreferredSize(new Dimension((int)Math.round(largura_FramePrincipal*1.46), (int)Math.round(Altura_FramePrincipal*0.8452)));
 		painel_mesas_com_scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		painel_mesas_com_scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		// painel_mesas_com_scroll.setAlignmentY(JPanel.CENTER_ALIGNMENT);
@@ -165,7 +175,7 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 				
 				try {
 					new Bd_update().BD_Update_Status_Atend_Mesa(Painel_Mesa.list_ObjetoMesa.get(x).numero, "Consumindo");
-					new Painel_MesaConsumindo(x);
+					new Painel_MesaConsumindo(Painel_Mesa.list_ObjetoMesa.get(x));
 				} catch (InterruptedException | ExecutionException | IOException e1) {
 					e1.printStackTrace();
 				}			

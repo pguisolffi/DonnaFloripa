@@ -38,7 +38,7 @@ public class Painel_MesaAtendIniciado {
         objMesa.threadDuracao = new MinhasThreadsMesa(objMesa);
 
         if (objMesa.status.equals("Consumindo")){
-            new Painel_MesaConsumindo((objMesa.numero)-1);
+            new Painel_MesaConsumindo(Globals.ehAtendimentoAntigo ? objMesa : Painel_Mesa.list_ObjetoMesa.get((objMesa.numero)-1));
         }
 
         Painel_Mesa.painel_mesas_com_scroll.updateUI();      

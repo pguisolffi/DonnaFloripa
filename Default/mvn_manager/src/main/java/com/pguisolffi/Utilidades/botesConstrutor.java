@@ -33,61 +33,60 @@ public class botesConstrutor {
 
                 ImageIcon imgeye = new ImageIcon(
                                 "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/Eye.png");
-                Image imgeeyenew = imgeye.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.06), (int)Math.round(Altura_FramePrincipal*0.06), Image.SCALE_DEFAULT);
+                Image imgeeyenew = imgeye.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.045), (int)Math.round(Altura_FramePrincipal*0.06), Image.SCALE_DEFAULT);
                 ImageIcon imgEye = new ImageIcon(imgeeyenew);
 
                 ImageIcon imgeyeDelivery = new ImageIcon(
                                 "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/Eye.png");
-                Image imgeeyenewDelivery = imgeyeDelivery.getImage().getScaledInstance(33, 21, Image.SCALE_DEFAULT);
+                Image imgeeyenewDelivery = imgeyeDelivery.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.016), (int)Math.round(Altura_FramePrincipal*0.018), Image.SCALE_DEFAULT);
                 ImageIcon imgEyeDelivery = new ImageIcon(imgeeyenewDelivery);
 
                 ImageIcon imgadd = new ImageIcon(
                                 "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/add.png");
-                Image imgaddnew = imgadd.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.06), (int)Math.round(Altura_FramePrincipal*0.06), Image.SCALE_DEFAULT);
+                Image imgaddnew = imgadd.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.045), (int)Math.round(Altura_FramePrincipal*0.06), Image.SCALE_DEFAULT);
                 ImageIcon imgAdd = new ImageIcon(imgaddnew);
 
                 ImageIcon imgconfirm = new ImageIcon(
                                 "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/confirm.png");
-                Image imgconfirmnew = imgconfirm.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.06), (int)Math.round(Altura_FramePrincipal*0.06), Image.SCALE_DEFAULT);
+                Image imgconfirmnew = imgconfirm.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.045), (int)Math.round(Altura_FramePrincipal*0.06), Image.SCALE_DEFAULT);
                 ImageIcon imgConfirm = new ImageIcon(imgconfirmnew);
 
                 ImageIcon addMesa = new ImageIcon(
                                 "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/addmesa.png");
-                Image addMesanew = addMesa.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.06), (int)Math.round(Altura_FramePrincipal*0.06), Image.SCALE_DEFAULT);
+                Image addMesanew = addMesa.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.045), (int)Math.round(Altura_FramePrincipal*0.06), Image.SCALE_DEFAULT);
                 ImageIcon add_mesa = new ImageIcon(addMesanew);
 
                 ImageIcon imgconfirmDelivery = new ImageIcon(
                                 "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/confirm.png");
-                Image imgconfirmnewDelivery = imgconfirmDelivery.getImage().getScaledInstance(33, 21,
-                                Image.SCALE_DEFAULT);
+                Image imgconfirmnewDelivery = imgconfirmDelivery.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.019), (int)Math.round(Altura_FramePrincipal*0.016),Image.SCALE_DEFAULT);
                 ImageIcon imgConfirmDelivery = new ImageIcon(imgconfirmnewDelivery);
 
                 ImageIcon imgAddDelivery = new ImageIcon(
                                 "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/addDelivery.png");
-                Image imgAddDeliveryNew = imgAddDelivery.getImage().getScaledInstance(60, 39, Image.SCALE_DEFAULT);
+                Image imgAddDeliveryNew = imgAddDelivery.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.062), (int)Math.round(Altura_FramePrincipal*0.047), Image.SCALE_DEFAULT);
                 ImageIcon imgAdd_Delivery = new ImageIcon(imgAddDeliveryNew);
 
                 ImageIcon imgRemover = new ImageIcon(
                                 "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/Remove.png");
-                Image imgRemoverNew = imgRemover.getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT);
+                Image imgRemoverNew = imgRemover.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.007), (int)Math.round(Altura_FramePrincipal*0.013), Image.SCALE_DEFAULT);
                 ImageIcon imgRemoverItem = new ImageIcon(imgRemoverNew);
 
                 ImageIcon imgImpressao = new ImageIcon(
                                 "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/printer.png");
-                Image imgImpressaonew = imgImpressao.getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT);
+                Image imgImpressaonew = imgImpressao.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.018), (int)Math.round(Altura_FramePrincipal*0.03), Image.SCALE_DEFAULT);
                 ImageIcon imgImpressora = new ImageIcon(imgImpressaonew);
 
                 ImageIcon imgFoward = new ImageIcon(
                                 "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/transfer.png");
-                Image imgFowardnew = imgFoward.getImage().getScaledInstance(50, 32, Image.SCALE_DEFAULT);
+                Image imgFowardnew = imgFoward.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.035),(int)Math.round(Altura_FramePrincipal*0.035), Image.SCALE_DEFAULT);
                 ImageIcon transferIcon = new ImageIcon(imgFowardnew);
 
                 ImageIcon imgFinish = new ImageIcon(
                 "C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/finish.png");
-                Image imgFinishnew = imgFinish.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.06), (int)Math.round(Altura_FramePrincipal*0.06), Image.SCALE_DEFAULT);
+                Image imgFinishnew = imgFinish.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.03), (int)Math.round(Altura_FramePrincipal*0.04), Image.SCALE_DEFAULT);
                 finishIcon = new ImageIcon(imgFinishnew);
 
-                Image imgFinishnewDelivey = imgFinish.getImage().getScaledInstance(21, 21, Image.SCALE_DEFAULT);
+                Image imgFinishnewDelivey = imgFinish.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.014), (int)Math.round(Altura_FramePrincipal*0.018), Image.SCALE_DEFAULT);
                 finishIconDelivery = new ImageIcon(imgFinishnewDelivey);
 
 
@@ -143,7 +142,7 @@ public class botesConstrutor {
                 impressoraButton.setMargin(new Insets(0, 0, 0, 0));
                 addItemButton = new JButton("");
                 addItemButton.setIcon(transferIcon);
-                addItemButton.setBackground(Color.ORANGE);
+                addItemButton.setBackground(Color.LIGHT_GRAY);
                 addItemButton.setBorderPainted(false);
                 addItemButton.setMargin(new Insets(0, 0, 0, 0));
                 finishAtendButton = new JButton("");
