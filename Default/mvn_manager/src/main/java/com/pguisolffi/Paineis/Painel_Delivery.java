@@ -93,7 +93,8 @@ public class Painel_Delivery extends JPanel implements ActionListener {
 
         // CORES, FONTS
         {
-            lTitulo.setFont(new Font("Courier", Font.BOLD, (int)Math.round(largura_FramePrincipal*0.02)));
+            lTitulo.setFont(new Font("Courier", Font.BOLD, (int)Math.round(largura_FramePrincipal*0.010667
+            )));
             painelTituloPreparando.setBackground(Color.lightGray);
             painelTituloTransito.setBackground(Color.lightGray);
             painelTituloEntregas.setBackground(Color.lightGray);
@@ -108,7 +109,7 @@ public class Painel_Delivery extends JPanel implements ActionListener {
             scrollDelivery.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
             painelPrincipal_Delivery.setBorder(BorderFactory.createLineBorder(Color.black));
             //300/650
-            scrollDelivery.setPreferredSize(new Dimension((int)Math.round(largura_FramePrincipal*0.3), (int)Math.round(Altura_FramePrincipal*0.8452)));
+            scrollDelivery.setPreferredSize(new Dimension((int)Math.round(largura_FramePrincipal*0.16), (int)Math.round(Altura_FramePrincipal*0.601031)));
             scrollDelivery.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
             scrollDelivery.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         }

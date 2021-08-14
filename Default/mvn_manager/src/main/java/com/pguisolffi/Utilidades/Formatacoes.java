@@ -20,11 +20,11 @@ public class Formatacoes {
         int largura_FramePrincipal = redim.Largura_FrameMesas();
         int Altura_FramePrincipal = redim.Altura_FrameMesas();
 
-        mesaModel.lduracao.setFont(new Font("Calibri", Font.BOLD, (int)Math.round(largura_FramePrincipal*0.02)));
+        mesaModel.lduracao.setFont(new Font("Calibri", Font.BOLD, (int)Math.round(largura_FramePrincipal*0.010667)));
         mesaModel.lduracao.setHorizontalAlignment(JLabel.CENTER);
         mesaModel.lduracao.setVerticalAlignment(JLabel.CENTER);
 
-        mesaModel.lnomeMesa.setFont(new Font("Verdana", 1, (int)Math.round(largura_FramePrincipal*0.02)));
+        mesaModel.lnomeMesa.setFont(new Font("Verdana", 1, (int)Math.round(largura_FramePrincipal*0.010667)));
         mesaModel.lnomeMesa.setHorizontalAlignment(JLabel.CENTER);
         mesaModel.lnomeMesa.setVerticalAlignment(JLabel.NORTH);
 

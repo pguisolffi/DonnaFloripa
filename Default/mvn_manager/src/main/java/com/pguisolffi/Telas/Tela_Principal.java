@@ -35,8 +35,12 @@ public class Tela_Principal extends JFrame {
 
 	public Tela_Principal() throws IOException, InterruptedException, ExecutionException {
 
+		GraphicsDevice Gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		int width = Gd.getDisplayMode().getWidth();
+		int height = Gd.getDisplayMode().getHeight();
+
 		Frame_TelaPrincipal = new JFrame();
-		Frame_TelaPrincipal.setSize(1024, 768);
+		Frame_TelaPrincipal.setSize((int)width,(int)height);
 
 		RedimensionarComplementos redim = new RedimensionarComplementos();
 		int largura_FramePrincipal = redim.Largura_FrameMesas();
@@ -52,12 +56,13 @@ public class Tela_Principal extends JFrame {
 
 		ImageIcon imgdf = new ImageIcon(
 				"C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/DonnaFloripa.png");
-		Image imgedf = imgdf.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.24), (int)Math.round(Altura_FramePrincipal*0.24), Image.SCALE_DEFAULT);
+		Image imgedf = imgdf.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.128), (int)Math.round(Altura_FramePrincipal*0.170667), Image.SCALE_DEFAULT);
 		ImageIcon imgDonnaFloripa = new ImageIcon(imgedf);
 
 		ImageIcon leg = new ImageIcon(
 				"C:/Projetos/Donna/DonnaFloripa/Default/mvn_manager/src/main/java/com/pguisolffi/images/legendas.png");
-		Image legNew = leg.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*1.2), (int)Math.round(Altura_FramePrincipal*0.3), Image.SCALE_DEFAULT);
+		Image legNew = leg.getImage().getScaledInstance((int)Math.round(largura_FramePrincipal*0.64), (int)Math.round(Altura_FramePrincipal*0.213333
+		), Image.SCALE_DEFAULT);
 		ImageIcon legendas = new ImageIcon(legNew);
 
 		JLabel lLogo = new JLabel();
@@ -70,12 +75,12 @@ public class Tela_Principal extends JFrame {
 		logoDonnaFloripa.setLayout(new BoxLayout(logoDonnaFloripa, BoxLayout.LINE_AXIS));
 		logoDonnaFloripa.setBackground(Color.ORANGE);
 		logoDonnaFloripa.setAlignmentX(JPanel.RIGHT_ALIGNMENT);
-		logoDonnaFloripa.add(Box.createRigidArea(new Dimension((int)Math.round(largura_FramePrincipal*0.055), 0)));
+		logoDonnaFloripa.add(Box.createRigidArea(new Dimension((int)Math.round(largura_FramePrincipal*0.029333), 0)));
 		logoDonnaFloripa.add(legendas_label);
 		logoDonnaFloripa.add(lLogo);
 
 		JLabel labelTituloPainelPrincipal = new JLabel("Painel de atendimentos - Donna Floripa", JLabel.CENTER);
-		labelTituloPainelPrincipal.setFont(new Font("Futura", Font.BOLD, (int)Math.round(largura_FramePrincipal*0.04)));
+		labelTituloPainelPrincipal.setFont(new Font("Futura", Font.BOLD, (int)Math.round(largura_FramePrincipal*0.021333)));
 
 		Painel_Mesa panel_Mesa = new Painel_Mesa();
 		panel_Mesa.setAlignmentY(Painel_Mesa.BOTTOM_ALIGNMENT);
@@ -84,7 +89,7 @@ public class Tela_Principal extends JFrame {
 		JPanel panelDasMesas = new JPanel();
 		panelDasMesas.setLayout(new BoxLayout(panelDasMesas, BoxLayout.PAGE_AXIS));
 		panelDasMesas.setBackground(Color.ORANGE);
-		panelDasMesas.add(Box.createRigidArea(new Dimension(0, (int)Math.round(largura_FramePrincipal*0.055))));
+		panelDasMesas.add(Box.createRigidArea(new Dimension(0, (int)Math.round(largura_FramePrincipal*0.029333))));
 		panelDasMesas.add(panel_Mesa);
 
 		Painel_Delivery panel_Delivery = new Painel_Delivery();
@@ -93,7 +98,7 @@ public class Tela_Principal extends JFrame {
 		JPanel panelDasDelivery = new JPanel();
 		panelDasDelivery.setLayout(new BoxLayout(panelDasDelivery, BoxLayout.PAGE_AXIS));
 		panelDasDelivery.setBackground(Color.ORANGE);
-		panelDasDelivery.add(Box.createRigidArea(new Dimension(0, (int)Math.round(largura_FramePrincipal*0.055))));
+		panelDasDelivery.add(Box.createRigidArea(new Dimension(0, (int)Math.round(largura_FramePrincipal*0.029333))));
 		panelDasDelivery.add(panel_Delivery);
 
 		JPanel panelBotaoInserir = new JPanel();
@@ -127,7 +132,7 @@ public class Tela_Principal extends JFrame {
 		// Frame_TelaPrincipal.getContentPane().add(panelDasDelivery, BorderLayout.LINE_END);
 		// Frame_TelaPrincipal.getContentPane().add(logoDonnaFloripa, BorderLayout.PAGE_END);
 
-		Frame_TelaPrincipal.pack();
+		//Frame_TelaPrincipal.pack();
 		Frame_TelaPrincipal.setVisible(true);
 		Frame_TelaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Frame_TelaPrincipal.show(); // MOSTRA O FRAME

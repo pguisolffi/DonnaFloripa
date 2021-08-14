@@ -5,6 +5,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Label;
+import com.pguisolffi.Graficos.DesenhandoGraficos;
 import com.pguisolffi.Utilidades.Calendario;
 import com.pguisolffi.Utilidades.RedimensionarComplementos;
 import com.pguisolffi.Utilidades.RoundedBorder;
@@ -38,7 +39,13 @@ public class Aba_Relatorios extends JButton{
         panel_DadosPesquisa = new JPanel();
         panel_DadosPesquisa.setLayout(new BoxLayout(panel_DadosPesquisa, BoxLayout.PAGE_AXIS));
         panel_DadosPesquisa.setBorder(new EmptyBorder(10,30,10,10));
-        painel_Tela_Relatorios.setPreferredSize(new Dimension(1200,800));
+        //painel_Tela_Relatorios.setPreferredSize(new Dimension(1200,800));
+
+        JPanel grafico = new JPanel();
+        grafico.setLayout(new BoxLayout(grafico, BoxLayout.PAGE_AXIS));
+
+        grafico.add(Dadosgraficos());
+        
         
         titulo_TelaRelatorios();
         escolherDatas();
@@ -47,6 +54,7 @@ public class Aba_Relatorios extends JButton{
         consultarPedidos();
 
         painel_Tela_Relatorios.add(resultadoDaConsulta(), BorderLayout.CENTER);
+        painel_Tela_Relatorios.add(grafico, BorderLayout.LINE_END);
         
         painel_Tela_Relatorios.updateUI();
 
@@ -221,7 +229,7 @@ public class Aba_Relatorios extends JButton{
 
         JPanel grid_Itens = new JPanel(new GridLayout(0, 3, 20, 20));
         JScrollPane scrollItens = new JScrollPane(grid_Itens);
-        scrollItens.setPreferredSize(new Dimension(200,600));
+        scrollItens.setPreferredSize(new Dimension(500,600));
 
         JLabel Descricao = new JLabel("Descricao",JLabel.CENTER);
         JLabel Qtde = new JLabel("Qtde",JLabel.CENTER);
@@ -236,20 +244,56 @@ public class Aba_Relatorios extends JButton{
         Painel_Descricao.add(Descricao);
         Painel_Qtde.add(Qtde); 
         Painel_Valor.add(Valor);
+        Painel_Descricao.setBackground(Color.pink);
 
 
         grid_Itens.add(Painel_Descricao);
         grid_Itens.add(Painel_Qtde);
         grid_Itens.add(Painel_Valor);
+        //grid_Itens.setMaximumSize(new Dimension(grid_Itens.getMinimumSize().width, grid_Itens.getMinimumSize().height));
+        //jpanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, jpanel.getMinimumSize().height));
+        //PanelResultadoItens.setMaximumSize(new Dimension(PanelResultadoItens.getMinimumSize().width, PanelResultadoItens.getMinimumSize().height));
 
-        PanelResultadoItens.add(grid_Itens);
+        Painel_Descricao.setPreferredSize(new Dimension(30, 30));
+        Painel_Qtde.setPreferredSize(new Dimension(30, 30));
+        Painel_Valor.setPreferredSize(new Dimension(30, 30));
 
-        fit_Redimen_Heigth(PanelResultadoItens);
-        fit_Redimen_Heigth(grid_Itens);
+        //PanelResultadoItens.add(grid_Itens);
+
+        // fit_Redimen_Heigth(Painel_Descricao);
+        // fit_Redimen_Heigth(Painel_Qtde);
+        // fit_Redimen_Heigth(Painel_Valor);
+
+        // fit_Redimen_Heigth(PanelResultadoItens);
+        // fit_Redimen_Heigth(grid_Itens);
 
         return PanelResultadoItens;
     }
 
+    public JPanel Dadosgraficos(){
+
+        final DesenhandoGraficos desenhando = new DesenhandoGraficos();
+        
+        desenhando.setTitulos("Amostras por Periodo", "Mes",
+        "Quantidade de Amostras");
+        desenhando.setParametros(30, "Jan.");
+        desenhando.setParametros(60, "Fev.");
+        desenhando.setParametros(25, "Mar.");
+        desenhando.setParametros(45, "Abr.");
+        desenhando.setParametros(115, "Mai.");
+        desenhando.setParametros(73, "Jun.");
+        desenhando.setParametros(87, "Jul.");
+        desenhando.setParametros(55, "Ago.");
+        desenhando.setParametros(19, "Set.");
+        desenhando.setParametros(90, "Out.");
+        desenhando.setParametros(45, "Nov.");
+        desenhando.setParametros(102, "Dez.");
+
+        desenhando.setTipoGrafico(1);
+
+        return desenhando;
+
+}    
     public void fit_Redimen_Heigth(JPanel jpanel) {
         jpanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, jpanel.getMinimumSize().height));
     }

@@ -93,7 +93,7 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 		botaoAddMesa = new JButton();
 		botaoAddMesa = btnsMesas.add_Mesa;
 
-		painel_mesas_com_scroll.setPreferredSize(new Dimension((int)Math.round(largura_FramePrincipal*1.46), (int)Math.round(Altura_FramePrincipal*0.8452)));
+		painel_mesas_com_scroll.setPreferredSize(new Dimension((int)Math.round(largura_FramePrincipal*0.778667), (int)Math.round(Altura_FramePrincipal*0.601031)));
 		painel_mesas_com_scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		painel_mesas_com_scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		// painel_mesas_com_scroll.setAlignmentY(JPanel.CENTER_ALIGNMENT);
