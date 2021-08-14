@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch TesteGraficos",
+            "request": "launch",
+            "mainClass": "com.pguisolffi.Graficos.TesteGraficos",
+            "projectName": "mvn_manager"
+        },
+        {
+            "type": "java",
+            "name": "Launch calendario",
+            "request": "launch",
+            "mainClass": "com.pguisolffi.Paineis.calendario",
+            "projectName": "mvn_manager"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"

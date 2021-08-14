@@ -5,6 +5,8 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import com.pguisolffi.Utilidades.Globals;
 import com.pguisolffi.Utilidades.RedimensionarComplementos;
 import com.pguisolffi.sgbd.Bd_get;
 import com.pguisolffi.sgbd.InitializeBd;
+import com.pguisolffi.Acoes.abasMenu;
 import com.pguisolffi.Objetos.Objeto_Item;
 
 import java.awt.*;
@@ -25,6 +28,7 @@ import java.io.IOException;
 public class Tela_Principal extends JFrame {
 
 	public static JFrame Frame_TelaPrincipal;
+	public static JPanel Painel_DeMesas;
 
 	public List<Objeto_Item> listItemModels_Almoco = new ArrayList<Objeto_Item>();
 	public List<Objeto_Item> listItemModels_ItensAdicionais = new ArrayList<Objeto_Item>();
@@ -97,17 +101,32 @@ public class Tela_Principal extends JFrame {
 		panelBotaoInserir.add(panel_Mesa.botaoAddMesa);
 		panelBotaoInserir.setAlignmentY(JPanel.TOP_ALIGNMENT);
 
+		new abasMenu();
+
 		Frame_TelaPrincipal.setLayout(new BorderLayout());
 		Frame_TelaPrincipal.setTitle("DONNA FLORIPA");
 		Frame_TelaPrincipal.setIconImage(imgdf.getImage());
 		Frame_TelaPrincipal.getContentPane().setBackground(Color.ORANGE);
 		Frame_TelaPrincipal.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		// this.setSize(1024, 768);
-		Frame_TelaPrincipal.getContentPane().add(labelTituloPainelPrincipal, BorderLayout.PAGE_START);
-		Frame_TelaPrincipal.getContentPane().add(panelDasMesas, BorderLayout.CENTER);
-		Frame_TelaPrincipal.getContentPane().add(panelBotaoInserir, BorderLayout.LINE_START);
-		Frame_TelaPrincipal.getContentPane().add(panelDasDelivery, BorderLayout.LINE_END);
-		Frame_TelaPrincipal.getContentPane().add(logoDonnaFloripa, BorderLayout.PAGE_END);
+
+		Painel_DeMesas = new JPanel(new BorderLayout());
+		Painel_DeMesas.setBackground(Color.ORANGE);
+		Painel_DeMesas.add(labelTituloPainelPrincipal, BorderLayout.PAGE_START);
+		Painel_DeMesas.add(panelDasMesas, BorderLayout.CENTER);
+		Painel_DeMesas.add(panelBotaoInserir, BorderLayout.LINE_START);
+		Painel_DeMesas.add(panelDasDelivery, BorderLayout.LINE_END);
+		Painel_DeMesas.add(logoDonnaFloripa, BorderLayout.PAGE_END);
+
+
+		Frame_TelaPrincipal.getContentPane().add(Painel_DeMesas);
+
+
+		// Frame_TelaPrincipal.getContentPane().add(labelTituloPainelPrincipal, BorderLayout.PAGE_START);
+		// Frame_TelaPrincipal.getContentPane().add(panelDasMesas, BorderLayout.CENTER);
+		// Frame_TelaPrincipal.getContentPane().add(panelBotaoInserir, BorderLayout.LINE_START);
+		// Frame_TelaPrincipal.getContentPane().add(panelDasDelivery, BorderLayout.LINE_END);
+		// Frame_TelaPrincipal.getContentPane().add(logoDonnaFloripa, BorderLayout.PAGE_END);
+
 		Frame_TelaPrincipal.pack();
 		Frame_TelaPrincipal.setVisible(true);
 		Frame_TelaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

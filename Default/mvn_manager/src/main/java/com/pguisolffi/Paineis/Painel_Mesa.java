@@ -76,7 +76,6 @@ public class Painel_Mesa extends JPanel implements ActionListener {
         int Altura_FramePrincipal = redim.Altura_FrameMesas();
 
 
-		// Objeto_Mesa mesaModel = new Objeto_Mesa(indice, status, observacao, table);
 		// INSTANCIAR OBJETOS
 		lista_mesas = new ArrayList<>(); // ------------------------------- LISTA DE MESAS
 		lista_mesas_painel = new ArrayList<>(); // ------------------------ LISTA DE MESAS
@@ -94,12 +93,7 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 		botaoAddMesa = new JButton();
 		botaoAddMesa = btnsMesas.add_Mesa;
 
-		// CARATER�STICAS DOS OBJETOS
-		// painel_mesas.setPreferredSize(new Dimension(300, 150));
-		//1500,650
-		//painel_mesas_com_scroll.setPreferredSize(new Dimension(1500,650));
-
-painel_mesas_com_scroll.setPreferredSize(new Dimension((int)Math.round(largura_FramePrincipal*1.46), (int)Math.round(Altura_FramePrincipal*0.8452)));
+		painel_mesas_com_scroll.setPreferredSize(new Dimension((int)Math.round(largura_FramePrincipal*1.46), (int)Math.round(Altura_FramePrincipal*0.8452)));
 		painel_mesas_com_scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		painel_mesas_com_scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		// painel_mesas_com_scroll.setAlignmentY(JPanel.CENTER_ALIGNMENT);
