@@ -62,7 +62,7 @@ public class Painel_Itens {
         pPanel_Titulo_Observacoes = new JPanel();
         jSeparator_Observacoes = new JSeparator();
         pPanel_text_Observacoes = new JPanel();
-        tTextField_Observacoes = new JTextArea();
+        tTextField_Observacoes = new JTextArea();//BLA
         lTitulo_Observacoes = new JLabel();
 
         pPainel_PrincipalPratos.setMinimumSize(new Dimension(400, 800));
@@ -222,11 +222,6 @@ public class Painel_Itens {
         lTituloBebidas = new JLabel();
         jSeparator_TituloPratos = new JSeparator();
         Panel_LadoEsquerdoBebidas = new JPanel(new FlowLayout());
-        pPanel_Titulo_Observacoes = new JPanel();
-        jSeparator_Observacoes = new JSeparator();
-        pPanel_text_Observacoes = new JPanel();
-        tTextField_Observacoes = new JTextArea();
-        lTitulo_Observacoes = new JLabel();
 
         panel_PrincipalBebidas.setMinimumSize(new Dimension(400, 400));
         panel_PrincipalBebidas.setPreferredSize(new Dimension(400, 400));
@@ -268,8 +263,6 @@ public class Painel_Itens {
         Panel_LadoEsquerdoCafes = new JPanel(new FlowLayout());
         pPanelTituloCafesGelados = new JPanel();
         jSeparator_TituloPratos = new JSeparator();
-        pPanel_text_Observacoes = new JPanel();
-        tTextField_Observacoes = new JTextArea();
         lTitulosCafesGelados = new JLabel();
 
         panel_PrincipalCafes.setMinimumSize(new Dimension(400, 400));

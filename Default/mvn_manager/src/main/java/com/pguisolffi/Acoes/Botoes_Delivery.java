@@ -47,9 +47,8 @@ public class Botoes_Delivery implements ActionListener{
         }
 
         try {
-            new Tela_AddItens(null);
+            new Tela_AddItens(0);
         } catch (InterruptedException | ExecutionException | IOException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         new Carregar_ItensAtendimento(list_ObjetosAtendimentos);

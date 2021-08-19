@@ -12,19 +12,19 @@ public class Calendario {
         
     }
 
-    public JPanel calendario(){
+    public JXDatePicker calendario(){
 
-        JPanel panel = new JPanel();
+        //JPanel panel = new JPanel();
 
         JXDatePicker picker = new JXDatePicker();
         picker.setDate(Calendar.getInstance().getTime());
         picker.setFormats(new SimpleDateFormat("dd.MM.yyyy"));
-        panel.add(picker);
+        //panel.add(picker);
 
         // JFormattedTextField editor = picker.getEditor();
         // Date dateInDatePicker = (Date) editor.getValue();
         
-        return panel;
+        return picker;
 
     }
 

@@ -99,7 +99,7 @@ public class Painel_Comanda extends JPanel implements ActionListener {
         pBox_Comanda.add(pPainel_nomeMesa);
 
         lNumeroComanda.setForeground(new Color(0, 102, 255));
-        int identificadorComanda = Globals.numeroPedido;
+        int identificadorComanda = Globals.ehAtendimentoAntigo ? Globals.pedidoAtual : Globals.numeroPedido;
         lNumeroComanda.setText("(Pedido: " + String.format("%08d", Globals.ehDelivery ? Globals.pedidoAtual : identificadorComanda) + ")");
         lNumeroComanda.setPreferredSize(null);
         pPanel_NumeroComanda.add(lNumeroComanda);

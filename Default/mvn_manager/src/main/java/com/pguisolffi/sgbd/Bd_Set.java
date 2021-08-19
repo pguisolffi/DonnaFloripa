@@ -160,11 +160,13 @@ public class Bd_Set {
 
         for (int x = 0; x < listItensAtendimento.size(); x++) {
 
+            Timestamp dtinicio = Timestamp.valueOf(listItensAtendimento.get(x).horaInicioAtendimento);
+
             DocumentReference docRef = db.collection("Atendimento").document(
                     String.valueOf(listItensAtendimento.get(x).pedido) + "Sq" + listItensAtendimento.get(x).nuSeqItem);
 
             data.put("cdItem", listItensAtendimento.get(x).cdItem);
-            data.put("dtInicio", listItensAtendimento.get(x).horaInicioAtendimento);
+            data.put("dtInicio", dtinicio);
             data.put("nuSeqItem", listItensAtendimento.get(x).nuSeqItem);
             data.put("ehDelivery", listItensAtendimento.get(x).ehDelivery);
             data.put("valor", listItensAtendimento.get(x).fValorItem);

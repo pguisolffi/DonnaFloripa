@@ -83,8 +83,7 @@ public class Painel_Delivery extends JPanel implements ActionListener {
         lTitulo = new JLabel("        DELÍVERY");
         painelPrincipal_Delivery = new JPanel();
         painelPrincipal_Delivery.setLayout(new BoxLayout(painelPrincipal_Delivery, BoxLayout.PAGE_AXIS));
-        scrollDelivery = new JScrollPane(painelPrincipal_Delivery, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollDelivery = new JScrollPane(painelPrincipal_Delivery, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         botesConstrutor btnsMesas = new botesConstrutor();
         painelTopo = new JPanel(new FlowLayout(FlowLayout.LEADING));
         painelTituloPreparando = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -166,7 +165,7 @@ public class Painel_Delivery extends JPanel implements ActionListener {
 
         List<Integer> Pedidos_deliverysPreparando = new Bd_get().get_Deliverys("Preparando");
         List<Integer> Pedidos_deliverysEmTransito = new Bd_get().get_Deliverys("Em Transito");
-        List<Integer> Pedidos_deliverysEntregue = new Bd_get().get_Deliverys("Entregue");
+        List<Integer> Pedidos_deliverysEntregue   = new Bd_get().get_Deliverys("Entregue");
 
 
         if (!Pedidos_deliverysPreparando.isEmpty()){
@@ -209,10 +208,11 @@ public class Painel_Delivery extends JPanel implements ActionListener {
         //AO CLICAR NA MOTINHO E ENVIAR UM NOVO ATENDIMENTO
         if (e.getSource() == btnPlay) {
             Globals.numeroPedido++;
+            Globals.pedidoAtual = Globals.numeroPedido;
             Globals.ehAtendimentoAntigo = false;
             Globals.ehDelivery = true;
             try {
-                new Tela_AddItens(null);
+                new Tela_AddItens(0);
                 //new Botoes_Delivery().Preparando(Globals.numeroPedido);
             } catch (InterruptedException | ExecutionException | IOException e1) {
                 e1.printStackTrace();

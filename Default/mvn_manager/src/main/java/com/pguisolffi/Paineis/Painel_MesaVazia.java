@@ -4,14 +4,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import com.pguisolffi.Objetos.Objeto_Mesa;
 import com.pguisolffi.Utilidades.Formatacoes;
+import com.pguisolffi.Utilidades.RedimensionarComplementos;
 import com.pguisolffi.Utilidades.botesConstrutor;
 
 public class Painel_MesaVazia {
 
     public Objeto_Mesa Painel_MesaVazia(int indice){
+
+
 
         botesConstrutor btnsMesas = new botesConstrutor();
 
@@ -32,6 +36,11 @@ public class Painel_MesaVazia {
         mesaModel.interiorMesa.add(mesaModel.lnomeMesa, BorderLayout.PAGE_START);
         mesaModel.interiorMesa.add(mesaModel.btnAdd, BorderLayout.CENTER);
         mesaModel.mesa.add(mesaModel.interiorMesa, BorderLayout.CENTER);
+
+        RedimensionarComplementos redim = new RedimensionarComplementos();
+        int largura_FramePrincipal = redim.Largura_FrameMesas();
+        int Altura_FramePrincipal = redim.Altura_FrameMesas();
+        mesaModel.mesa.setPreferredSize(new Dimension((int)Math.round(largura_FramePrincipal*0.146),(int)Math.round(Altura_FramePrincipal*0.18)));
 
         return mesaModel;
 

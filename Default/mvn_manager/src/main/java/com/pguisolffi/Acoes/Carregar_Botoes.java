@@ -464,7 +464,7 @@ public class Carregar_Botoes implements ActionListener,MouseListener {
 
                 String observacao = "";
                 
-                if (!Painel_Itens.tTextField_Observacoes.getText().equals("")){
+                if (!Painel_Itens.tTextField_Observacoes.getText().isEmpty()){
                      observacao = Painel_Itens.tTextField_Observacoes.getText();
                 }
 

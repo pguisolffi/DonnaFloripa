@@ -4,6 +4,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
+import com.pguisolffi.GerenciarProdutos.Painel_multiSelecao;
 import com.pguisolffi.Telas.Aba_Relatorios;
 import com.pguisolffi.Telas.Tela_Principal;
 
@@ -14,7 +15,7 @@ public class abasMenu implements MouseListener{
 
     JMenu PainelMenu,RelatoriosMenu,ConfiguracoesMenu;
 
-    public JPanel panel_relatorio;
+    public JPanel panel_relatorio,panel_Configuracoes;
 
     public abasMenu(){
 
@@ -38,6 +39,7 @@ public class abasMenu implements MouseListener{
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == PainelMenu){
             panel_relatorio.setVisible(false);
+            panel_Configuracoes.setVisible(false);
             Tela_Principal.Painel_DeMesas.setVisible(true);
         }
 
@@ -48,11 +50,17 @@ public class abasMenu implements MouseListener{
 
             Tela_Principal.Frame_TelaPrincipal.getContentPane().add(panel_relatorio);
             Tela_Principal.Painel_DeMesas.setVisible(false);
+            panel_Configuracoes.setVisible(false);
             panel_relatorio.setVisible(true);
         }
 
         if (e.getSource() == ConfiguracoesMenu){
-            System.out.println("Clicou nas Configurações");
+            Painel_multiSelecao painelConfig = new Painel_multiSelecao();
+            panel_Configuracoes = painelConfig.Painel_multiSelecao();
+
+            Tela_Principal.Frame_TelaPrincipal.getContentPane().add(panel_Configuracoes);
+            Tela_Principal.Painel_DeMesas.setVisible(false);
+            panel_relatorio.setVisible(false);
         }
         
     }

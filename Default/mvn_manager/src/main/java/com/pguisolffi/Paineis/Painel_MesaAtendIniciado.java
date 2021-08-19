@@ -1,6 +1,7 @@
 package com.pguisolffi.Paineis;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.io.IOException;
 import java.awt.BorderLayout;
 
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 import com.pguisolffi.Objetos.Objeto_Mesa;
 import com.pguisolffi.Utilidades.Globals;
 import com.pguisolffi.Utilidades.MinhasThreadsMesa;
+import com.pguisolffi.Utilidades.RedimensionarComplementos;
 import com.pguisolffi.sgbd.Bd_get;
 
 import org.threeten.bp.LocalDate;
@@ -32,6 +34,12 @@ public class Painel_MesaAtendIniciado {
         objMesa.interiorMesa.add(objMesa.lentrada,BorderLayout.LINE_END);
         objMesa.mesa.add(objMesa.lduracao,BorderLayout.PAGE_END);
         objMesa.isThreadActive = true;
+        
+        RedimensionarComplementos redim = new RedimensionarComplementos();
+        int largura_FramePrincipal = redim.Largura_FrameMesas();
+        int Altura_FramePrincipal = redim.Altura_FrameMesas();
+        objMesa.mesa.setPreferredSize(new Dimension((int)Math.round(largura_FramePrincipal*0.15),(int)Math.round(Altura_FramePrincipal*0.18)));
+
 
         Globals.ehDelivery = false;
 

@@ -38,11 +38,12 @@ public class Botoes_Mesa {
         Globals globals = new Globals();
         globals.ehDelivery = false;
         globals.numeroPedido++;
-        objMesa.pedido = globals.numeroPedido;
+        globals.pedidoAtual = globals.numeroPedido;
+        objMesa.pedido = globals.pedidoAtual;
         objMesa.status = "Preparando";
         
         try {
-            new Tela_AddItens(objMesa);
+            new Tela_AddItens(objMesa.numero);
         } catch (InterruptedException e1) {
             e1.printStackTrace();
         } catch (ExecutionException e1) {

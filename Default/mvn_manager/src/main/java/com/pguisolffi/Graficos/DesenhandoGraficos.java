@@ -12,6 +12,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -33,7 +34,8 @@ public class DesenhandoGraficos extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        this.setBackground(Color.WHITE);
+        //this.setBackground(Color.WHITE);
+        this.setBorder(new EmptyBorder(10,40,10,70));
 
         int tamanhoLinha = rotulos.size() * espaco + 50; // comprimento da linha horizontal
 
@@ -56,7 +58,7 @@ public class DesenhandoGraficos extends JPanel {
                     (altura + margem) - valor - 5);
 
             // desenha graficos
-            g.setColor(Color.BLUE);
+            g.setColor(Color.ORANGE);
             switch (tipoGrafico) {
                 case 0: // grafico em colunas
                     g.fillRect((i + 1) * espaco+ 15, (altura + margem) - valor,

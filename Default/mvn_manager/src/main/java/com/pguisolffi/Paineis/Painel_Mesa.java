@@ -1,16 +1,12 @@
 package com.pguisolffi.Paineis;
 
 import java.awt.*;
-import java.awt.GridBagLayout;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -26,19 +22,13 @@ import com.pguisolffi.Acoes.BarraCircularDeProgresso_gif;
 import com.pguisolffi.Acoes.Botoes_Mesa;
 import com.pguisolffi.Acoes.Carregar_ItensAtendimento;
 import com.pguisolffi.Objetos.Objeto_Atendimento;
-import com.pguisolffi.Objetos.Objeto_Delivery;
 import com.pguisolffi.Objetos.Objeto_Mesa;
 import com.pguisolffi.Telas.Tela_AddItens;
 import com.pguisolffi.Utilidades.Globals;
-import com.pguisolffi.Utilidades.MinhasThreadsMesa;
 import com.pguisolffi.Utilidades.RedimensionarComplementos;
 import com.pguisolffi.Utilidades.botesConstrutor;
 import com.pguisolffi.sgbd.Bd_get;
 import com.pguisolffi.sgbd.Bd_update;
-
-//import org.apache.commons.lang3.ObjectUtils.Null;
-
-import com.pguisolffi.Utilidades.Formatacoes;
 
 public class Painel_Mesa extends JPanel implements ActionListener {
 
@@ -187,11 +177,13 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 		}
 
 		// Visualizar ítens da mesa (botão Eye)
-		for (int x = 0; x < Painel_Mesa.list_ObjetoMesa.size(); x++) {
+		for (int x = 0; x < list_ObjetoMesa.size(); x++) {
 
-			if (e.getSource() == Painel_Mesa.list_ObjetoMesa.get(x).btnEye) {
+			if (e.getSource() == list_ObjetoMesa.get(x).btnEye) {
 
 				Globals.ehAtendimentoAntigo = true;
+				Globals.ehDelivery = false;
+
 				
 
 				try {
@@ -202,16 +194,15 @@ public class Painel_Mesa extends JPanel implements ActionListener {
 					e2.printStackTrace();
 				}
 
-				try {
+				Globals.pedidoAtual = list_ObjetosAtendimentos.get(0).pedido;
 
+				try {
 					if (!list_ObjetosAtendimentos.isEmpty()) {
-					new Tela_AddItens(Painel_Mesa.list_ObjetoMesa.get(x));
-					BarraCircularDeProgresso_gif barraCircular = new BarraCircularDeProgresso_gif();
+					new Tela_AddItens(list_ObjetoMesa.get(x).numero);
 					new Carregar_ItensAtendimento(list_ObjetosAtendimentos);
 					}
 				} catch (InterruptedException | ExecutionException | IOException e1) {
 					JOptionPane.showMessageDialog(null,"Não há ítens nessa Mesa");
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 

@@ -1,6 +1,7 @@
 package com.pguisolffi.Acoes;
 
 import java.awt.*;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -13,6 +14,7 @@ import javax.swing.SwingConstants;
 
 import java.time.LocalDateTime;
 
+import com.google.protobuf.Timestamp;
 import com.pguisolffi.Objetos.Objeto_Atendimento;
 import com.pguisolffi.Objetos.Objeto_Item;
 import com.pguisolffi.Utilidades.Formatacoes;
@@ -23,6 +25,7 @@ import com.pguisolffi.Paineis.Painel_Comanda;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 
 public class Produtos_Disponiveis implements ActionListener {
 
@@ -46,18 +49,20 @@ public class Produtos_Disponiveis implements ActionListener {
         Objeto_Atendimento modelAtendimento = new Objeto_Atendimento(0, 0, 0, null, null, null, null, null, false, 0,
                 null, null, null, null, 0, 0, null, null, null);
 
+        String dtInicio = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+
         botesConstrutor btnsMesas = new botesConstrutor();
         modelAtendimento.idPratoCompleto = idPrato;
         modelAtendimento.cdItem = tipo.equals("Observacao") ? 999 : objeto.cdItem;
         modelAtendimento.btn_remover = btnsMesas.removeButton;
         modelAtendimento.ehDelivery = Globals.ehDelivery;
         modelAtendimento.fValorItem = tipo.equals("Observacao") ? 0.00 : objeto.fValorItem;
-        modelAtendimento.horaInicioAtendimento = LocalDateTime.now().toString();
+        modelAtendimento.horaInicioAtendimento = dtInicio;
         modelAtendimento.sDescricao = tipo.equals("Observacao") ? obs : objeto.sDescricao;
         modelAtendimento.lDescricao = new JLabel(modelAtendimento.sDescricao, JLabel.LEFT);
         modelAtendimento.lValorItem = new JLabel(format.format(modelAtendimento.fValorItem), JLabel.RIGHT);      
         modelAtendimento.numeroMesa = Globals.mesaAtual;
-        modelAtendimento.pedido = Globals.numeroPedido;
+        modelAtendimento.pedido = Globals.pedidoAtual;
         modelAtendimento.sTipo = tipo;
         modelAtendimento.statusAtendimento = "Preparando";
         modelAtendimento.nuSeqItem = Globals.nuseqItemAtual;

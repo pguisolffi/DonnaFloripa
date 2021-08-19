@@ -37,14 +37,11 @@ public class Tela_AddItens {
 
     Objeto_Item itemModel = new Objeto_Item(0, 0, null, null, 0, null, null, false);
     public static List<Objeto_Item> listItemModels_Produtos = new ArrayList<Objeto_Item>();
-    //public static List<Objeto_Item> listItemModels_ItensAdicionais = new ArrayList<Objeto_Item>();
-    Objeto_Mesa mesaModel;
-    // bd_get bdGet = new bd_get();
 
-    public Tela_AddItens(Objeto_Mesa objMesa) throws InterruptedException, ExecutionException, IOException {
+    public Tela_AddItens(int numeroMesa) throws InterruptedException, ExecutionException, IOException {
 
   
-        mesaModel = objMesa;
+        //mesaModel = objMesa;
         ehDelivery = Globals.ehDelivery;
         Frame_SelecaoItens = new JFrame();
         tGuias = new JTabbedPane();
@@ -59,14 +56,11 @@ public class Tela_AddItens {
         pPanel_guiaBebidas.setLayout(new BoxLayout(pPanel_guiaBebidas, BoxLayout.LINE_AXIS));
         pPanel_guiaCafes.setLayout(new BoxLayout(pPanel_guiaCafes, BoxLayout.LINE_AXIS));
         pPanel_guiaSanduiches.setLayout(new BoxLayout(pPanel_guiaSanduiches, BoxLayout.LINE_AXIS));
-        // pPanel_guiaAlmoco.setBorder(BorderFactory.createEmptyBorder());
-        // pPanel_guiaBebidas.setBorder(BorderFactory.createEmptyBorder());
 
-        Painel_Comanda painel_Comanda = new Painel_Comanda(ehDelivery ? 0 : mesaModel.numero);
+
+        Painel_Comanda painel_Comanda = new Painel_Comanda(ehDelivery ? 0 : numeroMesa);
 
         listItemModels_Produtos = new Bd_get().Get_Produtos();
-        //listItemModels_ItensAdicionais = new Bd_get().Get_ItensAdicionais();
-        //Painel_Itens painel_Itens = new Painel_Itens(listItemModels_Produtos);
 
         //Adiciona as Abas no Frame de Itens
         tGuias.addTab("Almoço", pPanel_guiaAlmoco);

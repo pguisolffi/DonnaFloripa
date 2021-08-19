@@ -26,10 +26,10 @@ import com.pguisolffi.sgbd.InitializeBd;
 
 import javax.swing.JPanel;
 
+//import com.pguisolffi.GerenciarProdutos.Cadastrar_Item;
 //import com.pguisolffi.Configuracoes;
 import com.pguisolffi.Objetos.Objeto_Atendimento;
 import com.pguisolffi.Objetos.Objeto_Mesa;
-import com.pguisolffi.Paineis.Impressora;
 import com.pguisolffi.Telas.Tela_Principal;
 import com.pguisolffi.Utilidades.MinhasThreadsMesa;
 
@@ -45,6 +45,9 @@ public class App {
         // update.Get_ItensAtendimento();
         // PainelPrincipal pp = new PainelPrincipal();
         new Tela_Principal();
+        //Cadastrar_Item frame_cadastrar_item = new Cadastrar_Item();
+        //frame_cadastrar_item.setVisible(true);
+        //new Cadastrar_Item();
         //new Impressora();
         //new Bd_get().get_MesasNãoFinalizadas();
         // MinhasThreads minha = new MinhasThreads("name da Thread");
